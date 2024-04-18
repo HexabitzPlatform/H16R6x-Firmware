@@ -115,5 +115,26 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
 }
 
 /* USER CODE BEGIN 1 */
+/* SPI functions */
+/*
+ * @brief: send data buffer via SPI port
+ * @param1: SPI port handle
+ * @param2: Pointer to data buffer
+ * @param3: data size in bytes unit
+ * @retval: Status
+ */
+Status_TypeDef SendSPI(SPI_HANDLE *xPort, uint8_t pData[], uint16_t Size)
+{
+	Status_TypeDef Status=STATUS_ERR;
 
+	if (NULL!=xPort && NULL!=pData)
+	{
+		if (HAL_OK == HAL_SPI_Transmit(xPort, pData, Size, TIM_OUT_10MS))
+			Status = STATUS_OK;
+		}
+	else
+		Status = STATUS_ERR;
+
+	return Status;
+}
 /* USER CODE END 1 */
