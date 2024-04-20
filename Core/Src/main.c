@@ -87,6 +87,7 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
+  DigiLed_init(&hspi1);
 
   /* USER CODE END 2 */
 
@@ -97,6 +98,13 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  DigiLed_setAllRGB(0x00FF00);
+	  DigiLed_update(1);
+	  HAL_Delay(200);
+
+	  DigiLed_setAllRGB(0x0000FF);
+	  DigiLed_update(1);
+	  HAL_Delay(200);
   }
   /* USER CODE END 3 */
 }

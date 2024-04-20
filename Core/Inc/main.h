@@ -53,7 +53,18 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void DigiLed_init(SPI_HandleTypeDef *hspi);
+void DigiLed_setColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue);
+void DigiLed_setAllColor(uint8_t red, uint8_t green, uint8_t blue);
+void DigiLed_setRGB(uint8_t led, uint32_t rgb);
+void DigiLed_setAllRGB(uint32_t rgb);
+void DigiLed_setLedIllumination(uint8_t led, uint8_t illumination);
+void DigiLed_setAllIllumination(uint8_t illumination);
+void DigiLed_setLedOff(uint8_t led);
+void DigiLed_setLedOn(uint8_t led);
+void DigiLed_update(uint8_t forceUpdate);
+uint8_t DigiLed_getFrameSize(void);
+uint8_t DigiLed_TestPosition(uint8_t led);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

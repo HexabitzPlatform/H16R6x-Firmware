@@ -19,7 +19,7 @@
 #include "spi.h"
 #include <stdint.h>
 /* defines */
-#define 	LED_FRAME_SIZE   		3		///< \define number of LEDs in the chain
+#define 	LED_FRAME_SIZE   		64		///< \define number of LEDs in the chain
 
 #define 	FALSE 					0		// false value
 #define 	TRUE 					1		// true value
