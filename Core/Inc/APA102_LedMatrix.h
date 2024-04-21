@@ -48,7 +48,7 @@ union
 		uint8_t BLUE   : 8; 	///< BLUE led intensity from 0 (off) to 255 (max)
 		uint8_t CMD	   : 8; 	///< Global intensity for all LEDs && frame start with
 						// MSB
-			} FieldsOut;
+	} FieldsOut;
 	uint32_t data; 				///< RAW LED packet data
 } digitalLedframe[LED_FRAME_SIZE];	///< Frame of LED packets
 

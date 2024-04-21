@@ -22,7 +22,7 @@
 #include "gpio.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "colors.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
