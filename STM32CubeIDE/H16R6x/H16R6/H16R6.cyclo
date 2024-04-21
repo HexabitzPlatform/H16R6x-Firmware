@@ -1,0 +1,9 @@
+..\..\H16R6\H16R6.c:74:6:SystemClock_Config	1
+..\..\H16R6\H16R6.c:134:9:SaveToRO	14
+..\..\H16R6\H16R6.c:238:9:ClearROtopology	1
+..\..\H16R6\H16R6.c:250:6:remoteBootloaderUpdate	7
+..\..\H16R6\H16R6.c:302:6:SetupPortForRemoteBootloaderUpdate	1
+..\..\H16R6\H16R6.c:316:6:Module_Peripheral_Init	8
+..\..\H16R6\H16R6.c:350:15:Module_MessagingTask	1
+..\..\H16R6\H16R6.c:365:9:GetPort	7
+..\..\H16R6\H16R6.c:385:6:RegisterModuleCLICommands	1
