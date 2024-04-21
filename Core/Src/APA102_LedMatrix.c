@@ -19,6 +19,8 @@ uint8_t SpiSendFrame[LED_START_FRAME_SIZE + 4 * LED_FRAME_SIZE + LED_END_FRAME_S
 uint8_t frameModified; 		// when frame is changed the stimuli is set high
 
 /* functions */
+
+/*-----------------------------------------------------------*/
 /*
  * @brief set color of a single led
  * Set the colors of a single led ad position 'led' using single colors
@@ -44,6 +46,7 @@ void DigiLed_setColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint
 	}
 	frameModified = TRUE;
 }
+/*-----------------------------------------------------------*/
 /**
  * @brief set color of all LEDs in a string
  * @param blue intensity of the blue color from 0 to 255
@@ -60,6 +63,7 @@ void DigiLed_setAllColor(uint8_t red, uint8_t green, uint8_t blue,uint8_t illumi
 		DigiLed_setColor(led, red, green, blue,illumination);
 	}
 }
+/*-----------------------------------------------------------*/
 /**
  * @brief set color of a single led
  * Set the colors of a single led ad position 'led' using RGB color scheme
@@ -86,6 +90,7 @@ void DigiLed_setRGB(uint8_t led, uint32_t rgb,uint8_t illumination)
 		frameModified = TRUE;
 	}
 }
+/*-----------------------------------------------------------*/
 /**
  * @brief set color of a single led
  * Set the colors of a single led ad position 'led' using RGB color scheme
@@ -102,6 +107,7 @@ void DigiLed_setAllRGB(uint32_t rgb,uint8_t illumination)
 		DigiLed_setRGB(led, rgb,illumination);
 	}
 }
+/*-----------------------------------------------------------*/
 /**
  * @brief switch a single led off
  * @param led position of the led in the string to be switched off
@@ -114,6 +120,7 @@ void DigiLed_setLedOff(uint8_t led)
 	}
 	frameModified = TRUE;
 }
+/*-----------------------------------------------------------*/
 /**
  * @All leds off
  */
@@ -124,6 +131,7 @@ void DigiLed_setAllLedOff()
 		DigiLed_setLedOff(led);
 	}
 }
+/*-----------------------------------------------------------*/
 /**
  * @brief switch a single led on
  * Using this function will preserve the active color settings for the led
@@ -141,6 +149,7 @@ void DigiLed_setLedOn(uint8_t led,uint8_t illumination)
 	}
 	frameModified = TRUE;
 }
+/*-----------------------------------------------------------*/
 /**
  * @brief  All leds on
  * Using this function will preserve the active color settings for the led
@@ -152,6 +161,7 @@ void DigiLed_setAllLedOn(uint8_t illumination)
 		DigiLed_setLedOn(led,illumination);
 	}
 }
+/*-----------------------------------------------------------*/
 /**
  * @brief update led string
  * @param set true to force update leds and false to update only when frame is modified
@@ -187,6 +197,7 @@ void DigiLed_update(uint8_t forceUpdate)
 
 	frameModified = FALSE; // reset frame modified identifier.
 }
+/*-----------------------------------------------------------*/
 /**
  * @brief get LED frame size
  * @return LED frame size
@@ -195,6 +206,7 @@ uint8_t DigiLed_getFrameSize(void)
 {
 	return LED_FRAME_SIZE;
 }
+/*-----------------------------------------------------------*/
 /**
  * @brief Test led position is within range.
  * @param led led position
@@ -209,3 +221,4 @@ uint8_t DigiLed_TestPosition(uint8_t led)
 	}
 	return returnValue;
 }
+/*-----------------------------------------------------------*/
