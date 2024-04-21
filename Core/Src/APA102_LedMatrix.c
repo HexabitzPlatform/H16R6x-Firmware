@@ -19,7 +19,20 @@ uint8_t SpiSendFrame[LED_START_FRAME_SIZE + 4 * LED_FRAME_SIZE + LED_END_FRAME_S
 uint8_t frameModified; 		// when frame is changed the stimuli is set high
 
 /* functions */
-
+void DigiLed_init()
+{
+	frameModified = TRUE; 		// Initial set to true to force update after initialization of frame buffer
+	// TODO Auto-generated constructor stub
+	for (int led = 0; led < LED_FRAME_SIZE; led++)
+	{
+		digitalLedframe[led].FieldsIn.INIT = 0x07; // Set MSB first 3 bits to identify start of LED packet
+		digitalLedframe[led].FieldsIn.GLOBAL = 0x00; // Switch off LED global
+		digitalLedframe[led].FieldsIn.BLUE = 0x00;
+		digitalLedframe[led].FieldsIn.GREEN = 0x00;
+		digitalLedframe[led].FieldsIn.RED = 0x00;
+	}
+	DigiLed_update(FALSE); // Update frame buffer using the value of frameModified as set in initialiser.
+}
 /*-----------------------------------------------------------*/
 /*
  * @brief set color of a single led

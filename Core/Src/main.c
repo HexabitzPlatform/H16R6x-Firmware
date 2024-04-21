@@ -86,6 +86,7 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
+  DigiLed_init();
   DigiLed_setAllLedOff();
   DigiLed_update(1);
   /* USER CODE END 2 */

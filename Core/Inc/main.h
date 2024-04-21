@@ -53,6 +53,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
+void DigiLed_init();
 void DigiLed_setColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination);
 void DigiLed_setAllColor(uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination);
 void DigiLed_setRGB(uint8_t led, uint32_t rgb,uint8_t illumination);
