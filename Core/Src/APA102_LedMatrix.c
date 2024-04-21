@@ -53,7 +53,7 @@ void DigiLed_setColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue)
 	if (DigiLed_TestPosition(led) == RANGE_OK)
 	{
 		digitalLedframe[led].FieldsIn.INIT = 0x7; // Set MSB first 3 bits to identify start of LED packet
-		digitalLedframe[led].FieldsIn.GLOBAL = 0x1F; // Set led at maximum illumination
+		digitalLedframe[led].FieldsIn.GLOBAL = 0x1F; // Set led at maximum illumination 0x1F=31
 		digitalLedframe[led].FieldsIn.BLUE = blue;
 		digitalLedframe[led].FieldsIn.GREEN = green;
 		digitalLedframe[led].FieldsIn.RED = red;
@@ -88,7 +88,7 @@ void DigiLed_setAllColor(uint8_t red, uint8_t green, uint8_t blue)
 void DigiLed_setRGB(uint8_t led, uint32_t rgb)
 {
 	digitalLedframe[led].FieldsIn.INIT = 0x7;
-	digitalLedframe[led].FieldsIn.GLOBAL = 0x0A;
+	digitalLedframe[led].FieldsIn.GLOBAL = 0x0A;// Set led at maximum illumination 0x1F=31
 	digitalLedframe[led].FieldsIn.BLUE = (uint8_t)(rgb);
 	digitalLedframe[led].FieldsIn.GREEN = (uint8_t)(rgb >> 8);
 	digitalLedframe[led].FieldsIn.RED = (uint8_t)(rgb >> 16);
@@ -125,6 +125,10 @@ void DigiLed_setLedIllumination(uint8_t led, uint8_t illumination)
 {
 	if (DigiLed_TestPosition(led) == RANGE_OK)
 	{
+		if (illumination>Illumination_LED)
+			{
+				illumination=Illumination_LED;
+			}
 		digitalLedframe[led].FieldsIn.GLOBAL = illumination;
 	}
 	frameModified = TRUE;
@@ -141,7 +145,7 @@ void DigiLed_setAllIllumination(uint8_t illumination)
 {
 	for (int led = 0; led < LED_FRAME_SIZE; led++)
 	{
-		digitalLedframe[led].FieldsIn.GLOBAL = illumination;
+		 DigiLed_setLedIllumination(led,illumination);
 	}
 	frameModified = TRUE;
 }
@@ -159,7 +163,17 @@ void DigiLed_setLedOff(uint8_t led)
 	}
 	frameModified = TRUE;
 }
-
+/**
+ * @All leds off
+ */
+void DigiLed_setAllLedOff()
+{
+	for (int led = 0; led < LED_FRAME_SIZE; led++)
+		{
+		DigiLed_setLedOff(led);
+		}
+	frameModified = TRUE;
+}
 
 /**
  * @brief switch a single led on
@@ -174,7 +188,19 @@ void DigiLed_setLedOn(uint8_t led)
 	}
 	frameModified = TRUE;
 }
+/**
+ * @brief  All leds on
+ * Using this function will preserve the active color settings for the led
 
+ */
+void DigiLed_setAllLedOn()
+{
+	for (int led = 0; led < LED_FRAME_SIZE; led++)
+		{
+		DigiLed_setLedOn(led);
+		}
+	frameModified = TRUE;
+}
 
 /**
  * @brief update led string

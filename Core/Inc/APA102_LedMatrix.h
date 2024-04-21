@@ -27,7 +27,7 @@
 #define 	RANGE_OK 				0		// chosen LED exist
 #define 	LED_START_FRAME_SIZE 	4		// 0x00, 0x00, 0x00, 0x00
 #define 	LED_END_FRAME_SIZE 		4 		// 0xFF, 0xFF, 0xFF, 0xFF
-
+#define     Illumination_LED        31      //maximum illumination 31
 /// \class digitalled digitalled.h <digitalled.h>
 /// \brief Manipulate a string of RGB LEds using SPI.
 ///
@@ -72,7 +72,9 @@ void DigiLed_setAllRGB(uint32_t rgb);
 void DigiLed_setLedIllumination(uint8_t led, uint8_t illumination);
 void DigiLed_setAllIllumination(uint8_t illumination);
 void DigiLed_setLedOff(uint8_t led);
+void DigiLed_setAllLedOff();
 void DigiLed_setLedOn(uint8_t led);
+void DigiLed_setAllLedOn();
 void DigiLed_update(uint8_t forceUpdate);
 uint8_t DigiLed_getFrameSize(void);
 uint8_t DigiLed_TestPosition(uint8_t led);
