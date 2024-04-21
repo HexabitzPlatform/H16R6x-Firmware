@@ -86,7 +86,6 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  DigiLed_init(&hspi1);
   DigiLed_setAllLedOff();
   DigiLed_update(1);
   /* USER CODE END 2 */
@@ -110,18 +109,18 @@ int main(void)
 	  HAL_Delay(2000);
 	  DigiLed_setAllLedOff();
 	  DigiLed_update(1);
-	  	  HAL_Delay(2000);
-	  	DigiLed_setAllLedOn(23);
+	  HAL_Delay(2000);
+	  DigiLed_setAllLedOn(23);
 	  DigiLed_update(1);
 	  HAL_Delay(2000);
 	  DigiLed_setAllLedOff();
 	  DigiLed_update(1);
-	  	  HAL_Delay(2000);
+	  HAL_Delay(2000);
 	  DigiLed_setAllRGB(0xFF0000,10);
-	  	  DigiLed_update(1);
-	  	  HAL_Delay(2000);
-		  DigiLed_setAllLedOff();
-		  DigiLed_update(1);
+	  DigiLed_update(1);
+	  HAL_Delay(2000);
+	  DigiLed_setAllLedOff();
+	  DigiLed_update(1);
   }
   /* USER CODE END 3 */
 }

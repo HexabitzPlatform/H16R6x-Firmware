@@ -17,22 +17,8 @@
 /* variables */
 uint8_t SpiSendFrame[LED_START_FRAME_SIZE + 4 * LED_FRAME_SIZE + LED_END_FRAME_SIZE];
 uint8_t frameModified; 		// when frame is changed the stimuli is set high
+
 /* functions */
-void DigiLed_init(SPI_HandleTypeDef *hspi)
-{
-	frameModified = TRUE; 		// Initial set to true to force update after initialization of frame buffer
-	spiHandler = hspi;			// SPI handler is given to library
-	// TODO Auto-generated constructor stub
-	for (int led = 0; led < LED_FRAME_SIZE; led++)
-	{
-		digitalLedframe[led].FieldsIn.INIT = 0x07; // Set MSB first 3 bits to identify start of LED packet
-		digitalLedframe[led].FieldsIn.GLOBAL = 0x00; // Switch off LED global
-		digitalLedframe[led].FieldsIn.BLUE = 0x00;
-		digitalLedframe[led].FieldsIn.GREEN = 0x00;
-		digitalLedframe[led].FieldsIn.RED = 0x00;
-	}
-	DigiLed_update(FALSE); // Update frame buffer using the value of frameModified as set in initialiser.
-}
 /*
  * @brief set color of a single led
  * Set the colors of a single led ad position 'led' using single colors
@@ -195,7 +181,8 @@ void DigiLed_update(uint8_t forceUpdate)
 		SpiSendFrame[LED_START_FRAME_SIZE + 4*LED_FRAME_SIZE + i] = 0xFF;
 	}
 	// send spi frame with all led values
-	HAL_SPI_Transmit(spiHandler, SpiSendFrame, sizeof(SpiSendFrame), 10);
+	 SendSPI(LED_MATRIX_SPI_HANDLER, SpiSendFrame, sizeof(SpiSendFrame));
+
 	}
 
 	frameModified = FALSE; // reset frame modified identifier.

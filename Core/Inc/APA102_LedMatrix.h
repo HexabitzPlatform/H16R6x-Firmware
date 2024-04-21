@@ -19,6 +19,9 @@
 #include "spi.h"
 #include <stdint.h>
 /* defines */
+
+#define LED_MATRIX_SPI_HANDLER    &hspi1
+
 #define 	LED_FRAME_SIZE   		64		///< \define number of LEDs in the chain
 
 #define 	FALSE 					0		// false value
@@ -52,10 +55,8 @@ union
 	uint32_t data; 				///< RAW LED packet data
 } digitalLedframe[LED_FRAME_SIZE];	///< Frame of LED packets
 
-SPI_HandleTypeDef *spiHandler;
 
 /* functions */
-void DigiLed_init(SPI_HandleTypeDef *hspi);
 void DigiLed_setColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination);
 void DigiLed_setAllColor(uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination);
 void DigiLed_setRGB(uint8_t led, uint32_t rgb,uint8_t illumination);
