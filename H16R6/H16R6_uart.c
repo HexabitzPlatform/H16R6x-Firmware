@@ -19,6 +19,7 @@ uint16_t arrayPortsDir[__N ];
 DMA_HandleTypeDef hdma_usart1_rx;
 DMA_HandleTypeDef hdma_usart2_rx;
 DMA_HandleTypeDef hdma_usart3_rx;
+DMA_HandleTypeDef hdma_usart4_rx;
 DMA_HandleTypeDef hdma_usart5_rx;
 DMA_HandleTypeDef hdma_usart6_rx;
 
@@ -105,7 +106,7 @@ void MX_USART3_UART_Init(void){
 
 	HAL_UARTEx_DisableFifoMode(&huart3);
 
-#if _P4pol_reversed
+#if _P3pol_reversed
 	huart3.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_SWAP_INIT;
 	huart3.AdvancedInit.Swap = UART_ADVFEATURE_SWAP_ENABLE;
 	HAL_UART_Init(&huart3);
@@ -153,7 +154,7 @@ void MX_USART5_UART_Init(void){
 	HAL_UART_Init(&huart5);
 
 
-#if _P1pol_reversed
+#if _P4pol_reversed
 	huart5.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_SWAP_INIT;
 	huart5.AdvancedInit.Swap = UART_ADVFEATURE_SWAP_ENABLE;
 	HAL_UART_Init(&huart5);
@@ -178,7 +179,7 @@ void MX_USART6_UART_Init(void){
 	HAL_UART_Init(&huart6);
 
 
-#if _P3pol_reversed
+#if _P6pol_reversed
 	huart6.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_SWAP_INIT;
 	huart6.AdvancedInit.Swap = UART_ADVFEATURE_SWAP_ENABLE;
 	HAL_UART_Init(&huart6);
@@ -198,7 +199,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart){
 
 		/* USART1 clock enable */
 		__HAL_RCC_USART1_CLK_ENABLE();
-		__HAL_RCC_GPIOA_CLK_ENABLE();
+		__HAL_RCC_GPIOB_CLK_ENABLE();
 
 		/* USART1 GPIO Configuration */
 		GPIO_InitStruct.Pin = USART1_TX_PIN;
@@ -331,8 +332,8 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart){
 	#ifdef _Usart4
 
 		/* Peripheral clock enable */
-		__USART4_CLK_ENABLE();
-
+	    __HAL_RCC_USART4_CLK_ENABLE();
+	    __HAL_RCC_GPIOA_CLK_ENABLE();
 		/* USART4 GPIO Configuration */
 		GPIO_InitStruct.Pin = USART4_TX_PIN;
 		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -415,7 +416,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart){
 
 		/* USART6 clock enable */
 		__HAL_RCC_USART6_CLK_ENABLE();
-		__HAL_RCC_GPIOA_CLK_ENABLE();
+		__HAL_RCC_GPIOB_CLK_ENABLE();
 
 		/* USART6 GPIO Configuration */
 		GPIO_InitStruct.Pin = USART6_TX_PIN;
