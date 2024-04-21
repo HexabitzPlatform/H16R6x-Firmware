@@ -98,11 +98,11 @@ int main(void)
 
     /* USER CODE END WHILE */
 	      /* USER CODE BEGIN 3 */
-	  DigiLed_setColor(0, 255,255,255,6);
+	  DigiLed_setColor(0, 90,80,40,6);
 	  DigiLed_setColor(3, 255,0,0,7);
 	  DigiLed_update(1);
 	  HAL_Delay(2000);
-	  DigiLed_setAllColor(50, 70, 90,12);
+	  DigiLed_setAllColor(255,185,15,12);
 	  DigiLed_update(1);
 	  HAL_Delay(2000);
 	  DigiLed_setAllRGB(0x00FF00,20);
@@ -113,13 +113,15 @@ int main(void)
 	  	  HAL_Delay(2000);
 	  	DigiLed_setAllLedOn(23);
 	  DigiLed_update(1);
-	  HAL_Delay(200);
+	  HAL_Delay(2000);
 	  DigiLed_setAllLedOff();
 	  DigiLed_update(1);
 	  	  HAL_Delay(2000);
 	  DigiLed_setAllRGB(0xFF0000,10);
 	  	  DigiLed_update(1);
 	  	  HAL_Delay(2000);
+		  DigiLed_setAllLedOff();
+		  DigiLed_update(1);
   }
   /* USER CODE END 3 */
 }
