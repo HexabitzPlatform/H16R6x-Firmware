@@ -17,18 +17,12 @@
 /* variables */
 uint8_t SpiSendFrame[LED_START_FRAME_SIZE + 4 * LED_FRAME_SIZE + LED_END_FRAME_SIZE];
 uint8_t frameModified; 		// when frame is changed the stimuli is set high
-SPI_HandleTypeDef *spiHandler;
-
 /* functions */
-
 void DigiLed_init(SPI_HandleTypeDef *hspi)
 {
 	frameModified = TRUE; 		// Initial set to true to force update after initialization of frame buffer
-
 	spiHandler = hspi;			// SPI handler is given to library
-
 	// TODO Auto-generated constructor stub
-
 	for (int led = 0; led < LED_FRAME_SIZE; led++)
 	{
 		digitalLedframe[led].FieldsIn.INIT = 0x07; // Set MSB first 3 bits to identify start of LED packet
@@ -39,7 +33,6 @@ void DigiLed_init(SPI_HandleTypeDef *hspi)
 	}
 	DigiLed_update(FALSE); // Update frame buffer using the value of frameModified as set in initialiser.
 }
-
 /*
  * @brief set color of a single led
  * Set the colors of a single led ad position 'led' using single colors
@@ -47,35 +40,40 @@ void DigiLed_init(SPI_HandleTypeDef *hspi)
  * @param blue intensity of the blue color from 0 to 255
  * @param green intensity of the green color from 0 to 255
  * @param red intensity of the red color from 0 to 255
+ * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
  */
-void DigiLed_setColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue)
+void DigiLed_setColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination)
 {
 	if (DigiLed_TestPosition(led) == RANGE_OK)
 	{
+	if (illumination>Illumination_LED)
+	{
+		illumination=Illumination_LED;
+	}
 		digitalLedframe[led].FieldsIn.INIT = 0x7; // Set MSB first 3 bits to identify start of LED packet
-		digitalLedframe[led].FieldsIn.GLOBAL = 0x1F; // Set led at maximum illumination 0x1F=31
+		digitalLedframe[led].FieldsIn.GLOBAL = illumination; // Set led at maximum illumination 0x1F=31
 		digitalLedframe[led].FieldsIn.BLUE = blue;
 		digitalLedframe[led].FieldsIn.GREEN = green;
 		digitalLedframe[led].FieldsIn.RED = red;
 	}
 	frameModified = TRUE;
 }
-
 /**
  * @brief set color of all LEDs in a string
  * @param blue intensity of the blue color from 0 to 255
  * @param green intensity of the green color from 0 to 255
  * @param red intensity of the red color from 0 to 255
+ * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
+ *
  */
-void DigiLed_setAllColor(uint8_t red, uint8_t green, uint8_t blue)
+void DigiLed_setAllColor(uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination)
 {
+
 	for (int led = 0; led < LED_FRAME_SIZE; led++)
 	{
-		DigiLed_setColor(led, red, green, blue);
+		DigiLed_setColor(led, red, green, blue,illumination);
 	}
 }
-
-
 /**
  * @brief set color of a single led
  * Set the colors of a single led ad position 'led' using RGB color scheme
@@ -84,18 +82,24 @@ void DigiLed_setAllColor(uint8_t red, uint8_t green, uint8_t blue)
  * Colors can be set using defines from "APA102_colors.h"
  * @param led position of the led in the string
  * @param rgb color of led in RGB color scheme
+ * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
  */
-void DigiLed_setRGB(uint8_t led, uint32_t rgb)
+void DigiLed_setRGB(uint8_t led, uint32_t rgb,uint8_t illumination)
 {
-	digitalLedframe[led].FieldsIn.INIT = 0x7;
-	digitalLedframe[led].FieldsIn.GLOBAL = 0x0A;// Set led at maximum illumination 0x1F=31
-	digitalLedframe[led].FieldsIn.BLUE = (uint8_t)(rgb);
-	digitalLedframe[led].FieldsIn.GREEN = (uint8_t)(rgb >> 8);
-	digitalLedframe[led].FieldsIn.RED = (uint8_t)(rgb >> 16);
-	frameModified = TRUE;
+	if (DigiLed_TestPosition(led) == RANGE_OK)
+	{
+	if (illumination>Illumination_LED)
+	{
+		illumination=Illumination_LED;
+	}
+		digitalLedframe[led].FieldsIn.INIT = 0x7;
+		digitalLedframe[led].FieldsIn.GLOBAL = illumination;// Set led at maximum illumination 0x1F=31
+		digitalLedframe[led].FieldsIn.BLUE = (uint8_t)(rgb);
+		digitalLedframe[led].FieldsIn.GREEN = (uint8_t)(rgb >> 8);
+		digitalLedframe[led].FieldsIn.RED = (uint8_t)(rgb >> 16);
+		frameModified = TRUE;
+	}
 }
-
-
 /**
  * @brief set color of a single led
  * Set the colors of a single led ad position 'led' using RGB color scheme
@@ -103,14 +107,14 @@ void DigiLed_setRGB(uint8_t led, uint32_t rgb)
  * expressed as hex values from 0 to 255 (0 - FF).
  * Colors can be set using defines from "APA102_colors.h"
  * @param rgb color of led in RGB color scheme
+ * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
  */
-void DigiLed_setAllRGB(uint32_t rgb)
+void DigiLed_setAllRGB(uint32_t rgb,uint8_t illumination)
 {
 	for (int led = 0; led < LED_FRAME_SIZE; led++)
 	{
-		DigiLed_setRGB(led, rgb);
+		DigiLed_setRGB(led, rgb,illumination);
 	}
-	frameModified = TRUE;
 }
 /**
  * @brief switch a single led off
@@ -130,39 +134,38 @@ void DigiLed_setLedOff(uint8_t led)
 void DigiLed_setAllLedOff()
 {
 	for (int led = 0; led < LED_FRAME_SIZE; led++)
-		{
+	{
 		DigiLed_setLedOff(led);
-		}
-	frameModified = TRUE;
+	}
 }
-
 /**
  * @brief switch a single led on
  * Using this function will preserve the active color settings for the led
  * @param led position of the led in the string to be switched on
  */
-void DigiLed_setLedOn(uint8_t led)
+void DigiLed_setLedOn(uint8_t led,uint8_t illumination)
 {
+	if (illumination>Illumination_LED)
+	{
+		illumination=Illumination_LED;
+	}
 	if (DigiLed_TestPosition(led) == RANGE_OK)
 	{
-		digitalLedframe[led].FieldsIn.GLOBAL = 0x1F;
+		digitalLedframe[led].FieldsIn.GLOBAL = illumination;
 	}
 	frameModified = TRUE;
 }
 /**
  * @brief  All leds on
  * Using this function will preserve the active color settings for the led
-
  */
-void DigiLed_setAllLedOn()
+void DigiLed_setAllLedOn(uint8_t illumination)
 {
 	for (int led = 0; led < LED_FRAME_SIZE; led++)
-		{
-		DigiLed_setLedOn(led);
-		}
-	frameModified = TRUE;
+	{
+		DigiLed_setLedOn(led,illumination);
+	}
 }
-
 /**
  * @brief update led string
  * @param set true to force update leds and false to update only when frame is modified
@@ -171,36 +174,32 @@ void DigiLed_update(uint8_t forceUpdate)
 {
 	if(frameModified | forceUpdate)
 	{
-		// add start of frame (0x00000000)
-		for(int i = 0; i < LED_START_FRAME_SIZE; i++)
-		{
-			SpiSendFrame[i] = 0x00;
-		}
-
-		// add all LED packets of the frame
-		uint32_t SpiDataPacket = 0;
-		for (uint32_t led = 0; led < LED_FRAME_SIZE; led++)
-		{
-			SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 0] = digitalLedframe[led].FieldsOut.CMD;		// Add INIT and GLOBAL to SPI send frame
-			SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 1] = digitalLedframe[led].FieldsOut.BLUE; 	// Add BLUE to SPI send frame
-			SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 2] = digitalLedframe[led].FieldsOut.GREEN;	// Add GREEN to SPI send frame
-			SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 3] = digitalLedframe[led].FieldsOut.RED;		// Add RED to SPI send frame
-			SpiDataPacket = SpiDataPacket + 4;
-		}
-		// add end of frame (0xffffffff)
-		for(int i = 0; i < 4; i++)
-		{
-			SpiSendFrame[LED_START_FRAME_SIZE + 4*LED_FRAME_SIZE + i] = 0xFF;
-		}
-		// send spi frame with all led values
-		HAL_SPI_Transmit(spiHandler, SpiSendFrame, sizeof(SpiSendFrame), 10);
+	// add start of frame (0x00000000)
+	for(int i = 0; i < LED_START_FRAME_SIZE; i++)
+	{
+		SpiSendFrame[i] = 0x00;
+	}
+	// add all LED packets of the frame
+	uint32_t SpiDataPacket = 0;
+	for (uint32_t led = 0; led < LED_FRAME_SIZE; led++)
+	{
+		SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 0] = digitalLedframe[led].FieldsOut.CMD;		// Add INIT and GLOBAL to SPI send frame
+		SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 1] = digitalLedframe[led].FieldsOut.BLUE; 	// Add BLUE to SPI send frame
+		SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 2] = digitalLedframe[led].FieldsOut.GREEN;	// Add GREEN to SPI send frame
+		SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 3] = digitalLedframe[led].FieldsOut.RED;		// Add RED to SPI send frame
+		SpiDataPacket = SpiDataPacket + 4;
+	}
+	// add end of frame (0xffffffff)
+	for(int i = 0; i < 4; i++)
+	{
+		SpiSendFrame[LED_START_FRAME_SIZE + 4*LED_FRAME_SIZE + i] = 0xFF;
+	}
+	// send spi frame with all led values
+	HAL_SPI_Transmit(spiHandler, SpiSendFrame, sizeof(SpiSendFrame), 10);
 	}
 
 	frameModified = FALSE; // reset frame modified identifier.
-
 }
-
-
 /**
  * @brief get LED frame size
  * @return LED frame size
@@ -209,8 +208,6 @@ uint8_t DigiLed_getFrameSize(void)
 {
 	return LED_FRAME_SIZE;
 }
-
-
 /**
  * @brief Test led position is within range.
  * @param led led position
