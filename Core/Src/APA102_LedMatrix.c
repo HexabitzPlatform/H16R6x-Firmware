@@ -112,45 +112,6 @@ void DigiLed_setAllRGB(uint32_t rgb)
 	}
 	frameModified = TRUE;
 }
-
-
-/**
- * @brief set illumination of a single LED
- * Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination.
- * setting illumination can interfere with individual RGB settings
- * @param led position of the led in the string
- * @param intensity of illumination
- */
-void DigiLed_setLedIllumination(uint8_t led, uint8_t illumination)
-{
-	if (DigiLed_TestPosition(led) == RANGE_OK)
-	{
-		if (illumination>Illumination_LED)
-			{
-				illumination=Illumination_LED;
-			}
-		digitalLedframe[led].FieldsIn.GLOBAL = illumination;
-	}
-	frameModified = TRUE;
-}
-
-
-/**
- * @brief set illumination of a all LEDs in the frame
- * Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination.
- * setting illumination can interfere with individual RGB settings
- * @param intensity of illumination
- */
-void DigiLed_setAllIllumination(uint8_t illumination)
-{
-	for (int led = 0; led < LED_FRAME_SIZE; led++)
-	{
-		 DigiLed_setLedIllumination(led,illumination);
-	}
-	frameModified = TRUE;
-}
-
-
 /**
  * @brief switch a single led off
  * @param led position of the led in the string to be switched off

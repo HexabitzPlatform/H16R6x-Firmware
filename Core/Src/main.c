@@ -118,7 +118,6 @@ int main(void)
 	  DigiLed_update(1);
 	  	  HAL_Delay(2000);
 	  DigiLed_setAllRGB(0xFF0000);
-	  DigiLed_setAllIllumination(2);
 	  	  DigiLed_update(1);
 	  	  HAL_Delay(2000);
   }
