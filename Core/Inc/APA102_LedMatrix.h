@@ -28,16 +28,6 @@
 #define 	LED_START_FRAME_SIZE 	4		// 0x00, 0x00, 0x00, 0x00
 #define 	LED_END_FRAME_SIZE 		4 		// 0xFF, 0xFF, 0xFF, 0xFF
 #define     Illumination_LED        31      //maximum illumination 31
-/// \class digitalled digitalled.h <digitalled.h>
-/// \brief Manipulate a string of RGB LEds using SPI.
-///
-/// Supported are:
-///	- WS2801
-/// - APA102 (tested)
-/// - APA102c
-///
-/// The class communicates with a object of the class type myspi that will interact with the API interface.
-
 
 /* variables */
 union

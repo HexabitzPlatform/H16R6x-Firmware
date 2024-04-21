@@ -20,7 +20,6 @@
 #include "main.h"
 #include "spi.h"
 #include "gpio.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -88,23 +87,40 @@ int main(void)
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   DigiLed_init(&hspi1);
-
+  DigiLed_setAllLedOff();
+  	  DigiLed_update(1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
+    /* USER CODE END WHILE */
+	      /* USER CODE BEGIN 3 */
+	  DigiLed_setColor(0, 255,255,255);
+	  DigiLed_setColor(3, 255,0,0);
+	  DigiLed_update(1);
+	  HAL_Delay(2000);
+	  DigiLed_setAllColor(50, 70, 90);
+	  DigiLed_update(1);
+	  HAL_Delay(2000);
 	  DigiLed_setAllRGB(0x00FF00);
 	  DigiLed_update(1);
-	  HAL_Delay(200);
-
-	  DigiLed_setAllRGB(0x0000FF);
+	  HAL_Delay(2000);
+	  DigiLed_setAllLedOff();
+	  DigiLed_update(1);
+	  	  HAL_Delay(2000);
+	  	DigiLed_setAllLedOn();
 	  DigiLed_update(1);
 	  HAL_Delay(200);
+	  DigiLed_setAllLedOff();
+	  DigiLed_update(1);
+	  	  HAL_Delay(2000);
+	  DigiLed_setAllRGB(0xFF0000);
+	  DigiLed_setAllIllumination(2);
+	  	  DigiLed_update(1);
+	  	  HAL_Delay(2000);
   }
   /* USER CODE END 3 */
 }
