@@ -16,9 +16,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "BOS.h"
 #include "H16R6_inputs.h"
-
-
-
 /* Define UART variables */
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;

@@ -30,6 +30,7 @@
 
 #define	modulePN		_H16R6
 
+#define	NumOfModuleLedMatrix	    1
 
 /* Port-related definitions */
 #define	NumOfPorts			6
