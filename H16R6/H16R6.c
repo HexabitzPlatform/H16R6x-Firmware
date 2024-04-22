@@ -434,6 +434,120 @@ void RegisterModuleCLICommands(void){
  |								  User Function
 /* -----------------------------------------------------------------------
  */
+/*
+ * Set the colors of a single led ad position 'led' using single colors
+ * @param led position of the led in the string
+ * @param blue intensity of the blue color from 0 to 255
+ * @param green intensity of the green color from 0 to 255
+ * @param red intensity of the red color from 0 to 255
+ * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
+ */
+Module_Status LEDMatrix_SetColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination)
+{
+	Module_Status Status = H16R6_OK;
+	DigiLed_setColor(led,red,green,blue,illumination);
+	DigiLed_update(1);
+	return Status;
+}
+/* -----------------------------------------------------------------------*/
+/*
+ * set color of all LEDs in a string
+ * @param blue intensity of the blue color from 0 to 255
+ * @param green intensity of the green color from 0 to 255
+ * @param red intensity of the red color from 0 to 255
+ * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
+ */
+Module_Status LEDMatrix_SetAllColor(uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination)
+{
+	Module_Status Status = H16R6_OK;
+	DigiLed_setAllColor(red, green, blue, illumination);
+	DigiLed_update(1);
+	return Status;
+}
+/* -----------------------------------------------------------------------*/
+/*
+ * Set the colors of a single led ad position 'led' using RGB color scheme
+ * RGB colors are 24 bits of a 32 bit word where the intensity of the colors red, green en blue are
+ * expressed as hex values from 0 to 255 (0 - FF).
+ * Colors can be set using defines from "colors.h"
+ * @param led position of the led in the string
+ * @param rgb color of led in RGB color scheme maximum 0xFFFFFF
+ * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
+ */
+Module_Status LEDMatrix_SetRGB(uint8_t led, uint32_t rgb,uint8_t illumination)
+{
+	Module_Status Status = H16R6_OK;
+	DigiLed_setRGB(led, rgb, illumination);
+	DigiLed_update(1);
+	return Status;
+}
+/* -----------------------------------------------------------------------*/
+/*
+ * Set the colors of a single led ad position 'led' using RGB color scheme
+ * RGB colors are 24 bits of a 32 bit word where the intensity of the colors red, green and blue are
+ * expressed as hex values from 0 to 255 (0 - FF).
+ * Colors can be set using defines from "colors.h"
+ * @param rgb color of led in RGB color scheme  maximum 0xFFFFFF
+ * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
+ */
+Module_Status LEDMatrix_SetAllRGB(uint32_t rgb,uint8_t illumination)
+{
+	Module_Status Status = H16R6_OK;
+	DigiLed_setAllRGB(rgb, illumination);
+	DigiLed_update(1);
+	return Status;
+}
+/* -----------------------------------------------------------------------*/
+/*
+ * @switch a single led off
+ * @param led position of the led in the string to be switched off
+ */
+Module_Status LEDMatrix_SetLedOff(uint8_t led)
+{
+	Module_Status Status = H16R6_OK;
+	 DigiLed_setLedOff(led);
+	 DigiLed_update(1);
+	 return Status;
+}
+/* -----------------------------------------------------------------------*/
+/*
+ * @All leds off
+ */
+Module_Status LEDMatrix_SetAllLedOff()
+{
+	Module_Status Status = H16R6_OK;
+	DigiLed_setAllLedOff();
+	DigiLed_update(1);
+	return Status;
+}
+/* -----------------------------------------------------------------------*/
+/*
+ * switch a single led on
+ * Using this function will preserve the active color settings for the led
+ * @param led position of the led in the string to be switched on
+ * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
+ */
+Module_Status LEDMatrix_SetLedOn(uint8_t led,uint8_t illumination)
+{
+	Module_Status Status = H16R6_OK;
+    DigiLed_setLedOn(led, illumination);
+	DigiLed_update(1);
+	return Status;
+}
+/* -----------------------------------------------------------------------*/
+/*
+ * All leds on
+ * Using this function will preserve the active color settings for the led
+ * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
+ */
+Module_Status LEDMatrix_SetAllLedOn(uint8_t illumination)
+{
+	Module_Status Status = H16R6_OK;
+	DigiLed_setAllLedOn(illumination);
+	DigiLed_update(1);
+	return Status;
+}
+/* -----------------------------------------------------------------------*/
 
 /* -----------------------------------------------------------------------
  |								Commands							      |
