@@ -82,7 +82,7 @@ void DigiLed_setAllColor(uint8_t red, uint8_t green, uint8_t blue,uint8_t illumi
  * Set the colors of a single led ad position 'led' using RGB color scheme
  * RGB colors are 24 bits of a 32 bit word where the intensity of the colors red, green en blue are
  * expressed as hex values from 0 to 255 (0 - FF).
- * Colors can be set using defines from "APA102_colors.h"
+ * Colors can be set using defines from "colors.h"
  * @param led position of the led in the string
  * @param rgb color of led in RGB color scheme
  * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
@@ -109,7 +109,7 @@ void DigiLed_setRGB(uint8_t led, uint32_t rgb,uint8_t illumination)
  * Set the colors of a single led ad position 'led' using RGB color scheme
  * RGB colors are 24 bits of a 32 bit word where the intensity of the colors red, green and blue are
  * expressed as hex values from 0 to 255 (0 - FF).
- * Colors can be set using defines from "APA102_colors.h"
+ * Colors can be set using defines from "colors.h"
  * @param rgb color of led in RGB color scheme
  * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
  */
