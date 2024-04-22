@@ -184,6 +184,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/H16R6/H16R6_rtc.c</locationURI>
 		</link>
 		<link>
+			<name>H16R6/H16R6_spi.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/H16R6/H16R6_spi.c</locationURI>
+		</link>
+		<link>
+			<name>H16R6/H16R6_spi.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/H16R6/H16R6_spi.h</locationURI>
+		</link>
+		<link>
 			<name>H16R6/H16R6_timers.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/H16R6/H16R6_timers.c</locationURI>
