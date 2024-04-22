@@ -25,7 +25,7 @@
 #include "H16R6_dma.h"
 #include "H16R6_inputs.h"
 #include "H16R6_eeprom.h"
-
+#include "H16R6_spi.h"
 /* Exported definitions -------------------------------------------------------*/
 
 #define	modulePN		_H16R6
