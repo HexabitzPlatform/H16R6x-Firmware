@@ -15,8 +15,8 @@
 /* Main function ------------------------------------------------------------*/
 
 int main(void){
-
 	Module_Init();		//Initialize Module &  BitzOS
+
 
 	//Don't place your code here.
 	for(;;){}
@@ -29,7 +29,12 @@ void UserTask(void *argument){
 
 	// put your code here, to run repeatedly.
 	while(1){
-
+		DigiLed_setAllColor(1,185,15,12);
+		  DigiLed_update(1);
+		  HAL_Delay(2000);
+		  DigiLed_setAllRGB(0xFF0000,3);
+		  DigiLed_update(1);
+		  HAL_Delay(2000);
 	}
 }
 

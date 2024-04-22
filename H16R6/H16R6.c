@@ -324,6 +324,7 @@ void Module_Peripheral_Init(void){
 	MX_USART6_UART_Init();
 	MX_GPIO_Init();
 	MX_SPI1_Init();
+	DigiLed_init();
 
 	 //Circulating DMA Channels ON All Module
 	for (int i = 1; i <= NumOfPorts; i++) {
