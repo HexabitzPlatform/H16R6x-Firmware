@@ -30,7 +30,6 @@
 
 #define	modulePN		_H16R6
 
-#define NumOF    &hspi1
 
 /* Port-related definitions */
 #define	NumOfPorts			6
