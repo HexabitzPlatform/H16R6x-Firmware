@@ -33,7 +33,7 @@
 #define     Illumination_LED        31      //maximum illumination 31
 
 /* variables */
-union
+typedef union
 {
 	struct
 	{					// LSB
@@ -53,7 +53,7 @@ union
 						// MSB
 	} FieldsOut;
 	uint32_t data; 				///< RAW LED packet data
-} digitalLedframe[LED_FRAME_SIZE];	///< Frame of LED packets
+} DigitalLedframe;	///< Frame of LED packets
 
 
 /* functions */

@@ -18,6 +18,7 @@
 uint8_t SpiSendFrame[LED_START_FRAME_SIZE + 4 * LED_FRAME_SIZE + LED_END_FRAME_SIZE];
 uint8_t frameModified; 		// when frame is changed the stimuli is set high
 
+DigitalLedframe digitalLedframe[LED_FRAME_SIZE];
 /* functions */
 void DigiLed_init()
 {
