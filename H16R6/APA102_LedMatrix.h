@@ -32,6 +32,22 @@
 #define 	LED_END_FRAME_SIZE 		4 		// 0xFF, 0xFF, 0xFF, 0xFF
 #define     Illumination_LED        31      //maximum illumination 31
 
+/* Colors in RGB format */
+#define Black          0x000000            //R:0  G:0  B:0
+#define White          0xFFFFFF            //R:255  G:255  B:255
+#define Red            0xFF0000            ///R:255  G:0  B:0
+#define Green          0x00FF00            //R:0    G:255  B:0
+#define Blue           0x0000FF            //R:0  G:0  B:255
+#define Yellow         0xFFFF00            //R:255  G:255  B:0
+#define Aqua           0x00FFFF            //R:0  G:255  B:255
+#define Fuchsia        0xFF00FF            //R:255  G:0  B:255
+#define Purple         0x800080            //R:128  G:0  B:128
+#define lightblue      0xadd8e6            //R:173  G:216  B:230
+#define orange         0xFFA500            //R:255  G:165  B:0
+#define pink           0xFFC0CB            //R:255  G:192  B:203
+#define Indigo         0x4b0082            //R:75  G:0  B:130
+
+
 /* variables */
 typedef union
 {
