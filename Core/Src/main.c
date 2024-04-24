@@ -22,7 +22,8 @@
 #include "gpio.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "colors.h"
+#include "APA102_LedMatrix.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -87,8 +88,8 @@ int main(void)
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   DigiLed_init();
-  DigiLed_setAllLedOff();
-  DigiLed_update(1);
+//  DigiLed_SetAllLedOff();
+//  DigiLed_update(1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -98,30 +99,34 @@ int main(void)
 
     /* USER CODE END WHILE */
 	      /* USER CODE BEGIN 3 */
-	  DigiLed_setColor(0, 90,80,40,6);
-	  DigiLed_setColor(3, 255,0,0,7);
+	  DigiLed_SetRGB(1, 90,80,40,6);
+	  DigiLed_SetRGB(4, 255,0,0,7);
 	  DigiLed_update(1);
-	  HAL_Delay(2000);
-	  DigiLed_setAllColor(255,185,15,12);
+	  HAL_Delay(1000);
+	  DigiLed_SetLedOff(0);
 	  DigiLed_update(1);
-	  HAL_Delay(2000);
-	  DigiLed_setAllRGB(0x00FF00,20);
+	  HAL_Delay(1000);
+	  DigiLed_SetLedOn(1, 20);
 	  DigiLed_update(1);
-	  HAL_Delay(2000);
-	  DigiLed_setAllLedOff();
+	  HAL_Delay(1000);
+	  DigiLed_SetAllRGB(255,185,15,12);
 	  DigiLed_update(1);
-	  HAL_Delay(2000);
-	  DigiLed_setAllLedOn(23);
+	  HAL_Delay(1000);
+	  DigiLed_SetAllLedOff();
 	  DigiLed_update(1);
-	  HAL_Delay(2000);
-	  DigiLed_setAllLedOff();
+	  HAL_Delay(1000);
+	  DigiLed_SetAllLedOn(30);
 	  DigiLed_update(1);
-	  HAL_Delay(2000);
-	  DigiLed_setAllRGB(0xFF0000,10);
+	  HAL_Delay(1000);
+	  DigiLed_SetColor(1,AQUA,20);
 	  DigiLed_update(1);
-	  HAL_Delay(2000);
-	  DigiLed_setAllLedOff();
+	  HAL_Delay(1000);
+	  DigiLed_SetAllColor(INDIGO, 5);
 	  DigiLed_update(1);
+	  HAL_Delay(1000);
+	  DigiLed_SetAllLedOff();
+	  DigiLed_update(1);
+	  HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }

@@ -24,113 +24,161 @@ void DigiLed_init()
 {
 	frameModified = TRUE; 		// Initial set to true to force update after initialization of frame buffer
 	// TODO Auto-generated constructor stub
-	for (int led = 0; led < LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LED_FRAME_SIZE; led++)
 	{
-		digitalLedframe[led].FieldsIn.INIT = 0x07; // Set MSB first 3 bits to identify start of LED packet
-		digitalLedframe[led].FieldsIn.GLOBAL = 0x00; // Switch off LED global
-		digitalLedframe[led].FieldsIn.BLUE = 0x00;
-		digitalLedframe[led].FieldsIn.GREEN = 0x00;
-		digitalLedframe[led].FieldsIn.RED = 0x00;
+		digitalLedframe[led-1].FieldsIn.INIT = 0x07; // Set MSB first 3 bits to identify start of LED packet
+		digitalLedframe[led-1].FieldsIn.GLOBAL = 0x00; // Switch off LED global
+		digitalLedframe[led-1].FieldsIn.BLUE = 0x00;
+		digitalLedframe[led-1].FieldsIn.GREEN = 0x00;
+		digitalLedframe[led-1].FieldsIn.RED = 0x00;
 	}
 	DigiLed_update(FALSE); // Update frame buffer using the value of frameModified as set in initialiser.
 }
 /*-----------------------------------------------------------*/
-/*
- * @brief set color of a single led
- * Set the colors of a single led ad position 'led' using single colors
- * @param led position of the led in the string
- * @param blue intensity of the blue color from 0 to 255
- * @param green intensity of the green color from 0 to 255
- * @param red intensity of the red color from 0 to 255
- * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
+/**
+ * Set color from a predefined color list in "APA102_LedMatrix.h" in enum BasicColors
  */
-void DigiLed_setColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination)
+uint32_t DigiLed_SwitchColors(uint8_t Color)
 {
+	uint32_t rgb;
+	switch(Color)
+	{
+		case BLACK:
+			rgb =0x000000;
+			break;
+		case WHITE:
+			rgb =0xFFFFFF;
+			break;
+		case RED:
+			rgb =0xFF0000;
+			break;
+		case BLUE:
+			rgb =0x0000FF;
+			break;
+		case YELLOW:
+			rgb =0xFFFF00;
+			break;
+		case CYAN:
+			rgb =0x00FFFF;
+			break;
+		case MAGENTA:
+			rgb =0xFF00FF;
+			break;
+		case GREEN:
+			rgb =0x00FF00;
+			break;
+		case AQUA:
+			rgb =0x00FFFF;
+			break;
+		case PURPLE:
+			rgb =0x800080;
+			break;
+		case LIGHTBLUE:
+			rgb =0xadd8e6;
+			break;
+		case ORANGE:
+			rgb =0xFFA500;
+			break;
+		case INDIGO:
+			rgb =0x4b0082;
+			break;
+		default:
+			break;
+	}
+	return rgb;
+}
+/*-----------------------------------------------------------*/
+/*
+ * Set the colors of a single led using RGB color
+ * @param led position of the led in the string led>=1
+ * @param red intensity of the red color from 0 to 255
+ * @param green intensity of the green color from 0 to 255
+ * @param blue intensity of the blue color from 0 to 255
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ */
+void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
+{
+	if (led<1) {led=1;}
 	if (DigiLed_TestPosition(led) == RANGE_OK)
 	{
-	if (illumination>Illumination_LED)
+	if (intensity>intensity_LED)
 	{
-		illumination=Illumination_LED;
+		intensity=intensity_LED;
 	}
-		digitalLedframe[led].FieldsIn.INIT = 0x7; // Set MSB first 3 bits to identify start of LED packet
-		digitalLedframe[led].FieldsIn.GLOBAL = illumination; // Set led at maximum illumination 0x1F=31
-		digitalLedframe[led].FieldsIn.BLUE = blue;
-		digitalLedframe[led].FieldsIn.GREEN = green;
-		digitalLedframe[led].FieldsIn.RED = red;
+		digitalLedframe[led-1].FieldsIn.INIT = 0x7; // Set MSB first 3 bits to identify start of LED packet
+		digitalLedframe[led-1].FieldsIn.GLOBAL = intensity; // Set led at maximum intensity 0x1F=31
+		digitalLedframe[led-1].FieldsIn.BLUE = blue;
+		digitalLedframe[led-1].FieldsIn.GREEN = green;
+		digitalLedframe[led-1].FieldsIn.RED = red;
 	}
 	frameModified = TRUE;
 }
 /*-----------------------------------------------------------*/
 /**
- * @brief set color of all LEDs in a string
- * @param blue intensity of the blue color from 0 to 255
- * @param green intensity of the green color from 0 to 255
+  * Set the colors of all LEDs using RGB color scheme
  * @param red intensity of the red color from 0 to 255
- * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
- *
+ * @param green intensity of the green color from 0 to 255
+ * @param blue intensity of the blue color from 0 to 255
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_setAllColor(uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination)
+void DigiLed_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
 
-	for (int led = 0; led < LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LED_FRAME_SIZE; led++)
 	{
-		DigiLed_setColor(led, red, green, blue,illumination);
+		DigiLed_SetRGB(led, red, green, blue,intensity);
 	}
 }
 /*-----------------------------------------------------------*/
 /**
- * @brief set color of a single led
- * Set the colors of a single led ad position 'led' using RGB color scheme
- * RGB colors are 24 bits of a 32 bit word where the intensity of the colors red, green en blue are
- * expressed as hex values from 0 to 255 (0 - FF).
- * Colors can be set using defines from "colors.h"
- * @param led position of the led in the string
- * @param rgb color of led in RGB color scheme
- * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
+ * Set the colors of a single led using single colors
+ * @param led position of the led in the string led>=1
+ * Set LED color from a predefined color list in "APA102_LedMatrix.h"
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_setRGB(uint8_t led, uint32_t rgb,uint8_t illumination)
+void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
 {
+	uint32_t rgb=0x000000;
+	rgb=DigiLed_SwitchColors(color);
+	if (led<1) {led=1;}
 	if (DigiLed_TestPosition(led) == RANGE_OK)
 	{
-	if (illumination>Illumination_LED)
+	if (intensity>intensity_LED)
 	{
-		illumination=Illumination_LED;
+		intensity=intensity_LED;
 	}
-		digitalLedframe[led].FieldsIn.INIT = 0x7;
-		digitalLedframe[led].FieldsIn.GLOBAL = illumination;// Set led at maximum illumination 0x1F=31
-		digitalLedframe[led].FieldsIn.BLUE = (uint8_t)(rgb);
-		digitalLedframe[led].FieldsIn.GREEN = (uint8_t)(rgb >> 8);
-		digitalLedframe[led].FieldsIn.RED = (uint8_t)(rgb >> 16);
+		digitalLedframe[led-1].FieldsIn.INIT = 0x7;
+		digitalLedframe[led-1].FieldsIn.GLOBAL = intensity;// Set led at maximum intensity 0x1F=31
+		digitalLedframe[led-1].FieldsIn.BLUE = (uint8_t)(rgb);
+		digitalLedframe[led-1].FieldsIn.GREEN = (uint8_t)(rgb >> 8);
+		digitalLedframe[led-1].FieldsIn.RED = (uint8_t)(rgb >> 16);
 		frameModified = TRUE;
 	}
 }
 /*-----------------------------------------------------------*/
 /**
- * @brief set color of a single led
- * Set the colors of a single led ad position 'led' using RGB color scheme
- * RGB colors are 24 bits of a 32 bit word where the intensity of the colors red, green and blue are
- * expressed as hex values from 0 to 255 (0 - FF).
- * Colors can be set using defines from "colors.h"
- * @param rgb color of led in RGB color scheme
- * @param Illumination is a value from 0 to 31. 0 means no light, and 31 maximum illumination
+ * set color of all LEDs in a string
+ * Set LED color from a predefined color list in "BOS.h"
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_setAllRGB(uint32_t rgb,uint8_t illumination)
+void DigiLed_SetAllColor(uint8_t color,uint8_t intensity)
 {
-	for (int led = 0; led < LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LED_FRAME_SIZE; led++)
 	{
-		DigiLed_setRGB(led, rgb,illumination);
+		DigiLed_SetColor(led,color,intensity);
 	}
 }
 /*-----------------------------------------------------------*/
 /**
- * @brief switch a single led off
+  * @switch a single led off  led>=1
  * @param led position of the led in the string to be switched off
  */
-void DigiLed_setLedOff(uint8_t led)
+void DigiLed_SetLedOff(uint8_t led)
 {
+	if (led<1) {led=1;}
 	if (DigiLed_TestPosition(led) == RANGE_OK)
 	{
-		digitalLedframe[led].FieldsIn.GLOBAL = 0x00;
+		digitalLedframe[led-1].FieldsIn.GLOBAL = 0x00;
 	}
 	frameModified = TRUE;
 }
@@ -138,41 +186,44 @@ void DigiLed_setLedOff(uint8_t led)
 /**
  * @All leds off
  */
-void DigiLed_setAllLedOff()
+void DigiLed_SetAllLedOff()
 {
-	for (int led = 0; led < LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LED_FRAME_SIZE; led++)
 	{
-		DigiLed_setLedOff(led);
+		DigiLed_SetLedOff(led);
 	}
 }
 /*-----------------------------------------------------------*/
 /**
- * @brief switch a single led on
+ * switch a single led on
  * Using this function will preserve the active color settings for the led
- * @param led position of the led in the string to be switched on
+ * @param led position of the led in the string to be switched on led>=1
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_setLedOn(uint8_t led,uint8_t illumination)
+void DigiLed_SetLedOn(uint8_t led,uint8_t intensity)
 {
-	if (illumination>Illumination_LED)
+	if (led<1) {led=1;}
+	if (intensity>intensity_LED)
 	{
-		illumination=Illumination_LED;
+		intensity=intensity_LED;
 	}
 	if (DigiLed_TestPosition(led) == RANGE_OK)
 	{
-		digitalLedframe[led].FieldsIn.GLOBAL = illumination;
+		digitalLedframe[led-1].FieldsIn.GLOBAL = intensity;
 	}
 	frameModified = TRUE;
 }
 /*-----------------------------------------------------------*/
 /**
- * @brief  All leds on
- * Using this function will preserve the active color settings for the led
+ * All leds on
+ * Using this function will preserve the active color settings for the led led>=1
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_setAllLedOn(uint8_t illumination)
+void DigiLed_SetAllLedOn(uint8_t intensity)
 {
-	for (int led = 0; led < LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LED_FRAME_SIZE; led++)
 	{
-		DigiLed_setLedOn(led,illumination);
+		DigiLed_SetLedOn(led,intensity);
 	}
 }
 /*-----------------------------------------------------------*/
@@ -229,7 +280,7 @@ uint8_t DigiLed_getFrameSize(void)
 uint8_t DigiLed_TestPosition(uint8_t led)
 {
 	uint8_t returnValue = OUT_OF_RANGE;
-	if (led < LED_FRAME_SIZE)
+	if (led <= LED_FRAME_SIZE)
 	{
 		returnValue = RANGE_OK;
 	}

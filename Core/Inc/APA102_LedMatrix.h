@@ -30,7 +30,7 @@
 #define 	RANGE_OK 				0		// chosen LED exist
 #define 	LED_START_FRAME_SIZE 	4		// 0x00, 0x00, 0x00, 0x00
 #define 	LED_END_FRAME_SIZE 		4 		// 0xFF, 0xFF, 0xFF, 0xFF
-#define     Illumination_LED        31      //maximum illumination 31
+#define     intensity_LED           31      //maximum intensity 31
 
 /* variables */
 typedef union
@@ -55,17 +55,20 @@ typedef union
 	uint32_t data; 				///< RAW LED packet data
 } DigitalLedframe;	///< Frame of LED packets
 
-
+/* Color Enumerations */
+enum BasicColors {
+	BLACK =1, WHITE, RED, BLUE, YELLOW, CYAN, MAGENTA, GREEN ,AQUA,PURPLE,LIGHTBLUE,ORANGE,INDIGO,
+};
 /* functions */
 void DigiLed_init();
-void DigiLed_setColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination);
-void DigiLed_setAllColor(uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination);
-void DigiLed_setRGB(uint8_t led, uint32_t rgb,uint8_t illumination);
-void DigiLed_setAllRGB(uint32_t rgb,uint8_t illumination);
-void DigiLed_setLedOff(uint8_t led);
-void DigiLed_setAllLedOff();
-void DigiLed_setLedOn(uint8_t led,uint8_t illumination);
-void DigiLed_setAllLedOn(uint8_t illumination);
+void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
+void DigiLed_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
+void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity);
+void DigiLed_SetAllColor(uint8_t color,uint8_t intensity);
+void DigiLed_SetLedOff(uint8_t led);
+void DigiLed_SetAllLedOff();
+void DigiLed_SetLedOn(uint8_t led,uint8_t intensity);
+void DigiLed_SetAllLedOn(uint8_t intensity);
 void DigiLed_update(uint8_t forceUpdate);
 uint8_t DigiLed_getFrameSize(void);
 uint8_t DigiLed_TestPosition(uint8_t led);

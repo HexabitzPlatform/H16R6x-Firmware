@@ -60,8 +60,8 @@ all: main-build
 main-build: LED_MATRIX.elf secondary-outputs
 
 # Tool invocations
-LED_MATRIX.elf LED_MATRIX.map: $(OBJS) $(USER_OBJS) G:\Hexabitz\firmware-G0\H16R6x-Firmware\STM32G0B1CEUXN_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "LED_MATRIX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"G:\Hexabitz\firmware-G0\H16R6x-Firmware\STM32G0B1CEUXN_FLASH.ld" --specs=nosys.specs -Wl,-Map="LED_MATRIX.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+LED_MATRIX.elf LED_MATRIX.map: $(OBJS) $(USER_OBJS) G:\Hexabitz\firmware-G0\driver\ ledmatrix\New\ folder\STM32G0B1CEUXN_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "LED_MATRIX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"G:\Hexabitz\firmware-G0\driver ledmatrix\New folder\STM32G0B1CEUXN_FLASH.ld" --specs=nosys.specs -Wl,-Map="LED_MATRIX.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
