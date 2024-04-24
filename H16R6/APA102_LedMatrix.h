@@ -67,5 +67,7 @@ void DigiLed_SetAllLedOn(uint8_t intensity);
 void DigiLed_update(uint8_t forceUpdate);
 uint8_t DigiLed_getFrameSize(void);
 uint8_t DigiLed_TestPosition(uint8_t led);
+void DigiLed_ScrollMode(uint8_t Base_Colour,uint8_t Scroll_Row,uint8_t intensity,uint8_t Scroll_Time);
+void DigiLed_FlashMode(uint8_t Base_Colour,uint8_t flash_Colour,uint8_t intensity,uint8_t flash_Time,uint8_t Time_Between_Flash);
 
 #endif /* APA102_LEDMATRIX_H_ */
