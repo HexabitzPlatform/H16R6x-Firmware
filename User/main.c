@@ -31,14 +31,14 @@ void UserTask(void *argument){
 	while(1){
 //		LEDMatrix_SetRGB(1, White, 16);
 //		Delay_ms(1000);
-		LEDMatrix_SetAllRGB(Black, 10);
-		Delay_ms(500);
-		LEDMatrix_SetAllRGB(Yellow, 10);
-		Delay_ms(500);
-		LEDMatrix_SetAllRGB(Aqua, 10);
-		Delay_ms(500);
-		LEDMatrix_SetAllRGB(Fuchsia, 10);
-		Delay_ms(500);
+//		LEDMatrix_SetAllRGB(Black, 10);
+//		Delay_ms(500);
+//		LEDMatrix_SetAllRGB(Yellow, 10);
+//		Delay_ms(500);
+//		LEDMatrix_SetAllRGB(Aqua, 10);
+//		Delay_ms(500);
+//		LEDMatrix_SetAllRGB(Fuchsia, 10);
+//		Delay_ms(500);
 		LEDMatrix_SetAllRGB(Purple, 10);
 		Delay_ms(500);
 		LEDMatrix_SetAllRGB(lightblue, 10);

@@ -156,14 +156,14 @@ extern void ExecuteMonitor(void);
  |								  APIs							          |  																 	|
 /* -----------------------------------------------------------------------
  */
-Module_Status LEDMatrix_SetColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination);
-Module_Status LEDMatrix_SetAllColor(uint8_t red, uint8_t green, uint8_t blue,uint8_t illumination);
-Module_Status LEDMatrix_SetRGB(uint8_t led, uint32_t rgb,uint8_t illumination);
-Module_Status LEDMatrix_SetAllRGB(uint32_t rgb,uint8_t illumination);
+Module_Status LEDMatrix_SetColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
+Module_Status LEDMatrix_SetAllColor(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
+Module_Status LEDMatrix_SetRGB(uint8_t led, uint32_t rgb,uint8_t intensity);
+Module_Status LEDMatrix_SetAllRGB(uint32_t rgb,uint8_t intensity);
 Module_Status LEDMatrix_SetLedOff(uint8_t led);
 Module_Status LEDMatrix_SetAllLedOff();
-Module_Status LEDMatrix_SetLedOn(uint8_t led,uint8_t illumination);
-Module_Status LEDMatrix_SetAllLedOn(uint8_t illumination);
+Module_Status LEDMatrix_SetLedOn(uint8_t led,uint8_t intensity);
+Module_Status LEDMatrix_SetAllLedOn(uint8_t intensity);
 
 
 void SetupPortForRemoteBootloaderUpdate(uint8_t port);
