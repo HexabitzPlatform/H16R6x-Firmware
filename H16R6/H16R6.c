@@ -465,7 +465,7 @@ void RegisterModuleCLICommands(void){
  */
 /*
  * Set the colors of a single led ad position 'led' using single colors
- * @param led position of the led in the string
+ * @param led position of the led in the string led>=1
  * @param blue intensity of the blue color from 0 to 255
  * @param green intensity of the green color from 0 to 255
  * @param red intensity of the red color from 0 to 255
@@ -474,7 +474,7 @@ void RegisterModuleCLICommands(void){
 Module_Status LEDMatrix_SetColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	DigiLed_setColor(led,red,green,blue,intensity);
+	DigiLed_setColor(led-1,red,green,blue,intensity);
 	DigiLed_update(1);
 	return Status;
 }
@@ -499,14 +499,14 @@ Module_Status LEDMatrix_SetAllColor(uint8_t red, uint8_t green, uint8_t blue,uin
  * RGB colors are 24 bits of a 32 bit word where the intensity of the colors red, green en blue are
  * expressed as hex values from 0 to 255 (0 - FF).
  * Colors can be set using defines from "colors.h"
- * @param led position of the led in the string
+ * @param led position of the led in the string led>=1
  * @param rgb color of led in RGB color scheme maximum 0xFFFFFF
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
 Module_Status LEDMatrix_SetRGB(uint8_t led, uint32_t rgb,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	DigiLed_setRGB(led, rgb, intensity);
+	DigiLed_setRGB(led-1, rgb, intensity);
 	DigiLed_update(1);
 	return Status;
 }
@@ -528,13 +528,13 @@ Module_Status LEDMatrix_SetAllRGB(uint32_t rgb,uint8_t intensity)
 }
 /* -----------------------------------------------------------------------*/
 /*
- * @switch a single led off
+ * @switch a single led off  led>=1
  * @param led position of the led in the string to be switched off
  */
 Module_Status LEDMatrix_SetLedOff(uint8_t led)
 {
 	Module_Status Status = H16R6_OK;
-	 DigiLed_setLedOff(led);
+	 DigiLed_setLedOff(led-1);
 	 DigiLed_update(1);
 	 return Status;
 }
@@ -553,20 +553,20 @@ Module_Status LEDMatrix_SetAllLedOff()
 /*
  * switch a single led on
  * Using this function will preserve the active color settings for the led
- * @param led position of the led in the string to be switched on
+ * @param led position of the led in the string to be switched on led>=1
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
 Module_Status LEDMatrix_SetLedOn(uint8_t led,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-    DigiLed_setLedOn(led, intensity);
+    DigiLed_setLedOn(led-1, intensity);
 	DigiLed_update(1);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
 /*
  * All leds on
- * Using this function will preserve the active color settings for the led
+ * Using this function will preserve the active color settings for the led led>=1
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
 Module_Status LEDMatrix_SetAllLedOn(uint8_t intensity)
