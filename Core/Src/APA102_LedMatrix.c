@@ -287,3 +287,38 @@ uint8_t DigiLed_TestPosition(uint8_t led)
 	return returnValue;
 }
 /*-----------------------------------------------------------*/
+/**
+ * Scroll - one row of one colour, the rest another colour, row moves down one for each update
+ */
+void DigiLed_ScrollMode(uint8_t Base_Colour,uint8_t Scroll_Row,uint8_t intensity,uint8_t Scroll_Time)
+{
+
+	DigiLed_SetAllColor(Base_Colour, intensity);
+	HAL_Delay(Scroll_Time);
+	int led=1;
+	for (led=1;led<=64;)
+	{
+		DigiLed_SetAllColor(Base_Colour, intensity);
+		DigiLed_SetColor(led, Scroll_Row, intensity);
+		HAL_Delay(Scroll_Time);
+		led=led+8;
+	}
+
+}
+/*-----------------------------------------------------------*/
+/**
+* Flash - flash from one colour to another with user-settable flash times and intervals
+ */
+void DigiLed_FlashMode(uint8_t Base_Colour,uint8_t flash_Colour,uint8_t intensity,uint8_t flash_Time,uint8_t Time_Between_Flash)
+{
+
+	DigiLed_SetAllColor(Base_Colour, intensity);
+	HAL_Delay(flash_Time);
+	DigiLed_SetAllLedOff();
+	HAL_Delay(Time_Between_Flash);
+	DigiLed_SetAllColor(flash_Colour, intensity);
+	HAL_Delay(flash_Time);
+	DigiLed_SetAllLedOff();
+	HAL_Delay(Time_Between_Flash);
+}
+/*-----------------------------------------------------------*/

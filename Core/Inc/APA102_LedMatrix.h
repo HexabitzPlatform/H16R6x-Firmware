@@ -31,7 +31,6 @@
 #define 	LED_START_FRAME_SIZE 	4		// 0x00, 0x00, 0x00, 0x00
 #define 	LED_END_FRAME_SIZE 		4 		// 0xFF, 0xFF, 0xFF, 0xFF
 #define     intensity_LED           31      //maximum intensity 31
-
 /* variables */
 typedef union
 {
