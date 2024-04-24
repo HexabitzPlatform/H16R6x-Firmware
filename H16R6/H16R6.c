@@ -353,54 +353,54 @@ Module_Status Module_MessagingTask(uint16_t code,uint8_t port,uint8_t src,uint8_
 
 	uint32_t rgb;
 
-	switch(code){
-	case CODE_H16R6_SETCOLOR:
-	{
-		LEDMatrix_SetColor(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3],cMessage[port-1][shift+4]);
-		break;
-	}
-	case CODE_H16R6_SETALLCOLOR:
-	{
-		LEDMatrix_SetAllColor(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3]);
-		break;
-	}
-	case CODE_H16R6_SETRGB:
-	{
-		rgb=((uint32_t )cMessage[port - 1][shift+1] ) + ((uint32_t )cMessage[port - 1][shift+2] << 8) + ((uint32_t )cMessage[port - 1][shift+3] << 16) + ((uint32_t )cMessage[port - 1][shift+4] << 24);
-		LEDMatrix_SetRGB(cMessage[port-1][shift],rgb,cMessage[port-1][shift+5]);
-		break;
-	}
-	case CODE_H16R6_SETALLRGB:
-	{
-		rgb=((uint32_t )cMessage[port - 1][shift] ) + ((uint32_t )cMessage[port - 1][shift+1] << 8) + ((uint32_t )cMessage[port - 1][shift+2] << 16) + ((uint32_t )cMessage[port - 1][shift+3] << 24);
-		LEDMatrix_SetAllRGB(rgb,cMessage[port-1][shift+4]);
-		break;
-	}
-	case CODE_H16R6_SETLEDON:
-	{
-		LEDMatrix_SetLedOn(cMessage[port-1][shift],cMessage[port-1][shift+1]);
-		break;
-	}
-	case CODE_H16R6_SETALLLEDON:
-	{
-		LEDMatrix_SetAllLedOn(cMessage[port-1][shift]);
-		break;
-	}
-	case CODE_H16R6_SETLEDOFF:
-	{
-		LEDMatrix_SetLedOff(cMessage[port-1][shift]);
-		break;
-	}
-	case CODE_H16R6_SETALLLEDOFF:
-	{
-		LEDMatrix_SetAllLedOff();
-		break;
-	}
-
-		default:
-		result =H16R6_ERR_UnknownMessage;
-		break;
-	}
+//	switch(code){
+//	case CODE_H16R6_SETCOLOR:
+//	{
+//		LEDMatrix_SetColor(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3],cMessage[port-1][shift+4]);
+//		break;
+//	}
+//	case CODE_H16R6_SETALLCOLOR:
+//	{
+//		LEDMatrix_SetAllColor(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3]);
+//		break;
+//	}
+//	case CODE_H16R6_SETRGB:
+//	{
+//		rgb=((uint32_t )cMessage[port - 1][shift+1] ) + ((uint32_t )cMessage[port - 1][shift+2] << 8) + ((uint32_t )cMessage[port - 1][shift+3] << 16) + ((uint32_t )cMessage[port - 1][shift+4] << 24);
+//		LEDMatrix_SetRGB(cMessage[port-1][shift],rgb,cMessage[port-1][shift+5]);
+//		break;
+//	}
+//	case CODE_H16R6_SETALLRGB:
+//	{
+//		rgb=((uint32_t )cMessage[port - 1][shift] ) + ((uint32_t )cMessage[port - 1][shift+1] << 8) + ((uint32_t )cMessage[port - 1][shift+2] << 16) + ((uint32_t )cMessage[port - 1][shift+3] << 24);
+//		LEDMatrix_SetAllRGB(rgb,cMessage[port-1][shift+4]);
+//		break;
+//	}
+//	case CODE_H16R6_SETLEDON:
+//	{
+//		LEDMatrix_SetLedOn(cMessage[port-1][shift],cMessage[port-1][shift+1]);
+//		break;
+//	}
+//	case CODE_H16R6_SETALLLEDON:
+//	{
+//		LEDMatrix_SetAllLedOn(cMessage[port-1][shift]);
+//		break;
+//	}
+//	case CODE_H16R6_SETLEDOFF:
+//	{
+//		LEDMatrix_SetLedOff(cMessage[port-1][shift]);
+//		break;
+//	}
+//	case CODE_H16R6_SETALLLEDOFF:
+//	{
+//		LEDMatrix_SetAllLedOff();
+//		break;
+//	}
+//
+//		default:
+//		result =H16R6_ERR_UnknownMessage;
+//		break;
+//	}
 	
 	return result;
 }
@@ -464,77 +464,71 @@ void RegisterModuleCLICommands(void){
 /* -----------------------------------------------------------------------
  */
 /*
- * Set the colors of a single led ad position 'led' using single colors
+ * Set the colors of a single led using RGB color
  * @param led position of the led in the string led>=1
- * @param blue intensity of the blue color from 0 to 255
- * @param green intensity of the green color from 0 to 255
  * @param red intensity of the red color from 0 to 255
+ * @param green intensity of the green color from 0 to 255
+ * @param blue intensity of the blue color from 0 to 255
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-Module_Status LEDMatrix_SetColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
+Module_Status LEDMatrix_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	DigiLed_setColor(led-1,red,green,blue,intensity);
+	DigiLed_SetRGB(led,red,green,blue,intensity);
 	DigiLed_update(1);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
-/*
+/**
+  * Set the colors of all LEDs using RGB color scheme
+ * @param red intensity of the red color from 0 to 255
+ * @param green intensity of the green color from 0 to 255
+ * @param blue intensity of the blue color from 0 to 255
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ */
+Module_Status LEDMatrix_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
+{
+	Module_Status Status = H16R6_OK;
+	DigiLed_SetAllRGB(red, green, blue, intensity);
+	DigiLed_update(1);
+	return Status;
+}
+/* -----------------------------------------------------------------------*/
+/**
+ * Set the colors of a single led using single colors
+ * @param led position of the led in the string led>=1
+ * Set LED color from a predefined color list in "APA102_LedMatrix.h"
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ */
+Module_Status LEDMatrix_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
+{
+	Module_Status Status = H16R6_OK;
+	DigiLed_SetColor(led, color, intensity);
+	DigiLed_update(1);
+	return Status;
+}
+/* -----------------------------------------------------------------------*/
+/**
  * set color of all LEDs in a string
- * @param blue intensity of the blue color from 0 to 255
- * @param green intensity of the green color from 0 to 255
- * @param red intensity of the red color from 0 to 255
+ * Set LED color from a predefined color list in "BOS.h"
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-Module_Status LEDMatrix_SetAllColor(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
+Module_Status LEDMatrix_SetAllColor(uint8_t color,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	DigiLed_setAllColor(red, green, blue, intensity);
+	DigiLed_SetAllColor(color, intensity);
 	DigiLed_update(1);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
-/*
- * Set the colors of a single led ad position 'led' using RGB color scheme
- * RGB colors are 24 bits of a 32 bit word where the intensity of the colors red, green en blue are
- * expressed as hex values from 0 to 255 (0 - FF).
- * Colors can be set using defines from "colors.h"
- * @param led position of the led in the string led>=1
- * @param rgb color of led in RGB color scheme maximum 0xFFFFFF
- * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
- */
-Module_Status LEDMatrix_SetRGB(uint8_t led, uint32_t rgb,uint8_t intensity)
-{
-	Module_Status Status = H16R6_OK;
-	DigiLed_setRGB(led-1, rgb, intensity);
-	DigiLed_update(1);
-	return Status;
-}
-/* -----------------------------------------------------------------------*/
-/*
- * Set the colors of a single led ad position 'led' using RGB color scheme
- * RGB colors are 24 bits of a 32 bit word where the intensity of the colors red, green and blue are
- * expressed as hex values from 0 to 255 (0 - FF).
- * Colors can be set using defines from "colors.h"
- * @param rgb color of led in RGB color scheme  maximum 0xFFFFFF
- * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
- */
-Module_Status LEDMatrix_SetAllRGB(uint32_t rgb,uint8_t intensity)
-{
-	Module_Status Status = H16R6_OK;
-	DigiLed_setAllRGB(rgb, intensity);
-	DigiLed_update(1);
-	return Status;
-}
-/* -----------------------------------------------------------------------*/
-/*
- * @switch a single led off  led>=1
+/**
+  * @switch a single led off  led>=1
  * @param led position of the led in the string to be switched off
  */
 Module_Status LEDMatrix_SetLedOff(uint8_t led)
 {
 	Module_Status Status = H16R6_OK;
-	 DigiLed_setLedOff(led-1);
+	DigiLed_SetLedOff(led);
 	 DigiLed_update(1);
 	 return Status;
 }
@@ -545,12 +539,12 @@ Module_Status LEDMatrix_SetLedOff(uint8_t led)
 Module_Status LEDMatrix_SetAllLedOff()
 {
 	Module_Status Status = H16R6_OK;
-	DigiLed_setAllLedOff();
+	DigiLed_SetAllLedOff();
 	DigiLed_update(1);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
-/*
+/**
  * switch a single led on
  * Using this function will preserve the active color settings for the led
  * @param led position of the led in the string to be switched on led>=1
@@ -559,12 +553,12 @@ Module_Status LEDMatrix_SetAllLedOff()
 Module_Status LEDMatrix_SetLedOn(uint8_t led,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-    DigiLed_setLedOn(led-1, intensity);
+	DigiLed_SetLedOn(led, intensity);
 	DigiLed_update(1);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
-/*
+/**
  * All leds on
  * Using this function will preserve the active color settings for the led led>=1
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
@@ -572,8 +566,28 @@ Module_Status LEDMatrix_SetLedOn(uint8_t led,uint8_t intensity)
 Module_Status LEDMatrix_SetAllLedOn(uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	DigiLed_setAllLedOn(intensity);
+	DigiLed_SetAllLedOn(intensity);
 	DigiLed_update(1);
+	return Status;
+}
+/*-----------------------------------------------------------*/
+/**
+ * Scroll - one row of one colour, the rest another colour, row moves down one for each update
+ */
+Module_Status LEDMatrix_ScrollMode(uint8_t Base_Colour,uint8_t Scroll_Row,uint8_t intensity,uint8_t Scroll_Time)
+{
+	Module_Status Status = H16R6_OK;
+	DigiLed_ScrollMode(Base_Colour, Scroll_Row, intensity, Scroll_Time);
+	return Status;
+}
+/*-----------------------------------------------------------*/
+/**
+* Flash - flash from one colour to another with user-settable flash times and intervals
+ */
+Module_Status LEDMatrix_FlashMode(uint8_t Base_Colour,uint8_t flash_Colour,uint8_t intensity,uint8_t flash_Time,uint8_t Time_Between_Flash)
+{
+	Module_Status Status = H16R6_OK;
+	DigiLed_FlashMode(Base_Colour, flash_Colour, intensity, flash_Time, Time_Between_Flash);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/

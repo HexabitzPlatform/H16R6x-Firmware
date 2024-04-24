@@ -156,14 +156,16 @@ extern void ExecuteMonitor(void);
  |								  APIs							          |  																 	|
 /* -----------------------------------------------------------------------
  */
-Module_Status LEDMatrix_SetColor(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
-Module_Status LEDMatrix_SetAllColor(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
-Module_Status LEDMatrix_SetRGB(uint8_t led, uint32_t rgb,uint8_t intensity);
-Module_Status LEDMatrix_SetAllRGB(uint32_t rgb,uint8_t intensity);
+Module_Status LEDMatrix_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
+Module_Status LEDMatrix_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
+Module_Status LEDMatrix_SetColor(uint8_t led,uint8_t color ,uint8_t intensity);
+Module_Status LEDMatrix_SetAllColor(uint8_t color,uint8_t intensity);
 Module_Status LEDMatrix_SetLedOff(uint8_t led);
 Module_Status LEDMatrix_SetAllLedOff();
 Module_Status LEDMatrix_SetLedOn(uint8_t led,uint8_t intensity);
 Module_Status LEDMatrix_SetAllLedOn(uint8_t intensity);
+Module_Status LEDMatrix_ScrollMode(uint8_t Base_Colour,uint8_t Scroll_Row,uint8_t intensity,uint8_t Scroll_Time);
+Module_Status LEDMatrix_FlashMode(uint8_t Base_Colour,uint8_t flash_Colour,uint8_t intensity,uint8_t flash_Time,uint8_t Time_Between_Flash);
 
 
 void SetupPortForRemoteBootloaderUpdate(uint8_t port);
