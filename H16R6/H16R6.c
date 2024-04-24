@@ -351,56 +351,52 @@ void Module_Peripheral_Init(void){
 Module_Status Module_MessagingTask(uint16_t code,uint8_t port,uint8_t src,uint8_t dst,uint8_t shift){
 	Module_Status result =H16R6_OK;
 
-	uint32_t rgb;
+	switch(code){
+	case CODE_H16R6_SETRGB:
+	{
+		LEDMatrix_SetRGB(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3],cMessage[port-1][shift+4]);
+		break;
+	}
+	case CODE_H16R6_SETALLRGB:
+	{
+		LEDMatrix_SetAllRGB(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3]);
+		break;
+	}
+	case CODE_H16R6_SETCOLOR:
+	{
+		LEDMatrix_SetColor(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2]);
+		break;
+	}
+	case CODE_H16R6_SETALLCOLOR:
+	{
+		LEDMatrix_SetAllColor(cMessage[port-1][shift],cMessage[port-1][shift+1]);
+		break;
+	}
+	case CODE_H16R6_SETLEDON:
+	{
+		LEDMatrix_SetLedOn(cMessage[port-1][shift],cMessage[port-1][shift+1]);
+		break;
+	}
+	case CODE_H16R6_SETALLLEDON:
+	{
+		LEDMatrix_SetAllLedOn(cMessage[port-1][shift]);
+		break;
+	}
+	case CODE_H16R6_SETLEDOFF:
+	{
+		LEDMatrix_SetLedOff(cMessage[port-1][shift]);
+		break;
+	}
+	case CODE_H16R6_SETALLLEDOFF:
+	{
+		LEDMatrix_SetAllLedOff();
+		break;
+	}
 
-//	switch(code){
-//	case CODE_H16R6_SETCOLOR:
-//	{
-//		LEDMatrix_SetColor(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3],cMessage[port-1][shift+4]);
-//		break;
-//	}
-//	case CODE_H16R6_SETALLCOLOR:
-//	{
-//		LEDMatrix_SetAllColor(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3]);
-//		break;
-//	}
-//	case CODE_H16R6_SETRGB:
-//	{
-//		rgb=((uint32_t )cMessage[port - 1][shift+1] ) + ((uint32_t )cMessage[port - 1][shift+2] << 8) + ((uint32_t )cMessage[port - 1][shift+3] << 16) + ((uint32_t )cMessage[port - 1][shift+4] << 24);
-//		LEDMatrix_SetRGB(cMessage[port-1][shift],rgb,cMessage[port-1][shift+5]);
-//		break;
-//	}
-//	case CODE_H16R6_SETALLRGB:
-//	{
-//		rgb=((uint32_t )cMessage[port - 1][shift] ) + ((uint32_t )cMessage[port - 1][shift+1] << 8) + ((uint32_t )cMessage[port - 1][shift+2] << 16) + ((uint32_t )cMessage[port - 1][shift+3] << 24);
-//		LEDMatrix_SetAllRGB(rgb,cMessage[port-1][shift+4]);
-//		break;
-//	}
-//	case CODE_H16R6_SETLEDON:
-//	{
-//		LEDMatrix_SetLedOn(cMessage[port-1][shift],cMessage[port-1][shift+1]);
-//		break;
-//	}
-//	case CODE_H16R6_SETALLLEDON:
-//	{
-//		LEDMatrix_SetAllLedOn(cMessage[port-1][shift]);
-//		break;
-//	}
-//	case CODE_H16R6_SETLEDOFF:
-//	{
-//		LEDMatrix_SetLedOff(cMessage[port-1][shift]);
-//		break;
-//	}
-//	case CODE_H16R6_SETALLLEDOFF:
-//	{
-//		LEDMatrix_SetAllLedOff();
-//		break;
-//	}
-//
-//		default:
-//		result =H16R6_ERR_UnknownMessage;
-//		break;
-//	}
+		default:
+		result =H16R6_ERR_UnknownMessage;
+		break;
+	}
 	
 	return result;
 }
