@@ -29,7 +29,9 @@ void UserTask(void *argument){
 
 	// put your code here, to run repeatedly.
 	while(1){
-//		LEDMatrix_SetRGB(1, White, 16);
+//		SendMessageToModule(1, CODE_PING, 0);
+
+		LEDMatrix_SetRGB(1, WHITE, 16);
 //		Delay_ms(1000);
 //		LEDMatrix_SetAllRGB(Black, 10);
 //		Delay_ms(500);
@@ -39,16 +41,16 @@ void UserTask(void *argument){
 //		Delay_ms(500);
 //		LEDMatrix_SetAllRGB(Fuchsia, 10);
 //		Delay_ms(500);
-		LEDMatrix_SetAllRGB(Purple, 10);
-		Delay_ms(500);
-		LEDMatrix_SetAllRGB(lightblue, 10);
-		Delay_ms(500);
-		LEDMatrix_SetAllRGB(orange, 10);
-		Delay_ms(500);
-		LEDMatrix_SetAllRGB(pink, 10);
-		Delay_ms(500);
-		LEDMatrix_SetAllRGB(Indigo, 10);
-		Delay_ms(500);
+//		LEDMatrix_SetAllRGB(Purple, 10);
+//		Delay_ms(500);
+//		LEDMatrix_SetAllRGB(lightblue, 10);
+//		Delay_ms(500);
+//		LEDMatrix_SetAllRGB(orange, 10);
+//		Delay_ms(500);
+//		LEDMatrix_SetAllRGB(pink, 10);
+//		Delay_ms(500);
+//		LEDMatrix_SetAllRGB(Indigo, 10);
+//		Delay_ms(500);
 
 //		LEDMatrix_SetColor(0, 50, 100, 150, 10);
 //		LEDMatrix_SetColor(2, 0, 255, 0, 10);
