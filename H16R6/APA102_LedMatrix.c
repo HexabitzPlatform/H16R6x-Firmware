@@ -83,6 +83,7 @@ uint32_t DigiLed_SwitchColors(uint8_t Color)
 			rgb =0x4b0082;
 			break;
 		default:
+			rgb =0xFFFFFF;
 			break;
 	}
 	return rgb;

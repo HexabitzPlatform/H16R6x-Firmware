@@ -127,6 +127,9 @@ typedef enum {
 	H16R6_OK =0,
 	H16R6_ERR_UnknownMessage,
 	H16R6_ERR_WrongParams,
+	H16R6_ERR_WrongColor,
+	H16R6_ERR_WrongLedOutRange,
+	H16R6_ERR_WrongIntensity,
 	H16R6_ERROR =255
 } Module_Status;
 

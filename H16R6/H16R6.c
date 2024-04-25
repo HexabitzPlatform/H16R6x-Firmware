@@ -470,6 +470,16 @@ void RegisterModuleCLICommands(void){
 Module_Status LEDMatrix_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
+	if (led <= LED_FRAME_SIZE)
+	{
+		Status = H16R6_ERR_WrongLedOutRange;
+		return Status;
+	}
+	if (intensity>=intensity_LED)
+	{
+		Status = H16R6_ERR_WrongIntensity;
+		return Status;
+	}
 	DigiLed_SetRGB(led,red,green,blue,intensity);
 	DigiLed_update(1);
 	return Status;
@@ -485,6 +495,11 @@ Module_Status LEDMatrix_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t 
 Module_Status LEDMatrix_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
+	if (intensity>=intensity_LED)
+	{
+		Status = H16R6_ERR_WrongIntensity;
+		return Status;
+	}
 	DigiLed_SetAllRGB(red, green, blue, intensity);
 	DigiLed_update(1);
 	return Status;
@@ -499,6 +514,16 @@ Module_Status LEDMatrix_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8
 Module_Status LEDMatrix_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
+	if (led <= LED_FRAME_SIZE)
+	{
+		Status = H16R6_ERR_WrongLedOutRange;
+		return Status;
+	}
+	if (intensity>=intensity_LED)
+	{
+		Status = H16R6_ERR_WrongIntensity;
+		return Status;
+	}
 	DigiLed_SetColor(led, color, intensity);
 	DigiLed_update(1);
 	return Status;
@@ -512,6 +537,11 @@ Module_Status LEDMatrix_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
 Module_Status LEDMatrix_SetAllColor(uint8_t color,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
+	if (intensity>=intensity_LED)
+	{
+		Status = H16R6_ERR_WrongIntensity;
+		return Status;
+	}
 	DigiLed_SetAllColor(color, intensity);
 	DigiLed_update(1);
 	return Status;
@@ -524,6 +554,11 @@ Module_Status LEDMatrix_SetAllColor(uint8_t color,uint8_t intensity)
 Module_Status LEDMatrix_SetLedOff(uint8_t led)
 {
 	Module_Status Status = H16R6_OK;
+	if (led <= LED_FRAME_SIZE)
+	{
+		Status = H16R6_ERR_WrongLedOutRange;
+		return Status;
+	}
 	DigiLed_SetLedOff(led);
 	 DigiLed_update(1);
 	 return Status;
@@ -549,6 +584,16 @@ Module_Status LEDMatrix_SetAllLedOff()
 Module_Status LEDMatrix_SetLedOn(uint8_t led,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
+	if (led <= LED_FRAME_SIZE)
+	{
+		Status = H16R6_ERR_WrongLedOutRange;
+		return Status;
+	}
+	if (intensity>=intensity_LED)
+	{
+		Status = H16R6_ERR_WrongIntensity;
+		return Status;
+	}
 	DigiLed_SetLedOn(led, intensity);
 	DigiLed_update(1);
 	return Status;
@@ -562,6 +607,11 @@ Module_Status LEDMatrix_SetLedOn(uint8_t led,uint8_t intensity)
 Module_Status LEDMatrix_SetAllLedOn(uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
+	if (intensity>=intensity_LED)
+	{
+		Status = H16R6_ERR_WrongIntensity;
+		return Status;
+	}
 	DigiLed_SetAllLedOn(intensity);
 	DigiLed_update(1);
 	return Status;
