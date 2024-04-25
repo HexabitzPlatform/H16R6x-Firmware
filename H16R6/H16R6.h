@@ -179,7 +179,7 @@ void remoteBootloaderUpdate(uint8_t src,uint8_t dst,uint8_t inport,uint8_t outpo
  |								Commands							      |															 	|
 /* -----------------------------------------------------------------------
  */
-
+extern const CLI_Command_Definition_t CLI_SetRGBCommandDefinition;
 #endif /* H16R6_H */
 
 /************************ (C) COPYRIGHT HEXABITZ *****END OF FILE****/

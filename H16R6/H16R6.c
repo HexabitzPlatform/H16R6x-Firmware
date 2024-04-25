@@ -42,10 +42,17 @@ void FLASH_Page_Eras(uint32_t Addr );
 Module_Status ConvertTwosComplToDec(uint16_t twosComplVal, int16_t *sgnDecimalVal);
 Module_Status BAT_ReadIdReg(uint16_t regAddress, uint16_t *Buffer, uint8_t NoBytes);
 /* Create CLI commands --------------------------------------------------------*/
+portBASE_TYPE CLI_SetRGBCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
 
-
-/* CLI command structure : demo */
-
+/*-----------------------------------------------------------*/
+/* CLI command structure : LEDMatrix_SetRGB */
+const CLI_Command_Definition_t CLI_SetRGBCommandDefinition ={
+    (const int8_t* )"setrgb", /* The command string to type. */
+    (const int8_t* )"setrgb:\r\n Set RGB LED (1st par.), red (2st par.), green (3nd par.), and blue (4rd par.) values (0-255) at a specific intensity (0-31%) (5th par.)\r\n\r\n",
+	CLI_SetRGBCommand, /* The function to run. */
+    5 /* five parameters are expected. */
+};
+/*-----------------------------------------------------------*/
 /*-----------------------------------------------------------*/
 
 
@@ -423,7 +430,7 @@ uint8_t GetPort(UART_HandleTypeDef *huart){
 /* --- Register this module CLI Commands
  */
 void RegisterModuleCLICommands(void){
-
+    FreeRTOS_CLIRegisterCommand(&CLI_SetRGBCommandDefinition);
 
 }
 
@@ -642,7 +649,57 @@ Module_Status LEDMatrix_FlashMode(uint8_t Base_Colour,uint8_t flash_Colour,uint8
  |								Commands							      |
    -----------------------------------------------------------------------
  */
+/*-----------------------------------------------------------*/
 
+portBASE_TYPE CLI_SetRGBCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString){
+    Module_Status result =H16R6_OK;
+    uint8_t led =0;
+    uint8_t red =0;
+    uint8_t green =0;
+    uint8_t blue =0;
+    uint8_t intensity =0;
+    static int8_t *pcParameterString1, *pcParameterString2, *pcParameterString3, *pcParameterString4,*pcParameterString5;
+    portBASE_TYPE xParameterStringLength1 =0, xParameterStringLength2 =0;
+    portBASE_TYPE xParameterStringLength3 =0, xParameterStringLength4 =0,xParameterStringLength5 =0;
+
+    static const int8_t *pcOKMessage =(int8_t* )"NumOfLed is %d ,RGB LED is (%d, %d, %d) at intensity %d%%\n\r";
+    static const int8_t *pcWrongLedOutRangeMessage =(int8_t* )"Wrong LedOutRange!\n\r";
+    static const int8_t *pcWrongIntensityMessage =(int8_t* )"Wrong intensity!\n\r";
+
+
+    (void )xWriteBufferLen;
+    configASSERT(pcWriteBuffer);
+
+    /* Obtain the 1st parameter string. */
+    pcParameterString1 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,1,&xParameterStringLength1);
+    led =(uint8_t )atol((char* )pcParameterString1);
+    /* Obtain the 2st parameter string. */
+    pcParameterString2 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,2,&xParameterStringLength2);
+    red =(uint8_t )atol((char* )pcParameterString2);
+    /* Obtain the 3nd parameter string. */
+    pcParameterString3 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,3,&xParameterStringLength3);
+    green =(uint8_t )atol((char* )pcParameterString3);
+    /* Obtain the 4rd parameter string. */
+    pcParameterString4 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,4,&xParameterStringLength4);
+    blue =(uint8_t )atol((char* )pcParameterString4);
+    /* Obtain the 5th parameter string. */
+    pcParameterString5 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,5,&xParameterStringLength5);
+    intensity =(uint8_t )atol((char* )pcParameterString5);
+
+    result =LEDMatrix_SetRGB(led,red,green,blue,intensity);
+
+    /* Respond to the command */
+    if(result == H16R6_OK)
+        sprintf((char* )pcWriteBuffer,(char* )pcOKMessage,led,red,green,blue,intensity);
+    else if(result == H16R6_ERR_WrongLedOutRange)
+        strcpy((char* )pcWriteBuffer,(char* )pcWrongLedOutRangeMessage);
+    else if(result == H16R6_ERR_WrongIntensity)
+        strcpy((char* )pcWriteBuffer,(char* )pcWrongIntensityMessage);
+
+    /* There is no more data to return after this single string, so return
+     pdFALSE. */
+    return pdFALSE;
+}
 /*-----------------------------------------------------------*/
 
 /************************ (C) COPYRIGHT HEXABITZ *****END OF FILE****/
