@@ -180,6 +180,15 @@ void remoteBootloaderUpdate(uint8_t src,uint8_t dst,uint8_t inport,uint8_t outpo
 /* -----------------------------------------------------------------------
  */
 extern const CLI_Command_Definition_t CLI_SetRGBCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetAllRGBCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetColorCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetAllColorCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetLedOffCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetAllLedOffCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetLedOnCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetAllLedOnCommandDefinition;
+
+
 #endif /* H16R6_H */
 
 /************************ (C) COPYRIGHT HEXABITZ *****END OF FILE****/
