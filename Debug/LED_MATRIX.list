@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000028  00000000  00000000  0002000c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00006f23  00000000  00000000  00020034  2**0
+ 12 .debug_info   00007006  00000000  00000000  00020034  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001879  00000000  00000000  00026f57  2**0
+ 13 .debug_abbrev 000018cc  00000000  00000000  0002703a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 000007d0  00000000  00000000  000287d0  2**3
+ 14 .debug_aranges 000007e0  00000000  00000000  00028908  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 000006f8  00000000  00000000  00028fa0  2**3
+ 15 .debug_ranges 00000708  00000000  00000000  000290e8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0001a4f6  00000000  00000000  00029698  2**0
+ 16 .debug_macro  0001a4f6  00000000  00000000  000297f0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00009043  00000000  00000000  00043b8e  2**0
+ 17 .debug_line   00009095  00000000  00000000  00043ce6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000a8c2b  00000000  00000000  0004cbd1  2**0
+ 18 .debug_str    000a8c79  00000000  00000000  0004cd7b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000f57fc  2**0
+ 19 .comment      00000050  00000000  00000000  000f59f4  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00001a00  00000000  00000000  000f584c  2**2
+ 20 .debug_frame  00001a48  00000000  00000000  000f5a44  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -227,30 +227,30 @@ Disassembly of section .text:
  8000218:	4770      	bx	lr
  800021a:	46c0      	nop			; (mov r8, r8)
 
-0800021c <DigiLed_init>:
+0800021c <DigiLedInit>:
 uint8_t frameModified; 		// when frame is changed the stimuli is set high
 
-DigitalLedframe digitalLedframe[LED_FRAME_SIZE];
+DigitalLedframe digitalLedframe[LEDFRAMESIZE];
 /* functions */
-void DigiLed_init()
+void DigiLedInit()
 {
  800021c:	b580      	push	{r7, lr}
  800021e:	b082      	sub	sp, #8
  8000220:	af00      	add	r7, sp, #0
 	frameModified = TRUE; 		// Initial set to true to force update after initialization of frame buffer
- 8000222:	4b1e      	ldr	r3, [pc, #120]	; (800029c <DigiLed_init+0x80>)
+ 8000222:	4b1e      	ldr	r3, [pc, #120]	; (800029c <DigiLedInit+0x80>)
  8000224:	2201      	movs	r2, #1
  8000226:	701a      	strb	r2, [r3, #0]
 	// TODO Auto-generated constructor stub
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
  8000228:	2301      	movs	r3, #1
  800022a:	607b      	str	r3, [r7, #4]
- 800022c:	e02b      	b.n	8000286 <DigiLed_init+0x6a>
+ 800022c:	e02b      	b.n	8000286 <DigiLedInit+0x6a>
 	{
 		digitalLedframe[led-1].FieldsIn.INIT = 0x07; // Set MSB first 3 bits to identify start of LED packet
  800022e:	687b      	ldr	r3, [r7, #4]
  8000230:	3b01      	subs	r3, #1
- 8000232:	4a1b      	ldr	r2, [pc, #108]	; (80002a0 <DigiLed_init+0x84>)
+ 8000232:	4a1b      	ldr	r2, [pc, #108]	; (80002a0 <DigiLedInit+0x84>)
  8000234:	009b      	lsls	r3, r3, #2
  8000236:	18d3      	adds	r3, r2, r3
  8000238:	78da      	ldrb	r2, [r3, #3]
@@ -261,7 +261,7 @@ void DigiLed_init()
 		digitalLedframe[led-1].FieldsIn.GLOBAL = 0x00; // Switch off LED global
  8000242:	687b      	ldr	r3, [r7, #4]
  8000244:	3b01      	subs	r3, #1
- 8000246:	4a16      	ldr	r2, [pc, #88]	; (80002a0 <DigiLed_init+0x84>)
+ 8000246:	4a16      	ldr	r2, [pc, #88]	; (80002a0 <DigiLedInit+0x84>)
  8000248:	009b      	lsls	r3, r3, #2
  800024a:	18d3      	adds	r3, r2, r3
  800024c:	78da      	ldrb	r2, [r3, #3]
@@ -271,7 +271,7 @@ void DigiLed_init()
 		digitalLedframe[led-1].FieldsIn.BLUE = 0x00;
  8000254:	687b      	ldr	r3, [r7, #4]
  8000256:	3b01      	subs	r3, #1
- 8000258:	4a11      	ldr	r2, [pc, #68]	; (80002a0 <DigiLed_init+0x84>)
+ 8000258:	4a11      	ldr	r2, [pc, #68]	; (80002a0 <DigiLedInit+0x84>)
  800025a:	009b      	lsls	r3, r3, #2
  800025c:	18d3      	adds	r3, r2, r3
  800025e:	3302      	adds	r3, #2
@@ -280,7 +280,7 @@ void DigiLed_init()
 		digitalLedframe[led-1].FieldsIn.GREEN = 0x00;
  8000264:	687b      	ldr	r3, [r7, #4]
  8000266:	3b01      	subs	r3, #1
- 8000268:	4a0d      	ldr	r2, [pc, #52]	; (80002a0 <DigiLed_init+0x84>)
+ 8000268:	4a0d      	ldr	r2, [pc, #52]	; (80002a0 <DigiLedInit+0x84>)
  800026a:	009b      	lsls	r3, r3, #2
  800026c:	18d3      	adds	r3, r2, r3
  800026e:	3301      	adds	r3, #1
@@ -289,21 +289,21 @@ void DigiLed_init()
 		digitalLedframe[led-1].FieldsIn.RED = 0x00;
  8000274:	687b      	ldr	r3, [r7, #4]
  8000276:	1e5a      	subs	r2, r3, #1
- 8000278:	4b09      	ldr	r3, [pc, #36]	; (80002a0 <DigiLed_init+0x84>)
+ 8000278:	4b09      	ldr	r3, [pc, #36]	; (80002a0 <DigiLedInit+0x84>)
  800027a:	0092      	lsls	r2, r2, #2
  800027c:	2100      	movs	r1, #0
  800027e:	54d1      	strb	r1, [r2, r3]
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
  8000280:	687b      	ldr	r3, [r7, #4]
  8000282:	3301      	adds	r3, #1
  8000284:	607b      	str	r3, [r7, #4]
  8000286:	687b      	ldr	r3, [r7, #4]
  8000288:	2b40      	cmp	r3, #64	; 0x40
- 800028a:	ddd0      	ble.n	800022e <DigiLed_init+0x12>
+ 800028a:	ddd0      	ble.n	800022e <DigiLedInit+0x12>
 	}
-	DigiLed_update(FALSE); // Update frame buffer using the value of frameModified as set in initialiser.
+	DigiLedUpdate(FALSE); // Update frame buffer using the value of frameModified as set in initialiser.
  800028c:	2000      	movs	r0, #0
- 800028e:	f000 fa2d 	bl	80006ec <DigiLed_update>
+ 800028e:	f000 fa2d 	bl	80006ec <DigiLedUpdate>
 }
  8000292:	46c0      	nop			; (mov r8, r8)
  8000294:	46bd      	mov	sp, r7
@@ -313,12 +313,12 @@ void DigiLed_init()
  800029c:	20000130 	.word	0x20000130
  80002a0:	20000134 	.word	0x20000134
 
-080002a4 <DigiLed_SwitchColors>:
+080002a4 <DigiLedSwitchColors>:
 /*-----------------------------------------------------------*/
 /**
  * Set color from a predefined color list in "APA102_LedMatrix.h" in enum BasicColors
  */
-uint32_t DigiLed_SwitchColors(uint8_t Color)
+uint32_t DigiLedSwitchColors(uint8_t Color)
 {
  80002a4:	b580      	push	{r7, lr}
  80002a6:	b084      	sub	sp, #16
@@ -331,9 +331,9 @@ uint32_t DigiLed_SwitchColors(uint8_t Color)
  80002b0:	1dfb      	adds	r3, r7, #7
  80002b2:	781b      	ldrb	r3, [r3, #0]
  80002b4:	2b0d      	cmp	r3, #13
- 80002b6:	d82d      	bhi.n	8000314 <DigiLed_SwitchColors+0x70>
+ 80002b6:	d82d      	bhi.n	8000314 <DigiLedSwitchColors+0x70>
  80002b8:	009a      	lsls	r2, r3, #2
- 80002ba:	4b19      	ldr	r3, [pc, #100]	; (8000320 <DigiLed_SwitchColors+0x7c>)
+ 80002ba:	4b19      	ldr	r3, [pc, #100]	; (8000320 <DigiLedSwitchColors+0x7c>)
  80002bc:	18d3      	adds	r3, r2, r3
  80002be:	681b      	ldr	r3, [r3, #0]
  80002c0:	469f      	mov	pc, r3
@@ -343,81 +343,81 @@ uint32_t DigiLed_SwitchColors(uint8_t Color)
  80002c2:	2300      	movs	r3, #0
  80002c4:	60fb      	str	r3, [r7, #12]
 			break;
- 80002c6:	e026      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 80002c6:	e026      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		case WHITE:
 			rgb =0xFFFFFF;
- 80002c8:	4b16      	ldr	r3, [pc, #88]	; (8000324 <DigiLed_SwitchColors+0x80>)
+ 80002c8:	4b16      	ldr	r3, [pc, #88]	; (8000324 <DigiLedSwitchColors+0x80>)
  80002ca:	60fb      	str	r3, [r7, #12]
 			break;
- 80002cc:	e023      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 80002cc:	e023      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		case RED:
 			rgb =0xFF0000;
  80002ce:	23ff      	movs	r3, #255	; 0xff
  80002d0:	041b      	lsls	r3, r3, #16
  80002d2:	60fb      	str	r3, [r7, #12]
 			break;
- 80002d4:	e01f      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 80002d4:	e01f      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		case BLUE:
 			rgb =0x0000FF;
  80002d6:	23ff      	movs	r3, #255	; 0xff
  80002d8:	60fb      	str	r3, [r7, #12]
 			break;
- 80002da:	e01c      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 80002da:	e01c      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		case YELLOW:
 			rgb =0xFFFF00;
- 80002dc:	4b12      	ldr	r3, [pc, #72]	; (8000328 <DigiLed_SwitchColors+0x84>)
+ 80002dc:	4b12      	ldr	r3, [pc, #72]	; (8000328 <DigiLedSwitchColors+0x84>)
  80002de:	60fb      	str	r3, [r7, #12]
 			break;
- 80002e0:	e019      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 80002e0:	e019      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		case CYAN:
 			rgb =0x00FFFF;
- 80002e2:	4b12      	ldr	r3, [pc, #72]	; (800032c <DigiLed_SwitchColors+0x88>)
+ 80002e2:	4b12      	ldr	r3, [pc, #72]	; (800032c <DigiLedSwitchColors+0x88>)
  80002e4:	60fb      	str	r3, [r7, #12]
 			break;
- 80002e6:	e016      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 80002e6:	e016      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		case MAGENTA:
 			rgb =0xFF00FF;
- 80002e8:	4b11      	ldr	r3, [pc, #68]	; (8000330 <DigiLed_SwitchColors+0x8c>)
+ 80002e8:	4b11      	ldr	r3, [pc, #68]	; (8000330 <DigiLedSwitchColors+0x8c>)
  80002ea:	60fb      	str	r3, [r7, #12]
 			break;
- 80002ec:	e013      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 80002ec:	e013      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		case GREEN:
 			rgb =0x00FF00;
  80002ee:	23ff      	movs	r3, #255	; 0xff
  80002f0:	021b      	lsls	r3, r3, #8
  80002f2:	60fb      	str	r3, [r7, #12]
 			break;
- 80002f4:	e00f      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 80002f4:	e00f      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		case AQUA:
 			rgb =0x00FFFF;
- 80002f6:	4b0d      	ldr	r3, [pc, #52]	; (800032c <DigiLed_SwitchColors+0x88>)
+ 80002f6:	4b0d      	ldr	r3, [pc, #52]	; (800032c <DigiLedSwitchColors+0x88>)
  80002f8:	60fb      	str	r3, [r7, #12]
 			break;
- 80002fa:	e00c      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 80002fa:	e00c      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		case PURPLE:
 			rgb =0x800080;
- 80002fc:	4b0d      	ldr	r3, [pc, #52]	; (8000334 <DigiLed_SwitchColors+0x90>)
+ 80002fc:	4b0d      	ldr	r3, [pc, #52]	; (8000334 <DigiLedSwitchColors+0x90>)
  80002fe:	60fb      	str	r3, [r7, #12]
 			break;
- 8000300:	e009      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 8000300:	e009      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		case LIGHTBLUE:
 			rgb =0xadd8e6;
- 8000302:	4b0d      	ldr	r3, [pc, #52]	; (8000338 <DigiLed_SwitchColors+0x94>)
+ 8000302:	4b0d      	ldr	r3, [pc, #52]	; (8000338 <DigiLedSwitchColors+0x94>)
  8000304:	60fb      	str	r3, [r7, #12]
 			break;
- 8000306:	e006      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 8000306:	e006      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		case ORANGE:
 			rgb =0xFFA500;
- 8000308:	4b0c      	ldr	r3, [pc, #48]	; (800033c <DigiLed_SwitchColors+0x98>)
+ 8000308:	4b0c      	ldr	r3, [pc, #48]	; (800033c <DigiLedSwitchColors+0x98>)
  800030a:	60fb      	str	r3, [r7, #12]
 			break;
- 800030c:	e003      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 800030c:	e003      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		case INDIGO:
 			rgb =0x4b0082;
- 800030e:	4b0c      	ldr	r3, [pc, #48]	; (8000340 <DigiLed_SwitchColors+0x9c>)
+ 800030e:	4b0c      	ldr	r3, [pc, #48]	; (8000340 <DigiLedSwitchColors+0x9c>)
  8000310:	60fb      	str	r3, [r7, #12]
 			break;
- 8000312:	e000      	b.n	8000316 <DigiLed_SwitchColors+0x72>
+ 8000312:	e000      	b.n	8000316 <DigiLedSwitchColors+0x72>
 		default:
 			break;
  8000314:	46c0      	nop			; (mov r8, r8)
@@ -439,12 +439,12 @@ uint32_t DigiLed_SwitchColors(uint8_t Color)
  800033c:	00ffa500 	.word	0x00ffa500
  8000340:	004b0082 	.word	0x004b0082
 
-08000344 <DigiLed_SetRGB>:
+08000344 <DigiLedSetRGB>:
  * @param green intensity of the green color from 0 to 255
  * @param blue intensity of the blue color from 0 to 255
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
+void DigiLedSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
  8000344:	b5b0      	push	{r4, r5, r7, lr}
  8000346:	b082      	sub	sp, #8
@@ -469,26 +469,26 @@ void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_
  800036a:	1dfb      	adds	r3, r7, #7
  800036c:	781b      	ldrb	r3, [r3, #0]
  800036e:	2b00      	cmp	r3, #0
- 8000370:	d102      	bne.n	8000378 <DigiLed_SetRGB+0x34>
+ 8000370:	d102      	bne.n	8000378 <DigiLedSetRGB+0x34>
  8000372:	1dfb      	adds	r3, r7, #7
  8000374:	2201      	movs	r2, #1
  8000376:	701a      	strb	r2, [r3, #0]
-	if (DigiLed_TestPosition(led) == RANGE_OK)
+	if (DigiLedTestPosition(led) == RANGEOK)
  8000378:	1dfb      	adds	r3, r7, #7
  800037a:	781b      	ldrb	r3, [r3, #0]
  800037c:	0018      	movs	r0, r3
- 800037e:	f000 fa2b 	bl	80007d8 <DigiLed_TestPosition>
+ 800037e:	f000 fa2b 	bl	80007d8 <DigiLedTestPosition>
  8000382:	1e03      	subs	r3, r0, #0
- 8000384:	d144      	bne.n	8000410 <DigiLed_SetRGB+0xcc>
+ 8000384:	d144      	bne.n	8000410 <DigiLedSetRGB+0xcc>
 	{
-	if (intensity>intensity_LED)
+	if (intensity>INTINSITYLED)
  8000386:	2218      	movs	r2, #24
  8000388:	18bb      	adds	r3, r7, r2
  800038a:	781b      	ldrb	r3, [r3, #0]
  800038c:	2b1f      	cmp	r3, #31
- 800038e:	d902      	bls.n	8000396 <DigiLed_SetRGB+0x52>
+ 800038e:	d902      	bls.n	8000396 <DigiLedSetRGB+0x52>
 	{
-		intensity=intensity_LED;
+		intensity=INTINSITYLED;
  8000390:	18bb      	adds	r3, r7, r2
  8000392:	221f      	movs	r2, #31
  8000394:	701a      	strb	r2, [r3, #0]
@@ -497,7 +497,7 @@ void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_
  8000396:	1dfb      	adds	r3, r7, #7
  8000398:	781b      	ldrb	r3, [r3, #0]
  800039a:	3b01      	subs	r3, #1
- 800039c:	4a20      	ldr	r2, [pc, #128]	; (8000420 <DigiLed_SetRGB+0xdc>)
+ 800039c:	4a20      	ldr	r2, [pc, #128]	; (8000420 <DigiLedSetRGB+0xdc>)
  800039e:	009b      	lsls	r3, r3, #2
  80003a0:	18d3      	adds	r3, r2, r3
  80003a2:	78da      	ldrb	r2, [r3, #3]
@@ -515,7 +515,7 @@ void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_
  80003b8:	221f      	movs	r2, #31
  80003ba:	4013      	ands	r3, r2
  80003bc:	b2da      	uxtb	r2, r3
- 80003be:	4918      	ldr	r1, [pc, #96]	; (8000420 <DigiLed_SetRGB+0xdc>)
+ 80003be:	4918      	ldr	r1, [pc, #96]	; (8000420 <DigiLedSetRGB+0xdc>)
  80003c0:	0083      	lsls	r3, r0, #2
  80003c2:	18cb      	adds	r3, r1, r3
  80003c4:	211f      	movs	r1, #31
@@ -532,7 +532,7 @@ void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_
  80003d8:	1dfb      	adds	r3, r7, #7
  80003da:	781b      	ldrb	r3, [r3, #0]
  80003dc:	3b01      	subs	r3, #1
- 80003de:	4a10      	ldr	r2, [pc, #64]	; (8000420 <DigiLed_SetRGB+0xdc>)
+ 80003de:	4a10      	ldr	r2, [pc, #64]	; (8000420 <DigiLedSetRGB+0xdc>)
  80003e0:	009b      	lsls	r3, r3, #2
  80003e2:	18d3      	adds	r3, r2, r3
  80003e4:	3302      	adds	r3, #2
@@ -543,7 +543,7 @@ void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_
  80003ec:	1dfb      	adds	r3, r7, #7
  80003ee:	781b      	ldrb	r3, [r3, #0]
  80003f0:	3b01      	subs	r3, #1
- 80003f2:	4a0b      	ldr	r2, [pc, #44]	; (8000420 <DigiLed_SetRGB+0xdc>)
+ 80003f2:	4a0b      	ldr	r2, [pc, #44]	; (8000420 <DigiLedSetRGB+0xdc>)
  80003f4:	009b      	lsls	r3, r3, #2
  80003f6:	18d3      	adds	r3, r2, r3
  80003f8:	3301      	adds	r3, #1
@@ -554,14 +554,14 @@ void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_
  8000400:	1dfb      	adds	r3, r7, #7
  8000402:	781b      	ldrb	r3, [r3, #0]
  8000404:	1e5a      	subs	r2, r3, #1
- 8000406:	4b06      	ldr	r3, [pc, #24]	; (8000420 <DigiLed_SetRGB+0xdc>)
+ 8000406:	4b06      	ldr	r3, [pc, #24]	; (8000420 <DigiLedSetRGB+0xdc>)
  8000408:	0092      	lsls	r2, r2, #2
  800040a:	1db9      	adds	r1, r7, #6
  800040c:	7809      	ldrb	r1, [r1, #0]
  800040e:	54d1      	strb	r1, [r2, r3]
 	}
 	frameModified = TRUE;
- 8000410:	4b04      	ldr	r3, [pc, #16]	; (8000424 <DigiLed_SetRGB+0xe0>)
+ 8000410:	4b04      	ldr	r3, [pc, #16]	; (8000424 <DigiLedSetRGB+0xe0>)
  8000412:	2201      	movs	r2, #1
  8000414:	701a      	strb	r2, [r3, #0]
 }
@@ -573,12 +573,12 @@ void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_
  8000420:	20000134 	.word	0x20000134
  8000424:	20000130 	.word	0x20000130
 
-08000428 <DigiLed_SetAllRGB>:
+08000428 <DigiLedSetAllRGB>:
  * @param green intensity of the green color from 0 to 255
  * @param blue intensity of the blue color from 0 to 255
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
+void DigiLedSetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
  8000428:	b5b0      	push	{r4, r5, r7, lr}
  800042a:	b086      	sub	sp, #24
@@ -600,12 +600,12 @@ void DigiLed_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensit
  800044a:	1c0a      	adds	r2, r1, #0
  800044c:	701a      	strb	r2, [r3, #0]
 
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
  800044e:	2301      	movs	r3, #1
  8000450:	60fb      	str	r3, [r7, #12]
- 8000452:	e010      	b.n	8000476 <DigiLed_SetAllRGB+0x4e>
+ 8000452:	e010      	b.n	8000476 <DigiLedSetAllRGB+0x4e>
 	{
-		DigiLed_SetRGB(led, red, green, blue,intensity);
+		DigiLedSetRGB(led, red, green, blue,intensity);
  8000454:	68fb      	ldr	r3, [r7, #12]
  8000456:	b2d8      	uxtb	r0, r3
  8000458:	1d7b      	adds	r3, r7, #5
@@ -618,14 +618,14 @@ void DigiLed_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensit
  8000466:	781b      	ldrb	r3, [r3, #0]
  8000468:	9300      	str	r3, [sp, #0]
  800046a:	0023      	movs	r3, r4
- 800046c:	f7ff ff6a 	bl	8000344 <DigiLed_SetRGB>
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+ 800046c:	f7ff ff6a 	bl	8000344 <DigiLedSetRGB>
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
  8000470:	68fb      	ldr	r3, [r7, #12]
  8000472:	3301      	adds	r3, #1
  8000474:	60fb      	str	r3, [r7, #12]
  8000476:	68fb      	ldr	r3, [r7, #12]
  8000478:	2b40      	cmp	r3, #64	; 0x40
- 800047a:	ddeb      	ble.n	8000454 <DigiLed_SetAllRGB+0x2c>
+ 800047a:	ddeb      	ble.n	8000454 <DigiLedSetAllRGB+0x2c>
 	}
 }
  800047c:	46c0      	nop			; (mov r8, r8)
@@ -635,12 +635,12 @@ void DigiLed_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensit
  8000484:	bdb0      	pop	{r4, r5, r7, pc}
 	...
 
-08000488 <DigiLed_SetColor>:
+08000488 <DigiLedSetColor>:
  * @param led position of the led in the string led>=1
  * Set LED color from a predefined color list in "APA102_LedMatrix.h"
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
+void DigiLedSetColor(uint8_t led,uint8_t color ,uint8_t intensity)
 {
  8000488:	b590      	push	{r4, r7, lr}
  800048a:	b085      	sub	sp, #20
@@ -660,36 +660,36 @@ void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
 	uint32_t rgb=0x000000;
  80004a6:	2300      	movs	r3, #0
  80004a8:	60fb      	str	r3, [r7, #12]
-	rgb=DigiLed_SwitchColors(color);
+	rgb=DigiLedSwitchColors(color);
  80004aa:	1dbb      	adds	r3, r7, #6
  80004ac:	781b      	ldrb	r3, [r3, #0]
  80004ae:	0018      	movs	r0, r3
- 80004b0:	f7ff fef8 	bl	80002a4 <DigiLed_SwitchColors>
+ 80004b0:	f7ff fef8 	bl	80002a4 <DigiLedSwitchColors>
  80004b4:	0003      	movs	r3, r0
  80004b6:	60fb      	str	r3, [r7, #12]
 	if (led<1) {led=1;}
  80004b8:	1dfb      	adds	r3, r7, #7
  80004ba:	781b      	ldrb	r3, [r3, #0]
  80004bc:	2b00      	cmp	r3, #0
- 80004be:	d102      	bne.n	80004c6 <DigiLed_SetColor+0x3e>
+ 80004be:	d102      	bne.n	80004c6 <DigiLedSetColor+0x3e>
  80004c0:	1dfb      	adds	r3, r7, #7
  80004c2:	2201      	movs	r2, #1
  80004c4:	701a      	strb	r2, [r3, #0]
-	if (DigiLed_TestPosition(led) == RANGE_OK)
+	if (DigiLedTestPosition(led) == RANGEOK)
  80004c6:	1dfb      	adds	r3, r7, #7
  80004c8:	781b      	ldrb	r3, [r3, #0]
  80004ca:	0018      	movs	r0, r3
- 80004cc:	f000 f984 	bl	80007d8 <DigiLed_TestPosition>
+ 80004cc:	f000 f984 	bl	80007d8 <DigiLedTestPosition>
  80004d0:	1e03      	subs	r3, r0, #0
- 80004d2:	d149      	bne.n	8000568 <DigiLed_SetColor+0xe0>
+ 80004d2:	d149      	bne.n	8000568 <DigiLedSetColor+0xe0>
 	{
-	if (intensity>intensity_LED)
+	if (intensity>INTINSITYLED)
  80004d4:	1d7b      	adds	r3, r7, #5
  80004d6:	781b      	ldrb	r3, [r3, #0]
  80004d8:	2b1f      	cmp	r3, #31
- 80004da:	d902      	bls.n	80004e2 <DigiLed_SetColor+0x5a>
+ 80004da:	d902      	bls.n	80004e2 <DigiLedSetColor+0x5a>
 	{
-		intensity=intensity_LED;
+		intensity=INTINSITYLED;
  80004dc:	1d7b      	adds	r3, r7, #5
  80004de:	221f      	movs	r2, #31
  80004e0:	701a      	strb	r2, [r3, #0]
@@ -698,7 +698,7 @@ void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
  80004e2:	1dfb      	adds	r3, r7, #7
  80004e4:	781b      	ldrb	r3, [r3, #0]
  80004e6:	3b01      	subs	r3, #1
- 80004e8:	4a21      	ldr	r2, [pc, #132]	; (8000570 <DigiLed_SetColor+0xe8>)
+ 80004e8:	4a21      	ldr	r2, [pc, #132]	; (8000570 <DigiLedSetColor+0xe8>)
  80004ea:	009b      	lsls	r3, r3, #2
  80004ec:	18d3      	adds	r3, r2, r3
  80004ee:	78da      	ldrb	r2, [r3, #3]
@@ -715,7 +715,7 @@ void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
  8000502:	211f      	movs	r1, #31
  8000504:	400a      	ands	r2, r1
  8000506:	b2d2      	uxtb	r2, r2
- 8000508:	4919      	ldr	r1, [pc, #100]	; (8000570 <DigiLed_SetColor+0xe8>)
+ 8000508:	4919      	ldr	r1, [pc, #100]	; (8000570 <DigiLedSetColor+0xe8>)
  800050a:	009b      	lsls	r3, r3, #2
  800050c:	18cb      	adds	r3, r1, r3
  800050e:	211f      	movs	r1, #31
@@ -734,7 +734,7 @@ void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
  8000526:	3b01      	subs	r3, #1
  8000528:	68fa      	ldr	r2, [r7, #12]
  800052a:	b2d1      	uxtb	r1, r2
- 800052c:	4a10      	ldr	r2, [pc, #64]	; (8000570 <DigiLed_SetColor+0xe8>)
+ 800052c:	4a10      	ldr	r2, [pc, #64]	; (8000570 <DigiLedSetColor+0xe8>)
  800052e:	009b      	lsls	r3, r3, #2
  8000530:	18d3      	adds	r3, r2, r3
  8000532:	3302      	adds	r3, #2
@@ -747,7 +747,7 @@ void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
  800053e:	781b      	ldrb	r3, [r3, #0]
  8000540:	3b01      	subs	r3, #1
  8000542:	b2d1      	uxtb	r1, r2
- 8000544:	4a0a      	ldr	r2, [pc, #40]	; (8000570 <DigiLed_SetColor+0xe8>)
+ 8000544:	4a0a      	ldr	r2, [pc, #40]	; (8000570 <DigiLedSetColor+0xe8>)
  8000546:	009b      	lsls	r3, r3, #2
  8000548:	18d3      	adds	r3, r2, r3
  800054a:	3301      	adds	r3, #1
@@ -760,11 +760,11 @@ void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
  8000556:	781b      	ldrb	r3, [r3, #0]
  8000558:	1e5a      	subs	r2, r3, #1
  800055a:	b2c9      	uxtb	r1, r1
- 800055c:	4b04      	ldr	r3, [pc, #16]	; (8000570 <DigiLed_SetColor+0xe8>)
+ 800055c:	4b04      	ldr	r3, [pc, #16]	; (8000570 <DigiLedSetColor+0xe8>)
  800055e:	0092      	lsls	r2, r2, #2
  8000560:	54d1      	strb	r1, [r2, r3]
 		frameModified = TRUE;
- 8000562:	4b04      	ldr	r3, [pc, #16]	; (8000574 <DigiLed_SetColor+0xec>)
+ 8000562:	4b04      	ldr	r3, [pc, #16]	; (8000574 <DigiLedSetColor+0xec>)
  8000564:	2201      	movs	r2, #1
  8000566:	701a      	strb	r2, [r3, #0]
 	}
@@ -776,12 +776,12 @@ void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
  8000570:	20000134 	.word	0x20000134
  8000574:	20000130 	.word	0x20000130
 
-08000578 <DigiLed_SetAllColor>:
+08000578 <DigiLedSetAllColor>:
  * set color of all LEDs in a string
  * Set LED color from a predefined color list in "BOS.h"
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_SetAllColor(uint8_t color,uint8_t intensity)
+void DigiLedSetAllColor(uint8_t color,uint8_t intensity)
 {
  8000578:	b580      	push	{r7, lr}
  800057a:	b084      	sub	sp, #16
@@ -792,12 +792,12 @@ void DigiLed_SetAllColor(uint8_t color,uint8_t intensity)
  8000584:	1dbb      	adds	r3, r7, #6
  8000586:	1c0a      	adds	r2, r1, #0
  8000588:	701a      	strb	r2, [r3, #0]
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
  800058a:	2301      	movs	r3, #1
  800058c:	60fb      	str	r3, [r7, #12]
- 800058e:	e00b      	b.n	80005a8 <DigiLed_SetAllColor+0x30>
+ 800058e:	e00b      	b.n	80005a8 <DigiLedSetAllColor+0x30>
 	{
-		DigiLed_SetColor(led,color,intensity);
+		DigiLedSetColor(led,color,intensity);
  8000590:	68fb      	ldr	r3, [r7, #12]
  8000592:	b2d8      	uxtb	r0, r3
  8000594:	1dbb      	adds	r3, r7, #6
@@ -805,14 +805,14 @@ void DigiLed_SetAllColor(uint8_t color,uint8_t intensity)
  8000598:	1dfb      	adds	r3, r7, #7
  800059a:	781b      	ldrb	r3, [r3, #0]
  800059c:	0019      	movs	r1, r3
- 800059e:	f7ff ff73 	bl	8000488 <DigiLed_SetColor>
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+ 800059e:	f7ff ff73 	bl	8000488 <DigiLedSetColor>
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
  80005a2:	68fb      	ldr	r3, [r7, #12]
  80005a4:	3301      	adds	r3, #1
  80005a6:	60fb      	str	r3, [r7, #12]
  80005a8:	68fb      	ldr	r3, [r7, #12]
  80005aa:	2b40      	cmp	r3, #64	; 0x40
- 80005ac:	ddf0      	ble.n	8000590 <DigiLed_SetAllColor+0x18>
+ 80005ac:	ddf0      	ble.n	8000590 <DigiLedSetAllColor+0x18>
 	}
 }
  80005ae:	46c0      	nop			; (mov r8, r8)
@@ -821,12 +821,12 @@ void DigiLed_SetAllColor(uint8_t color,uint8_t intensity)
  80005b4:	b004      	add	sp, #16
  80005b6:	bd80      	pop	{r7, pc}
 
-080005b8 <DigiLed_SetLedOff>:
+080005b8 <DigiLedSetLedOff>:
 /**
   * @switch a single led off  led>=1
  * @param led position of the led in the string to be switched off
  */
-void DigiLed_SetLedOff(uint8_t led)
+void DigiLedSetLedOff(uint8_t led)
 {
  80005b8:	b580      	push	{r7, lr}
  80005ba:	b082      	sub	sp, #8
@@ -838,23 +838,23 @@ void DigiLed_SetLedOff(uint8_t led)
  80005c4:	1dfb      	adds	r3, r7, #7
  80005c6:	781b      	ldrb	r3, [r3, #0]
  80005c8:	2b00      	cmp	r3, #0
- 80005ca:	d102      	bne.n	80005d2 <DigiLed_SetLedOff+0x1a>
+ 80005ca:	d102      	bne.n	80005d2 <DigiLedSetLedOff+0x1a>
  80005cc:	1dfb      	adds	r3, r7, #7
  80005ce:	2201      	movs	r2, #1
  80005d0:	701a      	strb	r2, [r3, #0]
-	if (DigiLed_TestPosition(led) == RANGE_OK)
+	if (DigiLedTestPosition(led) == RANGEOK)
  80005d2:	1dfb      	adds	r3, r7, #7
  80005d4:	781b      	ldrb	r3, [r3, #0]
  80005d6:	0018      	movs	r0, r3
- 80005d8:	f000 f8fe 	bl	80007d8 <DigiLed_TestPosition>
+ 80005d8:	f000 f8fe 	bl	80007d8 <DigiLedTestPosition>
  80005dc:	1e03      	subs	r3, r0, #0
- 80005de:	d109      	bne.n	80005f4 <DigiLed_SetLedOff+0x3c>
+ 80005de:	d109      	bne.n	80005f4 <DigiLedSetLedOff+0x3c>
 	{
 		digitalLedframe[led-1].FieldsIn.GLOBAL = 0x00;
  80005e0:	1dfb      	adds	r3, r7, #7
  80005e2:	781b      	ldrb	r3, [r3, #0]
  80005e4:	3b01      	subs	r3, #1
- 80005e6:	4a07      	ldr	r2, [pc, #28]	; (8000604 <DigiLed_SetLedOff+0x4c>)
+ 80005e6:	4a07      	ldr	r2, [pc, #28]	; (8000604 <DigiLedSetLedOff+0x4c>)
  80005e8:	009b      	lsls	r3, r3, #2
  80005ea:	18d3      	adds	r3, r2, r3
  80005ec:	78da      	ldrb	r2, [r3, #3]
@@ -863,7 +863,7 @@ void DigiLed_SetLedOff(uint8_t led)
  80005f2:	70da      	strb	r2, [r3, #3]
 	}
 	frameModified = TRUE;
- 80005f4:	4b04      	ldr	r3, [pc, #16]	; (8000608 <DigiLed_SetLedOff+0x50>)
+ 80005f4:	4b04      	ldr	r3, [pc, #16]	; (8000608 <DigiLedSetLedOff+0x50>)
  80005f6:	2201      	movs	r2, #1
  80005f8:	701a      	strb	r2, [r3, #0]
 }
@@ -875,33 +875,33 @@ void DigiLed_SetLedOff(uint8_t led)
  8000604:	20000134 	.word	0x20000134
  8000608:	20000130 	.word	0x20000130
 
-0800060c <DigiLed_SetAllLedOff>:
+0800060c <DigiLedSetAllLedOff>:
 /*-----------------------------------------------------------*/
 /**
  * @All leds off
  */
-void DigiLed_SetAllLedOff()
+void DigiLedSetAllLedOff()
 {
  800060c:	b580      	push	{r7, lr}
  800060e:	b082      	sub	sp, #8
  8000610:	af00      	add	r7, sp, #0
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
  8000612:	2301      	movs	r3, #1
  8000614:	607b      	str	r3, [r7, #4]
- 8000616:	e007      	b.n	8000628 <DigiLed_SetAllLedOff+0x1c>
+ 8000616:	e007      	b.n	8000628 <DigiLedSetAllLedOff+0x1c>
 	{
-		DigiLed_SetLedOff(led);
+		DigiLedSetLedOff(led);
  8000618:	687b      	ldr	r3, [r7, #4]
  800061a:	b2db      	uxtb	r3, r3
  800061c:	0018      	movs	r0, r3
- 800061e:	f7ff ffcb 	bl	80005b8 <DigiLed_SetLedOff>
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+ 800061e:	f7ff ffcb 	bl	80005b8 <DigiLedSetLedOff>
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
  8000622:	687b      	ldr	r3, [r7, #4]
  8000624:	3301      	adds	r3, #1
  8000626:	607b      	str	r3, [r7, #4]
  8000628:	687b      	ldr	r3, [r7, #4]
  800062a:	2b40      	cmp	r3, #64	; 0x40
- 800062c:	ddf4      	ble.n	8000618 <DigiLed_SetAllLedOff+0xc>
+ 800062c:	ddf4      	ble.n	8000618 <DigiLedSetAllLedOff+0xc>
 	}
 }
  800062e:	46c0      	nop			; (mov r8, r8)
@@ -910,12 +910,12 @@ void DigiLed_SetAllLedOff()
  8000634:	b002      	add	sp, #8
  8000636:	bd80      	pop	{r7, pc}
 
-08000638 <DigiLed_SetLedOn>:
+08000638 <DigiLedSetLedOn>:
  * Using this function will preserve the active color settings for the led
  * @param led position of the led in the string to be switched on led>=1
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_SetLedOn(uint8_t led,uint8_t intensity)
+void DigiLedSetLedOn(uint8_t led,uint8_t intensity)
 {
  8000638:	b580      	push	{r7, lr}
  800063a:	b082      	sub	sp, #8
@@ -930,28 +930,28 @@ void DigiLed_SetLedOn(uint8_t led,uint8_t intensity)
  800064a:	1dfb      	adds	r3, r7, #7
  800064c:	781b      	ldrb	r3, [r3, #0]
  800064e:	2b00      	cmp	r3, #0
- 8000650:	d102      	bne.n	8000658 <DigiLed_SetLedOn+0x20>
+ 8000650:	d102      	bne.n	8000658 <DigiLedSetLedOn+0x20>
  8000652:	1dfb      	adds	r3, r7, #7
  8000654:	2201      	movs	r2, #1
  8000656:	701a      	strb	r2, [r3, #0]
-	if (intensity>intensity_LED)
+	if (intensity>INTINSITYLED)
  8000658:	1dbb      	adds	r3, r7, #6
  800065a:	781b      	ldrb	r3, [r3, #0]
  800065c:	2b1f      	cmp	r3, #31
- 800065e:	d902      	bls.n	8000666 <DigiLed_SetLedOn+0x2e>
+ 800065e:	d902      	bls.n	8000666 <DigiLedSetLedOn+0x2e>
 	{
-		intensity=intensity_LED;
+		intensity=INTINSITYLED;
  8000660:	1dbb      	adds	r3, r7, #6
  8000662:	221f      	movs	r2, #31
  8000664:	701a      	strb	r2, [r3, #0]
 	}
-	if (DigiLed_TestPosition(led) == RANGE_OK)
+	if (DigiLedTestPosition(led) == RANGEOK)
  8000666:	1dfb      	adds	r3, r7, #7
  8000668:	781b      	ldrb	r3, [r3, #0]
  800066a:	0018      	movs	r0, r3
- 800066c:	f000 f8b4 	bl	80007d8 <DigiLed_TestPosition>
+ 800066c:	f000 f8b4 	bl	80007d8 <DigiLedTestPosition>
  8000670:	1e03      	subs	r3, r0, #0
- 8000672:	d114      	bne.n	800069e <DigiLed_SetLedOn+0x66>
+ 8000672:	d114      	bne.n	800069e <DigiLedSetLedOn+0x66>
 	{
 		digitalLedframe[led-1].FieldsIn.GLOBAL = intensity;
  8000674:	1dfb      	adds	r3, r7, #7
@@ -962,7 +962,7 @@ void DigiLed_SetLedOn(uint8_t led,uint8_t intensity)
  800067e:	211f      	movs	r1, #31
  8000680:	400a      	ands	r2, r1
  8000682:	b2d2      	uxtb	r2, r2
- 8000684:	4909      	ldr	r1, [pc, #36]	; (80006ac <DigiLed_SetLedOn+0x74>)
+ 8000684:	4909      	ldr	r1, [pc, #36]	; (80006ac <DigiLedSetLedOn+0x74>)
  8000686:	009b      	lsls	r3, r3, #2
  8000688:	18cb      	adds	r3, r1, r3
  800068a:	211f      	movs	r1, #31
@@ -977,7 +977,7 @@ void DigiLed_SetLedOn(uint8_t led,uint8_t intensity)
  800069c:	70da      	strb	r2, [r3, #3]
 	}
 	frameModified = TRUE;
- 800069e:	4b04      	ldr	r3, [pc, #16]	; (80006b0 <DigiLed_SetLedOn+0x78>)
+ 800069e:	4b04      	ldr	r3, [pc, #16]	; (80006b0 <DigiLedSetLedOn+0x78>)
  80006a0:	2201      	movs	r2, #1
  80006a2:	701a      	strb	r2, [r3, #0]
 }
@@ -988,12 +988,12 @@ void DigiLed_SetLedOn(uint8_t led,uint8_t intensity)
  80006ac:	20000134 	.word	0x20000134
  80006b0:	20000130 	.word	0x20000130
 
-080006b4 <DigiLed_SetAllLedOn>:
+080006b4 <DigiLedSetAllLedOn>:
  * All leds on
  * Using this function will preserve the active color settings for the led led>=1
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_SetAllLedOn(uint8_t intensity)
+void DigiLedSetAllLedOn(uint8_t intensity)
 {
  80006b4:	b580      	push	{r7, lr}
  80006b6:	b084      	sub	sp, #16
@@ -1001,26 +1001,26 @@ void DigiLed_SetAllLedOn(uint8_t intensity)
  80006ba:	0002      	movs	r2, r0
  80006bc:	1dfb      	adds	r3, r7, #7
  80006be:	701a      	strb	r2, [r3, #0]
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
  80006c0:	2301      	movs	r3, #1
  80006c2:	60fb      	str	r3, [r7, #12]
- 80006c4:	e00a      	b.n	80006dc <DigiLed_SetAllLedOn+0x28>
+ 80006c4:	e00a      	b.n	80006dc <DigiLedSetAllLedOn+0x28>
 	{
-		DigiLed_SetLedOn(led,intensity);
+		DigiLedSetLedOn(led,intensity);
  80006c6:	68fb      	ldr	r3, [r7, #12]
  80006c8:	b2da      	uxtb	r2, r3
  80006ca:	1dfb      	adds	r3, r7, #7
  80006cc:	781b      	ldrb	r3, [r3, #0]
  80006ce:	0019      	movs	r1, r3
  80006d0:	0010      	movs	r0, r2
- 80006d2:	f7ff ffb1 	bl	8000638 <DigiLed_SetLedOn>
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+ 80006d2:	f7ff ffb1 	bl	8000638 <DigiLedSetLedOn>
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
  80006d6:	68fb      	ldr	r3, [r7, #12]
  80006d8:	3301      	adds	r3, #1
  80006da:	60fb      	str	r3, [r7, #12]
  80006dc:	68fb      	ldr	r3, [r7, #12]
  80006de:	2b40      	cmp	r3, #64	; 0x40
- 80006e0:	ddf1      	ble.n	80006c6 <DigiLed_SetAllLedOn+0x12>
+ 80006e0:	ddf1      	ble.n	80006c6 <DigiLedSetAllLedOn+0x12>
 	}
 }
  80006e2:	46c0      	nop			; (mov r8, r8)
@@ -1029,12 +1029,12 @@ void DigiLed_SetAllLedOn(uint8_t intensity)
  80006e8:	b004      	add	sp, #16
  80006ea:	bd80      	pop	{r7, pc}
 
-080006ec <DigiLed_update>:
+080006ec <DigiLedUpdate>:
 /**
  * @brief update led string
  * @param set true to force update leds and false to update only when frame is modified
  */
-void DigiLed_update(uint8_t forceUpdate)
+void DigiLedUpdate(uint8_t forceUpdate)
 {
  80006ec:	b580      	push	{r7, lr}
  80006ee:	b086      	sub	sp, #24
@@ -1043,109 +1043,109 @@ void DigiLed_update(uint8_t forceUpdate)
  80006f4:	1dfb      	adds	r3, r7, #7
  80006f6:	701a      	strb	r2, [r3, #0]
 	if(frameModified | forceUpdate)
- 80006f8:	4b33      	ldr	r3, [pc, #204]	; (80007c8 <DigiLed_update+0xdc>)
+ 80006f8:	4b33      	ldr	r3, [pc, #204]	; (80007c8 <DigiLedUpdate+0xdc>)
  80006fa:	781a      	ldrb	r2, [r3, #0]
  80006fc:	1dfb      	adds	r3, r7, #7
  80006fe:	781b      	ldrb	r3, [r3, #0]
  8000700:	4313      	orrs	r3, r2
  8000702:	b2db      	uxtb	r3, r3
  8000704:	2b00      	cmp	r3, #0
- 8000706:	d057      	beq.n	80007b8 <DigiLed_update+0xcc>
+ 8000706:	d057      	beq.n	80007b8 <DigiLedUpdate+0xcc>
 	{
 	// add start of frame (0x00000000)
-	for(int i = 0; i < LED_START_FRAME_SIZE; i++)
+	for(int i = 0; i < LEDSTARTFRAMESIZE; i++)
  8000708:	2300      	movs	r3, #0
  800070a:	617b      	str	r3, [r7, #20]
- 800070c:	e007      	b.n	800071e <DigiLed_update+0x32>
+ 800070c:	e007      	b.n	800071e <DigiLedUpdate+0x32>
 	{
 		SpiSendFrame[i] = 0x00;
- 800070e:	4a2f      	ldr	r2, [pc, #188]	; (80007cc <DigiLed_update+0xe0>)
+ 800070e:	4a2f      	ldr	r2, [pc, #188]	; (80007cc <DigiLedUpdate+0xe0>)
  8000710:	697b      	ldr	r3, [r7, #20]
  8000712:	18d3      	adds	r3, r2, r3
  8000714:	2200      	movs	r2, #0
  8000716:	701a      	strb	r2, [r3, #0]
-	for(int i = 0; i < LED_START_FRAME_SIZE; i++)
+	for(int i = 0; i < LEDSTARTFRAMESIZE; i++)
  8000718:	697b      	ldr	r3, [r7, #20]
  800071a:	3301      	adds	r3, #1
  800071c:	617b      	str	r3, [r7, #20]
  800071e:	697b      	ldr	r3, [r7, #20]
  8000720:	2b03      	cmp	r3, #3
- 8000722:	ddf4      	ble.n	800070e <DigiLed_update+0x22>
+ 8000722:	ddf4      	ble.n	800070e <DigiLedUpdate+0x22>
 	}
 	// add all LED packets of the frame
 	uint32_t SpiDataPacket = 0;
  8000724:	2300      	movs	r3, #0
  8000726:	613b      	str	r3, [r7, #16]
-	for (uint32_t led = 0; led < LED_FRAME_SIZE; led++)
+	for (uint32_t led = 0; led < LEDFRAMESIZE; led++)
  8000728:	2300      	movs	r3, #0
  800072a:	60fb      	str	r3, [r7, #12]
- 800072c:	e02b      	b.n	8000786 <DigiLed_update+0x9a>
+ 800072c:	e02b      	b.n	8000786 <DigiLedUpdate+0x9a>
 	{
-		SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 0] = digitalLedframe[led].FieldsOut.CMD;		// Add INIT and GLOBAL to SPI send frame
+		SpiSendFrame[LEDSTARTFRAMESIZE + SpiDataPacket + 0] = digitalLedframe[led].FieldsOut.CMD;		// Add INIT and GLOBAL to SPI send frame
  800072e:	693b      	ldr	r3, [r7, #16]
  8000730:	3304      	adds	r3, #4
- 8000732:	4927      	ldr	r1, [pc, #156]	; (80007d0 <DigiLed_update+0xe4>)
+ 8000732:	4927      	ldr	r1, [pc, #156]	; (80007d0 <DigiLedUpdate+0xe4>)
  8000734:	68fa      	ldr	r2, [r7, #12]
  8000736:	0092      	lsls	r2, r2, #2
  8000738:	188a      	adds	r2, r1, r2
  800073a:	3203      	adds	r2, #3
  800073c:	7811      	ldrb	r1, [r2, #0]
- 800073e:	4a23      	ldr	r2, [pc, #140]	; (80007cc <DigiLed_update+0xe0>)
+ 800073e:	4a23      	ldr	r2, [pc, #140]	; (80007cc <DigiLedUpdate+0xe0>)
  8000740:	54d1      	strb	r1, [r2, r3]
-		SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 1] = digitalLedframe[led].FieldsOut.BLUE; 	// Add BLUE to SPI send frame
+		SpiSendFrame[LEDSTARTFRAMESIZE + SpiDataPacket + 1] = digitalLedframe[led].FieldsOut.BLUE; 	// Add BLUE to SPI send frame
  8000742:	693b      	ldr	r3, [r7, #16]
  8000744:	3305      	adds	r3, #5
- 8000746:	4922      	ldr	r1, [pc, #136]	; (80007d0 <DigiLed_update+0xe4>)
+ 8000746:	4922      	ldr	r1, [pc, #136]	; (80007d0 <DigiLedUpdate+0xe4>)
  8000748:	68fa      	ldr	r2, [r7, #12]
  800074a:	0092      	lsls	r2, r2, #2
  800074c:	188a      	adds	r2, r1, r2
  800074e:	3202      	adds	r2, #2
  8000750:	7811      	ldrb	r1, [r2, #0]
- 8000752:	4a1e      	ldr	r2, [pc, #120]	; (80007cc <DigiLed_update+0xe0>)
+ 8000752:	4a1e      	ldr	r2, [pc, #120]	; (80007cc <DigiLedUpdate+0xe0>)
  8000754:	54d1      	strb	r1, [r2, r3]
-		SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 2] = digitalLedframe[led].FieldsOut.GREEN;	// Add GREEN to SPI send frame
+		SpiSendFrame[LEDSTARTFRAMESIZE + SpiDataPacket + 2] = digitalLedframe[led].FieldsOut.GREEN;	// Add GREEN to SPI send frame
  8000756:	693b      	ldr	r3, [r7, #16]
  8000758:	3306      	adds	r3, #6
- 800075a:	491d      	ldr	r1, [pc, #116]	; (80007d0 <DigiLed_update+0xe4>)
+ 800075a:	491d      	ldr	r1, [pc, #116]	; (80007d0 <DigiLedUpdate+0xe4>)
  800075c:	68fa      	ldr	r2, [r7, #12]
  800075e:	0092      	lsls	r2, r2, #2
  8000760:	188a      	adds	r2, r1, r2
  8000762:	3201      	adds	r2, #1
  8000764:	7811      	ldrb	r1, [r2, #0]
- 8000766:	4a19      	ldr	r2, [pc, #100]	; (80007cc <DigiLed_update+0xe0>)
+ 8000766:	4a19      	ldr	r2, [pc, #100]	; (80007cc <DigiLedUpdate+0xe0>)
  8000768:	54d1      	strb	r1, [r2, r3]
-		SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 3] = digitalLedframe[led].FieldsOut.RED;		// Add RED to SPI send frame
+		SpiSendFrame[LEDSTARTFRAMESIZE + SpiDataPacket + 3] = digitalLedframe[led].FieldsOut.RED;		// Add RED to SPI send frame
  800076a:	693b      	ldr	r3, [r7, #16]
  800076c:	3307      	adds	r3, #7
- 800076e:	4a18      	ldr	r2, [pc, #96]	; (80007d0 <DigiLed_update+0xe4>)
+ 800076e:	4a18      	ldr	r2, [pc, #96]	; (80007d0 <DigiLedUpdate+0xe4>)
  8000770:	68f9      	ldr	r1, [r7, #12]
  8000772:	0089      	lsls	r1, r1, #2
  8000774:	5c89      	ldrb	r1, [r1, r2]
- 8000776:	4a15      	ldr	r2, [pc, #84]	; (80007cc <DigiLed_update+0xe0>)
+ 8000776:	4a15      	ldr	r2, [pc, #84]	; (80007cc <DigiLedUpdate+0xe0>)
  8000778:	54d1      	strb	r1, [r2, r3]
 		SpiDataPacket = SpiDataPacket + 4;
  800077a:	693b      	ldr	r3, [r7, #16]
  800077c:	3304      	adds	r3, #4
  800077e:	613b      	str	r3, [r7, #16]
-	for (uint32_t led = 0; led < LED_FRAME_SIZE; led++)
+	for (uint32_t led = 0; led < LEDFRAMESIZE; led++)
  8000780:	68fb      	ldr	r3, [r7, #12]
  8000782:	3301      	adds	r3, #1
  8000784:	60fb      	str	r3, [r7, #12]
  8000786:	68fb      	ldr	r3, [r7, #12]
  8000788:	2b3f      	cmp	r3, #63	; 0x3f
- 800078a:	d9d0      	bls.n	800072e <DigiLed_update+0x42>
+ 800078a:	d9d0      	bls.n	800072e <DigiLedUpdate+0x42>
 	}
 	// add end of frame (0xffffffff)
 	for(int i = 0; i < 4; i++)
  800078c:	2300      	movs	r3, #0
  800078e:	60bb      	str	r3, [r7, #8]
- 8000790:	e008      	b.n	80007a4 <DigiLed_update+0xb8>
+ 8000790:	e008      	b.n	80007a4 <DigiLedUpdate+0xb8>
 	{
-		SpiSendFrame[LED_START_FRAME_SIZE + 4*LED_FRAME_SIZE + i] = 0xFF;
+		SpiSendFrame[LEDSTARTFRAMESIZE + 4*LEDFRAMESIZE + i] = 0xFF;
  8000792:	68bb      	ldr	r3, [r7, #8]
  8000794:	3305      	adds	r3, #5
  8000796:	33ff      	adds	r3, #255	; 0xff
- 8000798:	4a0c      	ldr	r2, [pc, #48]	; (80007cc <DigiLed_update+0xe0>)
+ 8000798:	4a0c      	ldr	r2, [pc, #48]	; (80007cc <DigiLedUpdate+0xe0>)
  800079a:	21ff      	movs	r1, #255	; 0xff
  800079c:	54d1      	strb	r1, [r2, r3]
 	for(int i = 0; i < 4; i++)
@@ -1154,21 +1154,21 @@ void DigiLed_update(uint8_t forceUpdate)
  80007a2:	60bb      	str	r3, [r7, #8]
  80007a4:	68bb      	ldr	r3, [r7, #8]
  80007a6:	2b03      	cmp	r3, #3
- 80007a8:	ddf3      	ble.n	8000792 <DigiLed_update+0xa6>
+ 80007a8:	ddf3      	ble.n	8000792 <DigiLedUpdate+0xa6>
 	}
 	// send spi frame with all led values
-	 SendSPI(LED_MATRIX_SPI_HANDLER, SpiSendFrame, sizeof(SpiSendFrame));
+	 SendSPI(LEDMATRIXSPIHANDLER, SpiSendFrame, sizeof(SpiSendFrame));
  80007aa:	2384      	movs	r3, #132	; 0x84
  80007ac:	005a      	lsls	r2, r3, #1
- 80007ae:	4907      	ldr	r1, [pc, #28]	; (80007cc <DigiLed_update+0xe0>)
- 80007b0:	4b08      	ldr	r3, [pc, #32]	; (80007d4 <DigiLed_update+0xe8>)
+ 80007ae:	4907      	ldr	r1, [pc, #28]	; (80007cc <DigiLedUpdate+0xe0>)
+ 80007b0:	4b08      	ldr	r3, [pc, #32]	; (80007d4 <DigiLedUpdate+0xe8>)
  80007b2:	0018      	movs	r0, r3
  80007b4:	f000 f998 	bl	8000ae8 <SendSPI>
 
 	}
 
 	frameModified = FALSE; // reset frame modified identifier.
- 80007b8:	4b03      	ldr	r3, [pc, #12]	; (80007c8 <DigiLed_update+0xdc>)
+ 80007b8:	4b03      	ldr	r3, [pc, #12]	; (80007c8 <DigiLedUpdate+0xdc>)
  80007ba:	2200      	movs	r2, #0
  80007bc:	701a      	strb	r2, [r3, #0]
 }
@@ -1182,12 +1182,12 @@ void DigiLed_update(uint8_t forceUpdate)
  80007d0:	20000134 	.word	0x20000134
  80007d4:	20000234 	.word	0x20000234
 
-080007d8 <DigiLed_TestPosition>:
+080007d8 <DigiLedTestPosition>:
  * @brief Test led position is within range.
  * @param led led position
  * @return result of evaluation ad define.
  */
-uint8_t DigiLed_TestPosition(uint8_t led)
+uint8_t DigiLedTestPosition(uint8_t led)
 {
  80007d8:	b580      	push	{r7, lr}
  80007da:	b084      	sub	sp, #16
@@ -1195,18 +1195,18 @@ uint8_t DigiLed_TestPosition(uint8_t led)
  80007de:	0002      	movs	r2, r0
  80007e0:	1dfb      	adds	r3, r7, #7
  80007e2:	701a      	strb	r2, [r3, #0]
-	uint8_t returnValue = OUT_OF_RANGE;
+	uint8_t returnValue = OUTOFRANGE;
  80007e4:	210f      	movs	r1, #15
  80007e6:	187b      	adds	r3, r7, r1
  80007e8:	2201      	movs	r2, #1
  80007ea:	701a      	strb	r2, [r3, #0]
-	if (led <= LED_FRAME_SIZE)
+	if (led <= LEDFRAMESIZE)
  80007ec:	1dfb      	adds	r3, r7, #7
  80007ee:	781b      	ldrb	r3, [r3, #0]
  80007f0:	2b40      	cmp	r3, #64	; 0x40
- 80007f2:	d802      	bhi.n	80007fa <DigiLed_TestPosition+0x22>
+ 80007f2:	d802      	bhi.n	80007fa <DigiLedTestPosition+0x22>
 	{
-		returnValue = RANGE_OK;
+		returnValue = RANGEOK;
  80007f4:	187b      	adds	r3, r7, r1
  80007f6:	2200      	movs	r2, #0
  80007f8:	701a      	strb	r2, [r3, #0]
@@ -1289,131 +1289,131 @@ int main(void)
   MX_SPI1_Init();
  8000846:	f000 f8c5 	bl	80009d4 <MX_SPI1_Init>
   /* USER CODE BEGIN 2 */
-  DigiLed_init();
- 800084a:	f7ff fce7 	bl	800021c <DigiLed_init>
+  DigiLedInit();
+ 800084a:	f7ff fce7 	bl	800021c <DigiLedInit>
   while (1)
   {
 
     /* USER CODE END WHILE */
 	      /* USER CODE BEGIN 3 */
-	  DigiLed_SetRGB(1, 90,80,40,6);
+	  DigiLedSetRGB(1, 90,80,40,6);
  800084e:	2306      	movs	r3, #6
  8000850:	9300      	str	r3, [sp, #0]
  8000852:	2328      	movs	r3, #40	; 0x28
  8000854:	2250      	movs	r2, #80	; 0x50
  8000856:	215a      	movs	r1, #90	; 0x5a
  8000858:	2001      	movs	r0, #1
- 800085a:	f7ff fd73 	bl	8000344 <DigiLed_SetRGB>
-	  DigiLed_SetRGB(4, 255,0,0,7);
+ 800085a:	f7ff fd73 	bl	8000344 <DigiLedSetRGB>
+	  DigiLedSetRGB(4, 255,0,0,7);
  800085e:	2307      	movs	r3, #7
  8000860:	9300      	str	r3, [sp, #0]
  8000862:	2300      	movs	r3, #0
  8000864:	2200      	movs	r2, #0
  8000866:	21ff      	movs	r1, #255	; 0xff
  8000868:	2004      	movs	r0, #4
- 800086a:	f7ff fd6b 	bl	8000344 <DigiLed_SetRGB>
-	  DigiLed_update(1);
+ 800086a:	f7ff fd6b 	bl	8000344 <DigiLedSetRGB>
+	  DigiLedUpdate(1);
  800086e:	2001      	movs	r0, #1
- 8000870:	f7ff ff3c 	bl	80006ec <DigiLed_update>
+ 8000870:	f7ff ff3c 	bl	80006ec <DigiLedUpdate>
 	  HAL_Delay(1000);
  8000874:	23fa      	movs	r3, #250	; 0xfa
  8000876:	009b      	lsls	r3, r3, #2
  8000878:	0018      	movs	r0, r3
  800087a:	f000 fa4f 	bl	8000d1c <HAL_Delay>
-	  DigiLed_SetLedOff(0);
+	  DigiLedSetLedOff(0);
  800087e:	2000      	movs	r0, #0
- 8000880:	f7ff fe9a 	bl	80005b8 <DigiLed_SetLedOff>
-	  DigiLed_update(1);
+ 8000880:	f7ff fe9a 	bl	80005b8 <DigiLedSetLedOff>
+	  DigiLedUpdate(1);
  8000884:	2001      	movs	r0, #1
- 8000886:	f7ff ff31 	bl	80006ec <DigiLed_update>
+ 8000886:	f7ff ff31 	bl	80006ec <DigiLedUpdate>
 	  HAL_Delay(1000);
  800088a:	23fa      	movs	r3, #250	; 0xfa
  800088c:	009b      	lsls	r3, r3, #2
  800088e:	0018      	movs	r0, r3
  8000890:	f000 fa44 	bl	8000d1c <HAL_Delay>
-	  DigiLed_SetLedOn(1, 20);
+	  DigiLedSetLedOn(1, 20);
  8000894:	2114      	movs	r1, #20
  8000896:	2001      	movs	r0, #1
- 8000898:	f7ff fece 	bl	8000638 <DigiLed_SetLedOn>
-	  DigiLed_update(1);
+ 8000898:	f7ff fece 	bl	8000638 <DigiLedSetLedOn>
+	  DigiLedUpdate(1);
  800089c:	2001      	movs	r0, #1
- 800089e:	f7ff ff25 	bl	80006ec <DigiLed_update>
+ 800089e:	f7ff ff25 	bl	80006ec <DigiLedUpdate>
 	  HAL_Delay(1000);
  80008a2:	23fa      	movs	r3, #250	; 0xfa
  80008a4:	009b      	lsls	r3, r3, #2
  80008a6:	0018      	movs	r0, r3
  80008a8:	f000 fa38 	bl	8000d1c <HAL_Delay>
-	  DigiLed_SetAllRGB(255,185,15,12);
+	  DigiLedSetAllRGB(255,185,15,12);
  80008ac:	230c      	movs	r3, #12
  80008ae:	220f      	movs	r2, #15
  80008b0:	21b9      	movs	r1, #185	; 0xb9
  80008b2:	20ff      	movs	r0, #255	; 0xff
- 80008b4:	f7ff fdb8 	bl	8000428 <DigiLed_SetAllRGB>
-	  DigiLed_update(1);
+ 80008b4:	f7ff fdb8 	bl	8000428 <DigiLedSetAllRGB>
+	  DigiLedUpdate(1);
  80008b8:	2001      	movs	r0, #1
- 80008ba:	f7ff ff17 	bl	80006ec <DigiLed_update>
+ 80008ba:	f7ff ff17 	bl	80006ec <DigiLedUpdate>
 	  HAL_Delay(1000);
  80008be:	23fa      	movs	r3, #250	; 0xfa
  80008c0:	009b      	lsls	r3, r3, #2
  80008c2:	0018      	movs	r0, r3
  80008c4:	f000 fa2a 	bl	8000d1c <HAL_Delay>
-	  DigiLed_SetAllLedOff();
- 80008c8:	f7ff fea0 	bl	800060c <DigiLed_SetAllLedOff>
-	  DigiLed_update(1);
+	  DigiLedSetAllLedOff();
+ 80008c8:	f7ff fea0 	bl	800060c <DigiLedSetAllLedOff>
+	  DigiLedUpdate(1);
  80008cc:	2001      	movs	r0, #1
- 80008ce:	f7ff ff0d 	bl	80006ec <DigiLed_update>
+ 80008ce:	f7ff ff0d 	bl	80006ec <DigiLedUpdate>
 	  HAL_Delay(1000);
  80008d2:	23fa      	movs	r3, #250	; 0xfa
  80008d4:	009b      	lsls	r3, r3, #2
  80008d6:	0018      	movs	r0, r3
  80008d8:	f000 fa20 	bl	8000d1c <HAL_Delay>
-	  DigiLed_SetAllLedOn(30);
+	  DigiLedSetAllLedOn(30);
  80008dc:	201e      	movs	r0, #30
- 80008de:	f7ff fee9 	bl	80006b4 <DigiLed_SetAllLedOn>
-	  DigiLed_update(1);
+ 80008de:	f7ff fee9 	bl	80006b4 <DigiLedSetAllLedOn>
+	  DigiLedUpdate(1);
  80008e2:	2001      	movs	r0, #1
- 80008e4:	f7ff ff02 	bl	80006ec <DigiLed_update>
+ 80008e4:	f7ff ff02 	bl	80006ec <DigiLedUpdate>
 	  HAL_Delay(1000);
  80008e8:	23fa      	movs	r3, #250	; 0xfa
  80008ea:	009b      	lsls	r3, r3, #2
  80008ec:	0018      	movs	r0, r3
  80008ee:	f000 fa15 	bl	8000d1c <HAL_Delay>
-	  DigiLed_SetColor(1,AQUA,20);
+	  DigiLedSetColor(1,AQUA,20);
  80008f2:	2214      	movs	r2, #20
  80008f4:	2109      	movs	r1, #9
  80008f6:	2001      	movs	r0, #1
- 80008f8:	f7ff fdc6 	bl	8000488 <DigiLed_SetColor>
-	  DigiLed_update(1);
+ 80008f8:	f7ff fdc6 	bl	8000488 <DigiLedSetColor>
+	  DigiLedUpdate(1);
  80008fc:	2001      	movs	r0, #1
- 80008fe:	f7ff fef5 	bl	80006ec <DigiLed_update>
+ 80008fe:	f7ff fef5 	bl	80006ec <DigiLedUpdate>
 	  HAL_Delay(1000);
  8000902:	23fa      	movs	r3, #250	; 0xfa
  8000904:	009b      	lsls	r3, r3, #2
  8000906:	0018      	movs	r0, r3
  8000908:	f000 fa08 	bl	8000d1c <HAL_Delay>
-	  DigiLed_SetAllColor(INDIGO, 5);
+	  DigiLedSetAllColor(INDIGO, 5);
  800090c:	2105      	movs	r1, #5
  800090e:	200d      	movs	r0, #13
- 8000910:	f7ff fe32 	bl	8000578 <DigiLed_SetAllColor>
-	  DigiLed_update(1);
+ 8000910:	f7ff fe32 	bl	8000578 <DigiLedSetAllColor>
+	  DigiLedUpdate(1);
  8000914:	2001      	movs	r0, #1
- 8000916:	f7ff fee9 	bl	80006ec <DigiLed_update>
+ 8000916:	f7ff fee9 	bl	80006ec <DigiLedUpdate>
 	  HAL_Delay(1000);
  800091a:	23fa      	movs	r3, #250	; 0xfa
  800091c:	009b      	lsls	r3, r3, #2
  800091e:	0018      	movs	r0, r3
  8000920:	f000 f9fc 	bl	8000d1c <HAL_Delay>
-	  DigiLed_SetAllLedOff();
- 8000924:	f7ff fe72 	bl	800060c <DigiLed_SetAllLedOff>
-	  DigiLed_update(1);
+	  DigiLedSetAllLedOff();
+ 8000924:	f7ff fe72 	bl	800060c <DigiLedSetAllLedOff>
+	  DigiLedUpdate(1);
  8000928:	2001      	movs	r0, #1
- 800092a:	f7ff fedf 	bl	80006ec <DigiLed_update>
+ 800092a:	f7ff fedf 	bl	80006ec <DigiLedUpdate>
 	  HAL_Delay(1000);
  800092e:	23fa      	movs	r3, #250	; 0xfa
  8000930:	009b      	lsls	r3, r3, #2
  8000932:	0018      	movs	r0, r3
  8000934:	f000 f9f2 	bl	8000d1c <HAL_Delay>
-	  DigiLed_SetRGB(1, 90,80,40,6);
+	  DigiLedSetRGB(1, 90,80,40,6);
  8000938:	e789      	b.n	800084e <main+0x1a>
 
 0800093a <SystemClock_Config>:

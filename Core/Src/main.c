@@ -87,9 +87,8 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  DigiLed_init();
-//  DigiLed_SetAllLedOff();
-//  DigiLed_update(1);
+  DigiLedInit();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -99,33 +98,33 @@ int main(void)
 
     /* USER CODE END WHILE */
 	      /* USER CODE BEGIN 3 */
-	  DigiLed_SetRGB(1, 90,80,40,6);
-	  DigiLed_SetRGB(4, 255,0,0,7);
-	  DigiLed_update(1);
+	  DigiLedSetRGB(1, 90,80,40,6);
+	  DigiLedSetRGB(4, 255,0,0,7);
+	  DigiLedUpdate(1);
 	  HAL_Delay(1000);
-	  DigiLed_SetLedOff(0);
-	  DigiLed_update(1);
+	  DigiLedSetLedOff(0);
+	  DigiLedUpdate(1);
 	  HAL_Delay(1000);
-	  DigiLed_SetLedOn(1, 20);
-	  DigiLed_update(1);
+	  DigiLedSetLedOn(1, 20);
+	  DigiLedUpdate(1);
 	  HAL_Delay(1000);
-	  DigiLed_SetAllRGB(255,185,15,12);
-	  DigiLed_update(1);
+	  DigiLedSetAllRGB(255,185,15,12);
+	  DigiLedUpdate(1);
 	  HAL_Delay(1000);
-	  DigiLed_SetAllLedOff();
-	  DigiLed_update(1);
+	  DigiLedSetAllLedOff();
+	  DigiLedUpdate(1);
 	  HAL_Delay(1000);
-	  DigiLed_SetAllLedOn(30);
-	  DigiLed_update(1);
+	  DigiLedSetAllLedOn(30);
+	  DigiLedUpdate(1);
 	  HAL_Delay(1000);
-	  DigiLed_SetColor(1,AQUA,20);
-	  DigiLed_update(1);
+	  DigiLedSetColor(1,AQUA,20);
+	  DigiLedUpdate(1);
 	  HAL_Delay(1000);
-	  DigiLed_SetAllColor(INDIGO, 5);
-	  DigiLed_update(1);
+	  DigiLedSetAllColor(INDIGO, 5);
+	  DigiLedUpdate(1);
 	  HAL_Delay(1000);
-	  DigiLed_SetAllLedOff();
-	  DigiLed_update(1);
+	  DigiLedSetAllLedOff();
+	  DigiLedUpdate(1);
 	  HAL_Delay(1000);
   }
   /* USER CODE END 3 */

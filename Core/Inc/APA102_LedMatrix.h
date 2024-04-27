@@ -20,17 +20,17 @@
 #include <stdint.h>
 /* defines */
 
-#define LED_MATRIX_SPI_HANDLER    &hspi1
+#define LEDMATRIXSPIHANDLER        &hspi1
 
-#define 	LED_FRAME_SIZE   		64		///< \define number of LEDs in the chain
+#define 	LEDFRAMESIZE   		    64		///< \define number of LEDs in the chain
 
 #define 	FALSE 					0		// false value
 #define 	TRUE 					1		// true value
-#define 	OUT_OF_RANGE			1		// chosen LED does not exist
-#define 	RANGE_OK 				0		// chosen LED exist
-#define 	LED_START_FRAME_SIZE 	4		// 0x00, 0x00, 0x00, 0x00
-#define 	LED_END_FRAME_SIZE 		4 		// 0xFF, 0xFF, 0xFF, 0xFF
-#define     intensity_LED           31      //maximum intensity 31
+#define 	OUTOFRANGE			    1		// chosen LED does not exist
+#define 	RANGEOK 				0		// chosen LED exist
+#define 	LEDSTARTFRAMESIZE 	    4		// 0x00, 0x00, 0x00, 0x00
+#define 	LEDENDFRAMESIZE 		4 		// 0xFF, 0xFF, 0xFF, 0xFF
+#define     INTINSITYLED            31      //maximum intensity 31
 /* variables */
 typedef union
 {
@@ -59,19 +59,19 @@ enum BasicColors {
 	BLACK =1, WHITE, RED, BLUE, YELLOW, CYAN, MAGENTA, GREEN ,AQUA,PURPLE,LIGHTBLUE,ORANGE,INDIGO,
 };
 /* functions */
-void DigiLed_init();
-void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
-void DigiLed_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
-void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity);
-void DigiLed_SetAllColor(uint8_t color,uint8_t intensity);
-void DigiLed_SetLedOff(uint8_t led);
-void DigiLed_SetAllLedOff();
-void DigiLed_SetLedOn(uint8_t led,uint8_t intensity);
-void DigiLed_SetAllLedOn(uint8_t intensity);
-void DigiLed_update(uint8_t forceUpdate);
-uint8_t DigiLed_getFrameSize(void);
-uint8_t DigiLed_TestPosition(uint8_t led);
-void DigiLed_ScrollMode(uint8_t Base_Colour,uint8_t Scroll_Row,uint8_t intensity,uint8_t Scroll_Time);
-void DigiLed_FlashMode(uint8_t Base_Colour,uint8_t flash_Colour,uint8_t intensity,uint8_t flash_Time,uint8_t Time_Between_Flash);
+void DigiLedInit();
+void DigiLedSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
+void DigiLedSetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
+void DigiLedSetColor(uint8_t led,uint8_t color ,uint8_t intensity);
+void DigiLedSetAllColor(uint8_t color,uint8_t intensity);
+void DigiLedSetLedOff(uint8_t led);
+void DigiLedSetAllLedOff();
+void DigiLedSetLedOn(uint8_t led,uint8_t intensity);
+void DigiLedSetAllLedOn(uint8_t intensity);
+void DigiLedUpdate(uint8_t forceUpdate);
+uint8_t DigiLedGetFrameSize(void);
+uint8_t DigiLedTestPosition(uint8_t led);
+void DigiLedScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint8_t scrollTime);
+void DigiLedFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint8_t flashTime,uint8_t timeBetweenFlash);
 
 #endif /* APA102_LEDMATRIX_H_ */

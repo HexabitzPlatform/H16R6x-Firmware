@@ -15,16 +15,16 @@
 #include "APA102_LedMatrix.h"
 
 /* variables */
-uint8_t SpiSendFrame[LED_START_FRAME_SIZE + 4 * LED_FRAME_SIZE + LED_END_FRAME_SIZE];
+uint8_t SpiSendFrame[LEDSTARTFRAMESIZE + 4 * LEDFRAMESIZE + LEDENDFRAMESIZE];
 uint8_t frameModified; 		// when frame is changed the stimuli is set high
 
-DigitalLedframe digitalLedframe[LED_FRAME_SIZE];
+DigitalLedframe digitalLedframe[LEDFRAMESIZE];
 /* functions */
-void DigiLed_init()
+void DigiLedInit()
 {
 	frameModified = TRUE; 		// Initial set to true to force update after initialization of frame buffer
 	// TODO Auto-generated constructor stub
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
 	{
 		digitalLedframe[led-1].FieldsIn.INIT = 0x07; // Set MSB first 3 bits to identify start of LED packet
 		digitalLedframe[led-1].FieldsIn.GLOBAL = 0x00; // Switch off LED global
@@ -32,13 +32,13 @@ void DigiLed_init()
 		digitalLedframe[led-1].FieldsIn.GREEN = 0x00;
 		digitalLedframe[led-1].FieldsIn.RED = 0x00;
 	}
-	DigiLed_update(FALSE); // Update frame buffer using the value of frameModified as set in initialiser.
+	DigiLedUpdate(FALSE); // Update frame buffer using the value of frameModified as set in initialiser.
 }
 /*-----------------------------------------------------------*/
 /**
  * Set color from a predefined color list in "APA102_LedMatrix.h" in enum BasicColors
  */
-uint32_t DigiLed_SwitchColors(uint8_t Color)
+uint32_t DigiLedSwitchColors(uint8_t Color)
 {
 	uint32_t rgb;
 	switch(Color)
@@ -96,14 +96,14 @@ uint32_t DigiLed_SwitchColors(uint8_t Color)
  * @param blue intensity of the blue color from 0 to 255
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
+void DigiLedSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
 	if (led<1) {led=1;}
-	if (DigiLed_TestPosition(led) == RANGE_OK)
+	if (DigiLedTestPosition(led) == RANGEOK)
 	{
-	if (intensity>intensity_LED)
+	if (intensity>INTINSITYLED)
 	{
-		intensity=intensity_LED;
+		intensity=INTINSITYLED;
 	}
 		digitalLedframe[led-1].FieldsIn.INIT = 0x7; // Set MSB first 3 bits to identify start of LED packet
 		digitalLedframe[led-1].FieldsIn.GLOBAL = intensity; // Set led at maximum intensity 0x1F=31
@@ -121,12 +121,12 @@ void DigiLed_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_
  * @param blue intensity of the blue color from 0 to 255
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
+void DigiLedSetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
 
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
 	{
-		DigiLed_SetRGB(led, red, green, blue,intensity);
+		DigiLedSetRGB(led, red, green, blue,intensity);
 	}
 }
 /*-----------------------------------------------------------*/
@@ -136,16 +136,16 @@ void DigiLed_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensit
  * Set LED color from a predefined color list in "APA102_LedMatrix.h"
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
+void DigiLedSetColor(uint8_t led,uint8_t color ,uint8_t intensity)
 {
 	uint32_t rgb=0x000000;
-	rgb=DigiLed_SwitchColors(color);
+	rgb=DigiLedSwitchColors(color);
 	if (led<1) {led=1;}
-	if (DigiLed_TestPosition(led) == RANGE_OK)
+	if (DigiLedTestPosition(led) == RANGEOK)
 	{
-	if (intensity>intensity_LED)
+	if (intensity>INTINSITYLED)
 	{
-		intensity=intensity_LED;
+		intensity=INTINSITYLED;
 	}
 		digitalLedframe[led-1].FieldsIn.INIT = 0x7;
 		digitalLedframe[led-1].FieldsIn.GLOBAL = intensity;// Set led at maximum intensity 0x1F=31
@@ -161,11 +161,11 @@ void DigiLed_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
  * Set LED color from a predefined color list in "BOS.h"
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_SetAllColor(uint8_t color,uint8_t intensity)
+void DigiLedSetAllColor(uint8_t color,uint8_t intensity)
 {
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
 	{
-		DigiLed_SetColor(led,color,intensity);
+		DigiLedSetColor(led,color,intensity);
 	}
 }
 /*-----------------------------------------------------------*/
@@ -173,10 +173,10 @@ void DigiLed_SetAllColor(uint8_t color,uint8_t intensity)
   * @switch a single led off  led>=1
  * @param led position of the led in the string to be switched off
  */
-void DigiLed_SetLedOff(uint8_t led)
+void DigiLedSetLedOff(uint8_t led)
 {
 	if (led<1) {led=1;}
-	if (DigiLed_TestPosition(led) == RANGE_OK)
+	if (DigiLedTestPosition(led) == RANGEOK)
 	{
 		digitalLedframe[led-1].FieldsIn.GLOBAL = 0x00;
 	}
@@ -186,11 +186,11 @@ void DigiLed_SetLedOff(uint8_t led)
 /**
  * @All leds off
  */
-void DigiLed_SetAllLedOff()
+void DigiLedSetAllLedOff()
 {
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
 	{
-		DigiLed_SetLedOff(led);
+		DigiLedSetLedOff(led);
 	}
 }
 /*-----------------------------------------------------------*/
@@ -200,14 +200,14 @@ void DigiLed_SetAllLedOff()
  * @param led position of the led in the string to be switched on led>=1
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_SetLedOn(uint8_t led,uint8_t intensity)
+void DigiLedSetLedOn(uint8_t led,uint8_t intensity)
 {
 	if (led<1) {led=1;}
-	if (intensity>intensity_LED)
+	if (intensity>INTINSITYLED)
 	{
-		intensity=intensity_LED;
+		intensity=INTINSITYLED;
 	}
-	if (DigiLed_TestPosition(led) == RANGE_OK)
+	if (DigiLedTestPosition(led) == RANGEOK)
 	{
 		digitalLedframe[led-1].FieldsIn.GLOBAL = intensity;
 	}
@@ -219,11 +219,11 @@ void DigiLed_SetLedOn(uint8_t led,uint8_t intensity)
  * Using this function will preserve the active color settings for the led led>=1
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-void DigiLed_SetAllLedOn(uint8_t intensity)
+void DigiLedSetAllLedOn(uint8_t intensity)
 {
-	for (int led = 1; led <= LED_FRAME_SIZE; led++)
+	for (int led = 1; led <= LEDFRAMESIZE; led++)
 	{
-		DigiLed_SetLedOn(led,intensity);
+		DigiLedSetLedOn(led,intensity);
 	}
 }
 /*-----------------------------------------------------------*/
@@ -231,32 +231,32 @@ void DigiLed_SetAllLedOn(uint8_t intensity)
  * @brief update led string
  * @param set true to force update leds and false to update only when frame is modified
  */
-void DigiLed_update(uint8_t forceUpdate)
+void DigiLedUpdate(uint8_t forceUpdate)
 {
 	if(frameModified | forceUpdate)
 	{
 	// add start of frame (0x00000000)
-	for(int i = 0; i < LED_START_FRAME_SIZE; i++)
+	for(int i = 0; i < LEDSTARTFRAMESIZE; i++)
 	{
 		SpiSendFrame[i] = 0x00;
 	}
 	// add all LED packets of the frame
 	uint32_t SpiDataPacket = 0;
-	for (uint32_t led = 0; led < LED_FRAME_SIZE; led++)
+	for (uint32_t led = 0; led < LEDFRAMESIZE; led++)
 	{
-		SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 0] = digitalLedframe[led].FieldsOut.CMD;		// Add INIT and GLOBAL to SPI send frame
-		SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 1] = digitalLedframe[led].FieldsOut.BLUE; 	// Add BLUE to SPI send frame
-		SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 2] = digitalLedframe[led].FieldsOut.GREEN;	// Add GREEN to SPI send frame
-		SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 3] = digitalLedframe[led].FieldsOut.RED;		// Add RED to SPI send frame
+		SpiSendFrame[LEDSTARTFRAMESIZE + SpiDataPacket + 0] = digitalLedframe[led].FieldsOut.CMD;		// Add INIT and GLOBAL to SPI send frame
+		SpiSendFrame[LEDSTARTFRAMESIZE + SpiDataPacket + 1] = digitalLedframe[led].FieldsOut.BLUE; 	// Add BLUE to SPI send frame
+		SpiSendFrame[LEDSTARTFRAMESIZE + SpiDataPacket + 2] = digitalLedframe[led].FieldsOut.GREEN;	// Add GREEN to SPI send frame
+		SpiSendFrame[LEDSTARTFRAMESIZE + SpiDataPacket + 3] = digitalLedframe[led].FieldsOut.RED;		// Add RED to SPI send frame
 		SpiDataPacket = SpiDataPacket + 4;
 	}
 	// add end of frame (0xffffffff)
 	for(int i = 0; i < 4; i++)
 	{
-		SpiSendFrame[LED_START_FRAME_SIZE + 4*LED_FRAME_SIZE + i] = 0xFF;
+		SpiSendFrame[LEDSTARTFRAMESIZE + 4*LEDFRAMESIZE + i] = 0xFF;
 	}
 	// send spi frame with all led values
-	 SendSPI(LED_MATRIX_SPI_HANDLER, SpiSendFrame, sizeof(SpiSendFrame));
+	 SendSPI(LEDMATRIXSPIHANDLER, SpiSendFrame, sizeof(SpiSendFrame));
 
 	}
 
@@ -267,9 +267,9 @@ void DigiLed_update(uint8_t forceUpdate)
  * @brief get LED frame size
  * @return LED frame size
  */
-uint8_t DigiLed_getFrameSize(void)
+uint8_t DigiLedGetFrameSize(void)
 {
-	return LED_FRAME_SIZE;
+	return LEDFRAMESIZE;
 }
 /*-----------------------------------------------------------*/
 /**
@@ -277,30 +277,30 @@ uint8_t DigiLed_getFrameSize(void)
  * @param led led position
  * @return result of evaluation ad define.
  */
-uint8_t DigiLed_TestPosition(uint8_t led)
+uint8_t DigiLedTestPosition(uint8_t led)
 {
-	uint8_t returnValue = OUT_OF_RANGE;
-	if (led <= LED_FRAME_SIZE)
+	uint8_t returnValue = OUTOFRANGE;
+	if (led <= LEDFRAMESIZE)
 	{
-		returnValue = RANGE_OK;
+		returnValue = RANGEOK;
 	}
 	return returnValue;
 }
 /*-----------------------------------------------------------*/
 /**
- * Scroll - one row of one colour, the rest another colour, row moves down one for each update
+ * scroll - one row of one colour, the rest another colour, row moves down one for each update
  */
-void DigiLed_ScrollMode(uint8_t Base_Colour,uint8_t Scroll_Row,uint8_t intensity,uint8_t Scroll_Time)
+void DigiLedscrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint8_t scrollTime)
 {
 
-	DigiLed_SetAllColor(Base_Colour, intensity);
-	HAL_Delay(Scroll_Time);
+	DigiLedSetAllColor(baseColour, intensity);
+	HAL_Delay(scrollTime);
 	int led=1;
 	for (led=1;led<=64;)
 	{
-		DigiLed_SetAllColor(Base_Colour, intensity);
-		DigiLed_SetColor(led, Scroll_Row, intensity);
-		HAL_Delay(Scroll_Time);
+		DigiLedSetAllColor(baseColour, intensity);
+		DigiLedSetColor(led, scrollRow, intensity);
+		HAL_Delay(scrollTime);
 		led=led+8;
 	}
 
@@ -309,16 +309,16 @@ void DigiLed_ScrollMode(uint8_t Base_Colour,uint8_t Scroll_Row,uint8_t intensity
 /**
 * Flash - flash from one colour to another with user-settable flash times and intervals
  */
-void DigiLed_FlashMode(uint8_t Base_Colour,uint8_t flash_Colour,uint8_t intensity,uint8_t flash_Time,uint8_t Time_Between_Flash)
+void DigiLedFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint8_t flashTime,uint8_t timeBetweenFlash)
 {
 
-	DigiLed_SetAllColor(Base_Colour, intensity);
-	HAL_Delay(flash_Time);
-	DigiLed_SetAllLedOff();
-	HAL_Delay(Time_Between_Flash);
-	DigiLed_SetAllColor(flash_Colour, intensity);
-	HAL_Delay(flash_Time);
-	DigiLed_SetAllLedOff();
-	HAL_Delay(Time_Between_Flash);
+	DigiLedSetAllColor(baseColour, intensity);
+	HAL_Delay(flashTime);
+	DigiLedSetAllLedOff();
+	HAL_Delay(timeBetweenFlash);
+	DigiLedSetAllColor(flashColour, intensity);
+	HAL_Delay(flashTime);
+	DigiLedSetAllLedOff();
+	HAL_Delay(timeBetweenFlash);
 }
 /*-----------------------------------------------------------*/
