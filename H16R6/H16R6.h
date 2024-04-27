@@ -109,14 +109,6 @@
 
 #define NUM_MODULE_PARAMS	 1
 
-/* Module GPIO Pinout */
-
-
-/* Module Special I2C */
-
-
-/* Module special parameters */
-
 /* Module EEPROM Variables */
 // Module Addressing Space 500 - 599
 #define _EE_MODULE			500
@@ -132,8 +124,6 @@ typedef enum {
 	H16R6_ERR_WrongIntensity,
 	H16R6_ERROR =255
 } Module_Status;
-
-
 
 /* Export UART variables */
 extern UART_HandleTypeDef huart1;
@@ -159,16 +149,16 @@ extern void ExecuteMonitor(void);
  |								  APIs							          |  																 	|
 /* -----------------------------------------------------------------------
  */
-Module_Status LEDMatrix_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
-Module_Status LEDMatrix_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
-Module_Status LEDMatrix_SetColor(uint8_t led,uint8_t color ,uint8_t intensity);
-Module_Status LEDMatrix_SetAllColor(uint8_t color,uint8_t intensity);
-Module_Status LEDMatrix_SetLedOff(uint8_t led);
-Module_Status LEDMatrix_SetAllLedOff();
-Module_Status LEDMatrix_SetLedOn(uint8_t led,uint8_t intensity);
-Module_Status LEDMatrix_SetAllLedOn(uint8_t intensity);
-Module_Status LEDMatrix_ScrollMode(uint8_t Base_Colour,uint8_t Scroll_Row,uint8_t intensity,uint8_t Scroll_Time);
-Module_Status LEDMatrix_FlashMode(uint8_t Base_Colour,uint8_t flash_Colour,uint8_t intensity,uint8_t flash_Time,uint8_t Time_Between_Flash);
+Module_Status LEDMatrixSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
+Module_Status LEDMatrixSetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
+Module_Status LEDMatrixSetColor(uint8_t led,uint8_t color ,uint8_t intensity);
+Module_Status LEDMatrixSetAllColor(uint8_t color,uint8_t intensity);
+Module_Status LEDMatrixSetLedOff(uint8_t led);
+Module_Status LEDMatrixSetAllLedOff();
+Module_Status LEDMatrixSetLedOn(uint8_t led,uint8_t intensity);
+Module_Status LEDMatrixSetAllLedOn(uint8_t intensity);
+Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint8_t scrollTime);
+Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint8_t flashTime,uint8_t timeBetweenFlash);
 
 
 void SetupPortForRemoteBootloaderUpdate(uint8_t port);

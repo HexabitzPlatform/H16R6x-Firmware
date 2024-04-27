@@ -32,7 +32,7 @@ void DigiLedInit()
 		digitalLedframe[led-1].FieldsIn.GREEN = 0x00;
 		digitalLedframe[led-1].FieldsIn.RED = 0x00;
 	}
-	DigiLedupdate(FALSE); // Update frame buffer using the value of frameModified as set in initialiser.
+	DigiLedUpdate(FALSE); // Update frame buffer using the value of frameModified as set in initialiser.
 }
 /*-----------------------------------------------------------*/
 /**
@@ -83,7 +83,6 @@ uint32_t DigiLedSwitchColors(uint8_t Color)
 			rgb =0x4b0082;
 			break;
 		default:
-			rgb =0xFFFFFF;
 			break;
 	}
 	return rgb;
@@ -100,11 +99,11 @@ uint32_t DigiLedSwitchColors(uint8_t Color)
 void DigiLedSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
 	if (led<1) {led=1;}
-	if (DigiLedTestPosition(led) == RANGE_OK)
+	if (DigiLedTestPosition(led) == RANGEOK)
 	{
-	if (intensity>intensity_LED)
+	if (intensity>INTINSITYLED)
 	{
-		intensity=intensity_LED;
+		intensity=INTINSITYLED;
 	}
 		digitalLedframe[led-1].FieldsIn.INIT = 0x7; // Set MSB first 3 bits to identify start of LED packet
 		digitalLedframe[led-1].FieldsIn.GLOBAL = intensity; // Set led at maximum intensity 0x1F=31
@@ -142,11 +141,11 @@ void DigiLedSetColor(uint8_t led,uint8_t color ,uint8_t intensity)
 	uint32_t rgb=0x000000;
 	rgb=DigiLedSwitchColors(color);
 	if (led<1) {led=1;}
-	if (DigiLedTestPosition(led) == RANGE_OK)
+	if (DigiLedTestPosition(led) == RANGEOK)
 	{
-	if (intensity>intensity_LED)
+	if (intensity>INTINSITYLED)
 	{
-		intensity=intensity_LED;
+		intensity=INTINSITYLED;
 	}
 		digitalLedframe[led-1].FieldsIn.INIT = 0x7;
 		digitalLedframe[led-1].FieldsIn.GLOBAL = intensity;// Set led at maximum intensity 0x1F=31
@@ -177,7 +176,7 @@ void DigiLedSetAllColor(uint8_t color,uint8_t intensity)
 void DigiLedSetLedOff(uint8_t led)
 {
 	if (led<1) {led=1;}
-	if (DigiLedTestPosition(led) == RANGE_OK)
+	if (DigiLedTestPosition(led) == RANGEOK)
 	{
 		digitalLedframe[led-1].FieldsIn.GLOBAL = 0x00;
 	}
@@ -204,11 +203,11 @@ void DigiLedSetAllLedOff()
 void DigiLedSetLedOn(uint8_t led,uint8_t intensity)
 {
 	if (led<1) {led=1;}
-	if (intensity>intensity_LED)
+	if (intensity>INTINSITYLED)
 	{
-		intensity=intensity_LED;
+		intensity=INTINSITYLED;
 	}
-	if (DigiLedTestPosition(led) == RANGE_OK)
+	if (DigiLedTestPosition(led) == RANGEOK)
 	{
 		digitalLedframe[led-1].FieldsIn.GLOBAL = intensity;
 	}
@@ -232,7 +231,7 @@ void DigiLedSetAllLedOn(uint8_t intensity)
  * @brief update led string
  * @param set true to force update leds and false to update only when frame is modified
  */
-void DigiLedupdate(uint8_t forceUpdate)
+void DigiLedUpdate(uint8_t forceUpdate)
 {
 	if(frameModified | forceUpdate)
 	{
@@ -257,7 +256,7 @@ void DigiLedupdate(uint8_t forceUpdate)
 		SpiSendFrame[LEDSTARTFRAMESIZE + 4*LEDFRAMESIZE + i] = 0xFF;
 	}
 	// send spi frame with all led values
-	 SendSPI(LED_MATRIX_SPI_HANDLER, SpiSendFrame, sizeof(SpiSendFrame));
+	 SendSPI(LEDMATRIXSPIHANDLER, SpiSendFrame, sizeof(SpiSendFrame));
 
 	}
 
@@ -268,7 +267,7 @@ void DigiLedupdate(uint8_t forceUpdate)
  * @brief get LED frame size
  * @return LED frame size
  */
-uint8_t DigiLedgetFrameSize(void)
+uint8_t DigiLedGetFrameSize(void)
 {
 	return LEDFRAMESIZE;
 }
@@ -280,28 +279,28 @@ uint8_t DigiLedgetFrameSize(void)
  */
 uint8_t DigiLedTestPosition(uint8_t led)
 {
-	uint8_t returnValue = OUT_OF_RANGE;
+	uint8_t returnValue = OUTOFRANGE;
 	if (led <= LEDFRAMESIZE)
 	{
-		returnValue = RANGE_OK;
+		returnValue = RANGEOK;
 	}
 	return returnValue;
 }
 /*-----------------------------------------------------------*/
 /**
- * Scroll - one row of one colour, the rest another colour, row moves down one for each update
+ * scroll - one row of one colour, the rest another colour, row moves down one for each update
  */
-void DigiLedScrollMode(uint8_t Base_Colour,uint8_t Scroll_Row,uint8_t intensity,uint8_t Scroll_Time)
+void DigiLedscrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint8_t scrollTime)
 {
 
-	DigiLedSetAllColor(Base_Colour, intensity);
-	HAL_Delay(Scroll_Time);
+	DigiLedSetAllColor(baseColour, intensity);
+	HAL_Delay(scrollTime);
 	int led=1;
 	for (led=1;led<=64;)
 	{
-		DigiLedSetAllColor(Base_Colour, intensity);
-		DigiLedSetColor(led, Scroll_Row, intensity);
-		HAL_Delay(Scroll_Time);
+		DigiLedSetAllColor(baseColour, intensity);
+		DigiLedSetColor(led, scrollRow, intensity);
+		HAL_Delay(scrollTime);
 		led=led+8;
 	}
 
@@ -310,16 +309,16 @@ void DigiLedScrollMode(uint8_t Base_Colour,uint8_t Scroll_Row,uint8_t intensity,
 /**
 * Flash - flash from one colour to another with user-settable flash times and intervals
  */
-void DigiLedFlashMode(uint8_t Base_Colour,uint8_t flash_Colour,uint8_t intensity,uint8_t flash_Time,uint8_t Time_Between_Flash)
+void DigiLedFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint8_t flashTime,uint8_t timeBetweenFlash)
 {
 
-	DigiLedSetAllColor(Base_Colour, intensity);
-	HAL_Delay(flash_Time);
+	DigiLedSetAllColor(baseColour, intensity);
+	HAL_Delay(flashTime);
 	DigiLedSetAllLedOff();
-	HAL_Delay(Time_Between_Flash);
-	DigiLedSetAllColor(flash_Colour, intensity);
-	HAL_Delay(flash_Time);
+	HAL_Delay(timeBetweenFlash);
+	DigiLedSetAllColor(flashColour, intensity);
+	HAL_Delay(flashTime);
 	DigiLedSetAllLedOff();
-	HAL_Delay(Time_Between_Flash);
+	HAL_Delay(timeBetweenFlash);
 }
 /*-----------------------------------------------------------*/

@@ -28,8 +28,6 @@ extern FLASH_ProcessTypeDef pFlash;
 extern uint8_t numOfRecordedSnippets;
 
 /* Local functions */
-/* functions */
-
 
 /* Module exported parameters ------------------------------------------------*/
 module_param_t modParam[NUM_MODULE_PARAMS] ={{.paramPtr = NULL, .paramFormat =FMT_FLOAT, .paramName =""}};
@@ -51,7 +49,7 @@ portBASE_TYPE CLI_SetAllLedOffCommand(int8_t *pcWriteBuffer,size_t xWriteBufferL
 portBASE_TYPE CLI_SetLedOnCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
 portBASE_TYPE CLI_SetAllLedOnCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
 /*-----------------------------------------------------------*/
-/* CLI command structure : LEDMatrix_SetRGB */
+/* CLI command structure : LEDMatrixSetRGB */
 const CLI_Command_Definition_t CLI_SetRGBCommandDefinition ={
     (const int8_t* )"setrgb", /* The command string to type. */
     (const int8_t* )"setrgb:\r\n Set RGB LED (1st par.), red (2st par.), green (3nd par.), and blue (4rd par.) values (0-255) at a specific intensity (0-31%) (5th par.)\r\n\r\n",
@@ -59,7 +57,7 @@ const CLI_Command_Definition_t CLI_SetRGBCommandDefinition ={
     5 /* five parameters are expected. */
 };
 /*-----------------------------------------------------------*/
-/* CLI command structure : LEDMatrix_SetAllRGB */
+/* CLI command structure : LEDMatrixSetAllRGB */
 const CLI_Command_Definition_t CLI_SetAllRGBCommandDefinition ={
     (const int8_t* )"setallrgb", /* The command string to type. */
     (const int8_t* )"setallrgb:\r\n Set RGB  red (1st par.), green (2nd par.), and blue (3rd par.) values (0-255) at a specific intensity (0-31%) (4th par.)\r\n\r\n",
@@ -68,7 +66,7 @@ const CLI_Command_Definition_t CLI_SetAllRGBCommandDefinition ={
 };
 
 /*-----------------------------------------------------------*/
-/* CLI command structure : LEDMatrix_SetColor */
+/* CLI command structure : LEDMatrixSetColor */
 const CLI_Command_Definition_t CLI_SetColorCommandDefinition ={
     (const int8_t* )"setcolor", /* The command string to type. */
     (const int8_t* )"setcolor:\r\n Set RGB LED (1st par.),LED color (2st par.) at a specific intensity (0-31%) (3nd par.)\n\rRegistered colors are:\
@@ -78,7 +76,7 @@ const CLI_Command_Definition_t CLI_SetColorCommandDefinition ={
 };
 
 /*-----------------------------------------------------------*/
-/* CLI command structure : LEDMatrix_SetAllColor */
+/* CLI command structure : LEDMatrixSetAllColor */
 const CLI_Command_Definition_t CLI_SetAllColorCommandDefinition ={
     (const int8_t* )"setallcolor", /* The command string to type. */
     (const int8_t* )"setallcolor:\r\n Set LED color (1st par.) at a specific intensity (0-31%) (2nd par.)\n\rRegistered colors are:\
@@ -88,7 +86,7 @@ const CLI_Command_Definition_t CLI_SetAllColorCommandDefinition ={
 };
 
 /*-----------------------------------------------------------*/
-/* CLI command structure : LEDMatrix_SetLedOff */
+/* CLI command structure : LEDMatrixSetLedOff */
 const CLI_Command_Definition_t CLI_SetLedOffCommandDefinition ={
     (const int8_t* )"setledoff", /* The command string to type. */
     (const int8_t* )"setledoff:\r\n Set RGB LED off(1st par.)\r\n\r\n" ,
@@ -97,7 +95,7 @@ const CLI_Command_Definition_t CLI_SetLedOffCommandDefinition ={
 };
 
 /*-----------------------------------------------------------*/
-/* CLI command structure : LEDMatrix_SetAllLedOff */
+/* CLI command structure : LEDMatrixSetAllLedOff */
 const CLI_Command_Definition_t CLI_SetAllLedOffCommandDefinition ={
     (const int8_t* )"setallledoff", /* The command string to type. */
     (const int8_t* )"setallledoff:\r\n All LEDs off\r\n\r\n",
@@ -105,7 +103,7 @@ const CLI_Command_Definition_t CLI_SetAllLedOffCommandDefinition ={
     0 /* No parameters are expected. */
 };
 /*-----------------------------------------------------------*/
-/* CLI command structure : LEDMatrix_SetLedOn */
+/* CLI command structure : LEDMatrixSetLedOn */
 const CLI_Command_Definition_t CLI_SetLedOnCommandDefinition ={
     (const int8_t* )"setledon", /* The command string to type. */
     (const int8_t* )"setledon:\r\n Set RGB LED ON(1st par.),at a specific intensity (0-31%) (2th par.)\r\n\r\n",
@@ -114,7 +112,7 @@ const CLI_Command_Definition_t CLI_SetLedOnCommandDefinition ={
 };
 
 /*-----------------------------------------------------------*/
-/* CLI command structure : LEDMatrix_SetAllLedOn */
+/* CLI command structure : LEDMatrixSetAllLedOn */
 const CLI_Command_Definition_t CLI_SetAllLedOnCommandDefinition ={
     (const int8_t* )"setallledon", /* The command string to type. */
     (const int8_t* )"setallledon:\r\n Set All RGB LEDs ON at a specific intensity (0-31%) (1th par.)\r\n\r\n",
@@ -397,7 +395,7 @@ void Module_Peripheral_Init(void){
 	MX_USART6_UART_Init();
 	MX_GPIO_Init();
 	MX_SPI1_Init();
-	DigiLed_init();
+	DigiLedInit();
 
 	 //Circulating DMA Channels ON All Module
 	for (int i = 1; i <= NumOfPorts; i++) {
@@ -429,42 +427,42 @@ Module_Status Module_MessagingTask(uint16_t code,uint8_t port,uint8_t src,uint8_
 	switch(code){
 	case CODE_H16R6_SETRGB:
 	{
-		LEDMatrix_SetRGB(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3],cMessage[port-1][shift+4]);
+		LEDMatrixSetRGB(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3],cMessage[port-1][shift+4]);
 		break;
 	}
 	case CODE_H16R6_SETALLRGB:
 	{
-		LEDMatrix_SetAllRGB(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3]);
+		LEDMatrixSetAllRGB(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3]);
 		break;
 	}
 	case CODE_H16R6_SETCOLOR:
 	{
-		LEDMatrix_SetColor(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2]);
+		LEDMatrixSetColor(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2]);
 		break;
 	}
 	case CODE_H16R6_SETALLCOLOR:
 	{
-		LEDMatrix_SetAllColor(cMessage[port-1][shift],cMessage[port-1][shift+1]);
+		LEDMatrixSetAllColor(cMessage[port-1][shift],cMessage[port-1][shift+1]);
 		break;
 	}
 	case CODE_H16R6_SETLEDON:
 	{
-		LEDMatrix_SetLedOn(cMessage[port-1][shift],cMessage[port-1][shift+1]);
+		LEDMatrixSetLedOn(cMessage[port-1][shift],cMessage[port-1][shift+1]);
 		break;
 	}
 	case CODE_H16R6_SETALLLEDON:
 	{
-		LEDMatrix_SetAllLedOn(cMessage[port-1][shift]);
+		LEDMatrixSetAllLedOn(cMessage[port-1][shift]);
 		break;
 	}
 	case CODE_H16R6_SETLEDOFF:
 	{
-		LEDMatrix_SetLedOff(cMessage[port-1][shift]);
+		LEDMatrixSetLedOff(cMessage[port-1][shift]);
 		break;
 	}
 	case CODE_H16R6_SETALLLEDOFF:
 	{
-		LEDMatrix_SetAllLedOff();
+		LEDMatrixSetAllLedOff();
 		break;
 	}
 
@@ -475,6 +473,8 @@ Module_Status Module_MessagingTask(uint16_t code,uint8_t port,uint8_t src,uint8_
 	
 	return result;
 }
+/*-----------------------------------------------------------*/
+
 /* --- Get the port for a given UART. 
  */
 uint8_t GetPort(UART_HandleTypeDef *huart){
@@ -494,6 +494,7 @@ uint8_t GetPort(UART_HandleTypeDef *huart){
 	
 	return 0;
 }
+/*-----------------------------------------------------------*/
 
 /* --- Register this module CLI Commands
  */
@@ -530,12 +531,7 @@ void RegisterModuleCLICommands(void){
 //	}
 //
 //}
-
 /*-----------------------------------------------------------*/
-
-/* -----------------------------------------------------------------------
- |								  Local Function                          |
-/* -----------------------------------------------------------------------
 
 /* -----------------------------------------------------------------------
  |								  User Function
@@ -549,21 +545,21 @@ void RegisterModuleCLICommands(void){
  * @param blue intensity of the blue color from 0 to 255
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-Module_Status LEDMatrix_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
+Module_Status LEDMatrixSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	if (led >= LED_FRAME_SIZE||led==0)
+	if (led >= LEDFRAMESIZE||led==0)
 	{
 		Status = H16R6_ERR_WrongLedOutRange;
 		return Status;
 	}
-	if (intensity>=intensity_LED)
+	if (intensity>=INTINSITYLED)
 	{
 		Status = H16R6_ERR_WrongIntensity;
 		return Status;
 	}
-	DigiLed_SetRGB(led,red,green,blue,intensity);
-	DigiLed_update(1);
+	DigiLedSetRGB(led,red,green,blue,intensity);
+	DigiLedUpdate(1);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
@@ -574,16 +570,16 @@ Module_Status LEDMatrix_SetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t 
  * @param blue intensity of the blue color from 0 to 255
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-Module_Status LEDMatrix_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
+Module_Status LEDMatrixSetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	if (intensity>=intensity_LED)
+	if (intensity>=INTINSITYLED)
 	{
 		Status = H16R6_ERR_WrongIntensity;
 		return Status;
 	}
-	DigiLed_SetAllRGB(red, green, blue, intensity);
-	DigiLed_update(1);
+	DigiLedSetAllRGB(red, green, blue, intensity);
+	DigiLedUpdate(1);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
@@ -593,21 +589,21 @@ Module_Status LEDMatrix_SetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8
  * Set LED color from a predefined color list in "APA102_LedMatrix.h"
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-Module_Status LEDMatrix_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
+Module_Status LEDMatrixSetColor(uint8_t led,uint8_t color ,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	if (led >= LED_FRAME_SIZE||led==0)
+	if (led >= LEDFRAMESIZE||led==0)
 	{
 		Status = H16R6_ERR_WrongLedOutRange;
 		return Status;
 	}
-	if (intensity>=intensity_LED)
+	if (intensity>=INTINSITYLED)
 	{
 		Status = H16R6_ERR_WrongIntensity;
 		return Status;
 	}
-	DigiLed_SetColor(led, color, intensity);
-	DigiLed_update(1);
+	DigiLedSetColor(led, color, intensity);
+	DigiLedUpdate(1);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
@@ -616,16 +612,16 @@ Module_Status LEDMatrix_SetColor(uint8_t led,uint8_t color ,uint8_t intensity)
  * Set LED color from a predefined color list in "BOS.h"
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-Module_Status LEDMatrix_SetAllColor(uint8_t color,uint8_t intensity)
+Module_Status LEDMatrixSetAllColor(uint8_t color,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	if (intensity>=intensity_LED)
+	if (intensity>=INTINSITYLED)
 	{
 		Status = H16R6_ERR_WrongIntensity;
 		return Status;
 	}
-	DigiLed_SetAllColor(color, intensity);
-	DigiLed_update(1);
+	DigiLedSetAllColor(color, intensity);
+	DigiLedUpdate(1);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
@@ -633,27 +629,27 @@ Module_Status LEDMatrix_SetAllColor(uint8_t color,uint8_t intensity)
   * @switch a single led off  led>=1
  * @param led position of the led in the string to be switched off
  */
-Module_Status LEDMatrix_SetLedOff(uint8_t led)
+Module_Status LEDMatrixSetLedOff(uint8_t led)
 {
 	Module_Status Status = H16R6_OK;
-	if (led >= LED_FRAME_SIZE||led==0)
+	if (led >= LEDFRAMESIZE||led==0)
 	{
 		Status = H16R6_ERR_WrongLedOutRange;
 		return Status;
 	}
-	DigiLed_SetLedOff(led);
-	 DigiLed_update(1);
+	DigiLedSetLedOff(led);
+	 DigiLedUpdate(1);
 	 return Status;
 }
 /* -----------------------------------------------------------------------*/
 /*
  * @All leds off
  */
-Module_Status LEDMatrix_SetAllLedOff()
+Module_Status LEDMatrixSetAllLedOff()
 {
 	Module_Status Status = H16R6_OK;
-	DigiLed_SetAllLedOff();
-	DigiLed_update(1);
+	DigiLedSetAllLedOff();
+	DigiLedUpdate(1);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
@@ -663,21 +659,21 @@ Module_Status LEDMatrix_SetAllLedOff()
  * @param led position of the led in the string to be switched on led>=1
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-Module_Status LEDMatrix_SetLedOn(uint8_t led,uint8_t intensity)
+Module_Status LEDMatrixSetLedOn(uint8_t led,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	if (led >= LED_FRAME_SIZE||led==0)
+	if (led >= LEDFRAMESIZE||led==0)
 	{
 		Status = H16R6_ERR_WrongLedOutRange;
 		return Status;
 	}
-	if (intensity>=intensity_LED)
+	if (intensity>=INTINSITYLED)
 	{
 		Status = H16R6_ERR_WrongIntensity;
 		return Status;
 	}
-	DigiLed_SetLedOn(led, intensity);
-	DigiLed_update(1);
+	DigiLedSetLedOn(led, intensity);
+	DigiLedUpdate(1);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
@@ -686,36 +682,36 @@ Module_Status LEDMatrix_SetLedOn(uint8_t led,uint8_t intensity)
  * Using this function will preserve the active color settings for the led led>=1
  * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-Module_Status LEDMatrix_SetAllLedOn(uint8_t intensity)
+Module_Status LEDMatrixSetAllLedOn(uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	if (intensity>=intensity_LED)
+	if (intensity>=INTINSITYLED)
 	{
 		Status = H16R6_ERR_WrongIntensity;
 		return Status;
 	}
-	DigiLed_SetAllLedOn(intensity);
-	DigiLed_update(1);
+	DigiLedSetAllLedOn(intensity);
+	DigiLedUpdate(1);
 	return Status;
 }
 /*-----------------------------------------------------------*/
 /**
  * Scroll - one row of one colour, the rest another colour, row moves down one for each update
  */
-Module_Status LEDMatrix_ScrollMode(uint8_t Base_Colour,uint8_t Scroll_Row,uint8_t intensity,uint8_t Scroll_Time)
+Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint8_t scrollTime)
 {
 	Module_Status Status = H16R6_OK;
-	DigiLed_ScrollMode(Base_Colour, Scroll_Row, intensity, Scroll_Time);
+	DigiLedScrollMode(baseColour, scrollRow, intensity, scrollTime);
 	return Status;
 }
 /*-----------------------------------------------------------*/
 /**
 * Flash - flash from one colour to another with user-settable flash times and intervals
  */
-Module_Status LEDMatrix_FlashMode(uint8_t Base_Colour,uint8_t flash_Colour,uint8_t intensity,uint8_t flash_Time,uint8_t Time_Between_Flash)
+Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint8_t flashTime,uint8_t timeBetweenFlash)
 {
 	Module_Status Status = H16R6_OK;
-	DigiLed_FlashMode(Base_Colour, flash_Colour, intensity, flash_Time, Time_Between_Flash);
+	DigiLedFlashMode(baseColour, flashColour, intensity, flashTime, timeBetweenFlash);
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
@@ -761,7 +757,7 @@ portBASE_TYPE CLI_SetRGBCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,con
     pcParameterString5 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,5,&xParameterStringLength5);
     intensity =(uint8_t )atol((char* )pcParameterString5);
 
-    result =LEDMatrix_SetRGB(led,red,green,blue,intensity);
+    result =LEDMatrixSetRGB(led,red,green,blue,intensity);
 
     /* Respond to the command */
     if(result == H16R6_OK)
@@ -807,7 +803,7 @@ portBASE_TYPE CLI_SetAllRGBCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,
     pcParameterString4 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,4,&xParameterStringLength4);
     intensity =(uint8_t )atol((char* )pcParameterString4);
 
-    result =LEDMatrix_SetAllRGB(red,green,blue,intensity);
+    result =LEDMatrixSetAllRGB(red,green,blue,intensity);
 
     /* Respond to the command */
     if(result == H16R6_OK)
@@ -876,7 +872,7 @@ portBASE_TYPE CLI_SetColorCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,c
     intensity =(uint8_t )atol((char* )pcParameterString3);
 
 
-    result =LEDMatrix_SetColor(led,color,intensity);
+    result =LEDMatrixSetColor(led,color,intensity);
 
     /* Respond to the command */
     if(result == H16R6_OK)
@@ -942,7 +938,7 @@ portBASE_TYPE CLI_SetAllColorCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLe
     pcParameterString2 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,2,&xParameterStringLength2);
     intensity =(uint8_t )atol((char* )pcParameterString2);
 
-    result =LEDMatrix_SetAllColor(color,intensity);
+    result =LEDMatrixSetAllColor(color,intensity);
 
     /* Respond to the command */
     if(result == H16R6_OK)
@@ -977,7 +973,7 @@ portBASE_TYPE CLI_SetLedOffCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,
     led =(uint8_t )atol((char* )pcParameterString1);
 
 
-    result =LEDMatrix_SetLedOff(led);
+    result =LEDMatrixSetLedOff(led);
 
     /* Respond to the command */
     if(result == H16R6_OK)
@@ -999,7 +995,7 @@ portBASE_TYPE CLI_SetAllLedOffCommand(int8_t *pcWriteBuffer,size_t xWriteBufferL
     (void )xWriteBufferLen;
     configASSERT(pcWriteBuffer);
 
-    result =LEDMatrix_SetAllLedOff();
+    result =LEDMatrixSetAllLedOff();
 
     /* Respond to the command */
     if(result == H16R6_OK)
@@ -1033,7 +1029,7 @@ portBASE_TYPE CLI_SetLedOnCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,c
     pcParameterString2 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,2,&xParameterStringLength2);
     intensity =(uint8_t )atol((char* )pcParameterString2);
 
-    result =LEDMatrix_SetLedOn(led,intensity);
+    result =LEDMatrixSetLedOn(led,intensity);
 
     /* Respond to the command */
     if(result == H16R6_OK)
@@ -1065,7 +1061,7 @@ portBASE_TYPE CLI_SetAllLedOnCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLe
     pcParameterString1 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,1,&xParameterStringLength1);
     intensity =(uint8_t )atol((char* )pcParameterString1);
 
-    result =LEDMatrix_SetAllLedOn(intensity);
+    result =LEDMatrixSetAllLedOn(intensity);
 
     /* Respond to the command */
     if(result == H16R6_OK)
