@@ -1,22 +1,15 @@
-/* USER CODE BEGIN Header */
-/**
-  ******************************************************************************
-  * @file    spi.c
-  * @brief   This file provides code for the configuration
-  *          of the SPI instances.
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2024 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
-/* USER CODE END Header */
+/*
+ BitzOS (BOS) V0.3.3 - Copyright (C) 2017-2024 Hexabitz
+ All rights reserved
+
+ File Name     : spi.c
+ Description   : This file provides code for the configuration
+                 of the SPI instances.
+
+ */
+
+
+
 /* Includes ------------------------------------------------------------------*/
 #include "BOS.h"
 #include "H16R6_spi.h"

@@ -1,15 +1,12 @@
 /*
- * APA102_LedMatrix.h
- * Description: APA102 Led Matrix Header file
- * Created on: April 17, 2024
- * Author: Mohamad Khatib @ Hexabitz
- ******************************************************************************
- * @attention: this driver requires to set up SPI
- *
- * Copyright (c) 2024 Hexabitz.
- * All rights reserved.
- *
- ******************************************************************************
+ BitzOS (BOS) V0.3.3 - Copyright (C) 2017-2024 Hexabitz
+ All rights reserved
+
+ File Name     : APA102_LedMatrix.h
+ Description   : APA102 Led Matrix Header file
+
+@attention: this driver requires to set up SPI
+
  */
 
 #ifndef APA102_LEDMATRIX_H_

@@ -1,15 +1,12 @@
 /*
- * APA102_LedMatrix.c
- * Description:APA102 Led Matrix  Source file
- * Created on: April 17, 2024
- * Author: Mohamad Khatib @ Hexabitz
-******************************************************************************
- * @attention: this driver requires to set up SPI
- *
- * Copyright (c) 2024 Hexabitz.
- * All rights reserved.
- *
- ******************************************************************************
+ BitzOS (BOS) V0.3.3 - Copyright (C) 2017-2024 Hexabitz
+ All rights reserved
+
+ File Name     : APA102_LedMatrix.c
+ Description   : APA102 Led Matrix  Source file
+
+@attention: this driver requires to set up SPI
+
  */
 
 #include "APA102_LedMatrix.h"
