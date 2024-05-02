@@ -1,5 +1,5 @@
 /*
- BitzOS (BOS) V0.3.2 - Copyright (C) 2017-2024 Hexabitz
+ BitzOS (BOS) V0.3.3 - Copyright (C) 2017-2024 Hexabitz
  All rights reserved
  
  File Name     : H16R6.h
@@ -25,11 +25,14 @@
 #include "H16R6_dma.h"
 #include "H16R6_inputs.h"
 #include "H16R6_eeprom.h"
+#include "H16R6_spi.h"
+#include "APA102_LedMatrix.h"
 
 /* Exported definitions -------------------------------------------------------*/
 
 #define	modulePN		_H16R6
 
+#define	NumOfModuleLedMatrix	    1
 
 /* Port-related definitions */
 #define	NumOfPorts			6
@@ -48,25 +51,25 @@
 #define _Usart1 1
 #define _Usart2 1
 #define _Usart3 1
-//#define _Usart4	1
+#define _Usart4	1
 #define _Usart5 1
 #define _Usart6	1
 
 /* Port-UART mapping */
 
-#define P1uart &huart5
+#define P1uart &huart4
 #define P2uart &huart2
-#define P3uart &huart6
-#define P4uart &huart3
+#define P3uart &huart3
+#define P4uart &huart5
 #define P5uart &huart1
-#define P6uart &huart4
+#define P6uart &huart6
 
 /* Port Definitions */
-#define	USART1_TX_PIN		GPIO_PIN_9
-#define	USART1_RX_PIN		GPIO_PIN_10
-#define	USART1_TX_PORT		GPIOA
-#define	USART1_RX_PORT		GPIOA
-#define	USART1_AF			GPIO_AF1_USART1
+#define	USART1_TX_PIN		GPIO_PIN_6
+#define	USART1_RX_PIN		GPIO_PIN_7
+#define	USART1_TX_PORT		GPIOB
+#define	USART1_RX_PORT		GPIOB
+#define	USART1_AF			GPIO_AF0_USART1
 
 #define	USART2_TX_PIN		GPIO_PIN_2
 #define	USART2_RX_PIN		GPIO_PIN_3
@@ -92,27 +95,19 @@
 #define	USART5_RX_PORT		GPIOD
 #define	USART5_AF			GPIO_AF3_USART5
 
-#define	USART6_TX_PIN		GPIO_PIN_4
-#define	USART6_RX_PIN		GPIO_PIN_5
-#define	USART6_TX_PORT		GPIOA
-#define	USART6_RX_PORT		GPIOA
-#define	USART6_AF			GPIO_AF3_USART6
+#define	USART6_TX_PIN		GPIO_PIN_8
+#define	USART6_RX_PIN		GPIO_PIN_9
+#define	USART6_TX_PORT		GPIOB
+#define	USART6_RX_PORT		GPIOB
+#define	USART6_AF			GPIO_AF8_USART6
 
 /* Module-specific Definitions */
 
 /* Indicator LED */
-#define _IND_LED_PORT		 GPIOB
-#define _IND_LED_PIN		 GPIO_PIN_15
+#define _IND_LED_PORT		 GPIOC
+#define _IND_LED_PIN		 GPIO_PIN_13
 
 #define NUM_MODULE_PARAMS	 1
-
-/* Module GPIO Pinout */
-
-
-/* Module Special I2C */
-
-
-/* Module special parameters */
 
 /* Module EEPROM Variables */
 // Module Addressing Space 500 - 599
@@ -124,10 +119,11 @@ typedef enum {
 	H16R6_OK =0,
 	H16R6_ERR_UnknownMessage,
 	H16R6_ERR_WrongParams,
+	H16R6_ERR_WrongColor,
+	H16R6_ERR_WrongLedOutRange,
+	H16R6_ERR_WrongIntensity,
 	H16R6_ERROR =255
 } Module_Status;
-
-
 
 /* Export UART variables */
 extern UART_HandleTypeDef huart1;
@@ -153,6 +149,17 @@ extern void ExecuteMonitor(void);
  |								  APIs							          |  																 	|
 /* -----------------------------------------------------------------------
  */
+Module_Status LEDMatrixSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
+Module_Status LEDMatrixSetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
+Module_Status LEDMatrixSetColor(uint8_t led,uint8_t color ,uint8_t intensity);
+Module_Status LEDMatrixSetAllColor(uint8_t color,uint8_t intensity);
+Module_Status LEDMatrixSetLedOff(uint8_t led);
+Module_Status LEDMatrixSetAllLedOff();
+Module_Status LEDMatrixSetLedOn(uint8_t led,uint8_t intensity);
+Module_Status LEDMatrixSetAllLedOn(uint8_t intensity);
+Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint8_t scrollTime);
+Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint8_t flashTime,uint8_t timeBetweenFlash);
+
 
 void SetupPortForRemoteBootloaderUpdate(uint8_t port);
 void remoteBootloaderUpdate(uint8_t src,uint8_t dst,uint8_t inport,uint8_t outport);
@@ -162,6 +169,15 @@ void remoteBootloaderUpdate(uint8_t src,uint8_t dst,uint8_t inport,uint8_t outpo
  |								Commands							      |															 	|
 /* -----------------------------------------------------------------------
  */
+extern const CLI_Command_Definition_t CLI_SetRGBCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetAllRGBCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetColorCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetAllColorCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetLedOffCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetAllLedOffCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetLedOnCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetAllLedOnCommandDefinition;
+
 
 #endif /* H16R6_H */
 

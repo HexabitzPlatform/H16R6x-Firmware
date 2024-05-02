@@ -119,6 +119,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/BOS/FreeRTOSConfig.h</locationURI>
 		</link>
 		<link>
+			<name>H16R6/APA102_LedMatrix.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/H16R6/APA102_LedMatrix.c</locationURI>
+		</link>
+		<link>
+			<name>H16R6/APA102_LedMatrix.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/H16R6/APA102_LedMatrix.h</locationURI>
+		</link>
+		<link>
 			<name>H16R6/H16R6.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/H16R6/H16R6.c</locationURI>
@@ -182,6 +192,16 @@
 			<name>H16R6/H16R6_rtc.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/H16R6/H16R6_rtc.c</locationURI>
+		</link>
+		<link>
+			<name>H16R6/H16R6_spi.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/H16R6/H16R6_spi.c</locationURI>
+		</link>
+		<link>
+			<name>H16R6/H16R6_spi.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/H16R6/H16R6_spi.h</locationURI>
 		</link>
 		<link>
 			<name>H16R6/H16R6_timers.c</name>
