@@ -1,0 +1,15 @@
+..\..\H16R6\APA102_LedMatrix.c:20:6:DigiLedInit	2
+..\..\H16R6\APA102_LedMatrix.c:38:10:DigiLedSwitchColors	15
+..\..\H16R6\APA102_LedMatrix.c:96:6:DigiLedSetRGB	4
+..\..\H16R6\APA102_LedMatrix.c:121:6:DigiLedSetAllRGB	2
+..\..\H16R6\APA102_LedMatrix.c:136:6:DigiLedSetColor	4
+..\..\H16R6\APA102_LedMatrix.c:161:6:DigiLedSetAllColor	2
+..\..\H16R6\APA102_LedMatrix.c:173:6:DigiLedSetLedOff	3
+..\..\H16R6\APA102_LedMatrix.c:186:6:DigiLedSetAllLedOff	2
+..\..\H16R6\APA102_LedMatrix.c:200:6:DigiLedSetLedOn	4
+..\..\H16R6\APA102_LedMatrix.c:219:6:DigiLedSetAllLedOn	2
+..\..\H16R6\APA102_LedMatrix.c:231:6:DigiLedUpdate	5
+..\..\H16R6\APA102_LedMatrix.c:267:9:DigiLedGetFrameSize	1
+..\..\H16R6\APA102_LedMatrix.c:277:9:DigiLedTestPosition	2
+..\..\H16R6\APA102_LedMatrix.c:290:6:DigiLedscrollMode	2
+..\..\H16R6\APA102_LedMatrix.c:309:6:DigiLedFlashMode	1
