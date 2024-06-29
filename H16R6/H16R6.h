@@ -157,8 +157,8 @@ Module_Status LEDMatrixSetLedOff(uint8_t led);
 Module_Status LEDMatrixSetAllLedOff();
 Module_Status LEDMatrixSetLedOn(uint8_t led,uint8_t intensity);
 Module_Status LEDMatrixSetAllLedOn(uint8_t intensity);
-Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint8_t scrollTime);
-Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint8_t flashTime,uint8_t timeBetweenFlash);
+Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint16_t scrollTime);
+Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint16_t flashTime,uint16_t timeBetweenFlash);
 
 
 void SetupPortForRemoteBootloaderUpdate(uint8_t port);

@@ -697,8 +697,12 @@ Module_Status LEDMatrixSetAllLedOn(uint8_t intensity)
 /*-----------------------------------------------------------*/
 /**
  * Scroll - one row of one colour, the rest another colour, row moves down one for each update
+ *  @param baseColour Basic color
+ *  @param scrollRow Secondary color
+ *  @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ *  @param scrollTime Secondary color retention time  value in millisecond.
  */
-Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint8_t scrollTime)
+Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint16_t scrollTime)
 {
 	Module_Status Status = H16R6_OK;
 	DigiLedScrollMode(baseColour, scrollRow, intensity, scrollTime);
@@ -706,9 +710,14 @@ Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t i
 }
 /*-----------------------------------------------------------*/
 /**
-* Flash - flash from one colour to another with user-settable flash times and intervals
+ * Flash - flash from one colour to another with user-settable flash times and intervals
+ * @param baseColour  Basic color
+ * @param flashColour Secondary color
+ * @param intensity   intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ * @param flashTime   Color display time value in millisecond.
+ * @param timeBetweenFlash  The time between the display of the two colors value in millisecond.
  */
-Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint8_t flashTime,uint8_t timeBetweenFlash)
+Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint16_t flashTime,uint16_t timeBetweenFlash)
 {
 	Module_Status Status = H16R6_OK;
 	DigiLedFlashMode(baseColour, flashColour, intensity, flashTime, timeBetweenFlash);
