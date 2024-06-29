@@ -98,34 +98,9 @@ int main(void)
 
     /* USER CODE END WHILE */
 	      /* USER CODE BEGIN 3 */
-	  DigiLedSetRGB(1, 90,80,40,6);
-	  DigiLedSetRGB(4, 255,0,0,7);
-	  DigiLedUpdate(1);
-	  HAL_Delay(1000);
-	  DigiLedSetLedOff(0);
-	  DigiLedUpdate(1);
-	  HAL_Delay(1000);
-	  DigiLedSetLedOn(1, 20);
-	  DigiLedUpdate(1);
-	  HAL_Delay(1000);
-	  DigiLedSetAllRGB(255,185,15,12);
-	  DigiLedUpdate(1);
-	  HAL_Delay(1000);
-	  DigiLedSetAllLedOff();
-	  DigiLedUpdate(1);
-	  HAL_Delay(1000);
-	  DigiLedSetAllLedOn(30);
-	  DigiLedUpdate(1);
-	  HAL_Delay(1000);
-	  DigiLedSetColor(1,AQUA,20);
-	  DigiLedUpdate(1);
-	  HAL_Delay(1000);
-	  DigiLedSetAllColor(INDIGO, 5);
-	  DigiLedUpdate(1);
-	  HAL_Delay(1000);
-	  DigiLedSetAllLedOff();
-	  DigiLedUpdate(1);
-	  HAL_Delay(1000);
+
+	  	DigiLedFlashMode(LIGHTBLUE, RED, 1, 200,200);
+	  DigiLedScrollMode(MAGENTA, AQUA, 1, 200);
   }
   /* USER CODE END 3 */
 }
