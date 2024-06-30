@@ -177,7 +177,8 @@ extern const CLI_Command_Definition_t CLI_SetLedOffCommandDefinition;
 extern const CLI_Command_Definition_t CLI_SetAllLedOffCommandDefinition;
 extern const CLI_Command_Definition_t CLI_SetLedOnCommandDefinition;
 extern const CLI_Command_Definition_t CLI_SetAllLedOnCommandDefinition;
-
+extern const CLI_Command_Definition_t CLI_ScrollModeCommandDefinition;
+extern const CLI_Command_Definition_t CLI_FlashModeCommandDefinition;
 
 #endif /* H16R6_H */
 
