@@ -465,6 +465,22 @@ Module_Status Module_MessagingTask(uint16_t code,uint8_t port,uint8_t src,uint8_
 		LEDMatrixSetAllLedOff();
 		break;
 	}
+	case CODE_H16R6_ScrollMode:
+	{
+		uint16_t scrollTime=0;
+		memcpy(&scrollTime,&cMessage[port-1][shift+3],2);
+		LEDMatrixScrollMode(cMessage[port-1][shift], cMessage[port-1][shift+1], cMessage[port-1][shift+2], scrollTime);
+		break;
+	}
+	case CODE_H16R6_FlashMode:
+	{
+		uint16_t flashTime=0;
+		uint16_t timeBetweenFlash=0;
+		memcpy(&flashTime,&cMessage[port-1][shift+3],2);
+		memcpy(&timeBetweenFlash,&cMessage[port-1][shift+5],2);
+		LEDMatrixFlashMode(cMessage[port-1][shift], cMessage[port-1][shift+1], cMessage[port-1][shift+2], flashTime, timeBetweenFlash);
+		break;
+	}
 
 		default:
 		result =H16R6_ERR_UnknownMessage;

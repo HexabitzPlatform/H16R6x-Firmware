@@ -29,10 +29,10 @@ void UserTask(void *argument){
 
 	// put your code here, to run repeatedly.
 	while(1){
-    LEDMatrixScrollMode(AQUA, RED, 1, 500);
-    Delay_ms(1000);
-    LEDMatrixFlashMode(GREEN, PURPLE, 1, 1000, 1000);
-    Delay_ms(1000);
+//    LEDMatrixScrollMode(AQUA, RED, 1, 500);
+//    Delay_ms(1000);
+//    LEDMatrixFlashMode(GREEN, PURPLE, 1, 1000, 1000);
+//    Delay_ms(1000);
 
 	}
 }
