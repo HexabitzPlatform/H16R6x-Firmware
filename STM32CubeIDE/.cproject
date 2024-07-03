@@ -114,11 +114,11 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
-		<configuration configurationName="H16R6x"/>
 		<configuration configurationName="Module2"/>
 		<configuration configurationName="Module 1">
 			<resource resourceType="PROJECT" workspacePath="/H16R6x"/>
 		</configuration>
+		<configuration configurationName="H16R6x"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets/>

@@ -1,5 +1,5 @@
 /*
- BitzOS (BOS) V0.3.4 - Copyright (C) 2017-2024 Hexabitz
+ BitzOS (BOS) V0.3.5 - Copyright (C) 2017-2024 Hexabitz
  All rights reserved
  
  File Name     : H16R6.h
@@ -157,8 +157,8 @@ Module_Status LEDMatrixSetLedOff(uint8_t led);
 Module_Status LEDMatrixSetAllLedOff();
 Module_Status LEDMatrixSetLedOn(uint8_t led,uint8_t intensity);
 Module_Status LEDMatrixSetAllLedOn(uint8_t intensity);
-Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint8_t scrollTime);
-Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint8_t flashTime,uint8_t timeBetweenFlash);
+Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint16_t scrollTime);
+Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint16_t flashTime,uint16_t timeBetweenFlash);
 
 
 void SetupPortForRemoteBootloaderUpdate(uint8_t port);
@@ -177,7 +177,8 @@ extern const CLI_Command_Definition_t CLI_SetLedOffCommandDefinition;
 extern const CLI_Command_Definition_t CLI_SetAllLedOffCommandDefinition;
 extern const CLI_Command_Definition_t CLI_SetLedOnCommandDefinition;
 extern const CLI_Command_Definition_t CLI_SetAllLedOnCommandDefinition;
-
+extern const CLI_Command_Definition_t CLI_ScrollModeCommandDefinition;
+extern const CLI_Command_Definition_t CLI_FlashModeCommandDefinition;
 
 #endif /* H16R6_H */
 

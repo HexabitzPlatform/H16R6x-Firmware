@@ -1,5 +1,5 @@
 /*
- BitzOS (BOS) V0.3.4 - Copyright (C) 2017-2024 Hexabitz
+ BitzOS (BOS) V0.3.5 - Copyright (C) 2017-2024 Hexabitz
  All rights reserved
 
  File Name     : H16R6.c
@@ -48,6 +48,9 @@ portBASE_TYPE CLI_SetLedOffCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,
 portBASE_TYPE CLI_SetAllLedOffCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
 portBASE_TYPE CLI_SetLedOnCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
 portBASE_TYPE CLI_SetAllLedOnCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
+portBASE_TYPE CLI_ScrollModeCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
+portBASE_TYPE CLI_FlashModeCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
+
 /*-----------------------------------------------------------*/
 /* CLI command structure : LEDMatrixSetRGB */
 const CLI_Command_Definition_t CLI_SetRGBCommandDefinition ={
@@ -120,7 +123,25 @@ const CLI_Command_Definition_t CLI_SetAllLedOnCommandDefinition ={
     1 /* One parameters are expected. */
 };
 /*-----------------------------------------------------------*/
+/* CLI command structure : LEDMatrixSetLedOn */
+const CLI_Command_Definition_t CLI_ScrollModeCommandDefinition ={
+    (const int8_t* )"scrollmode", /* The command string to type. */
+    (const int8_t* )"scrollmode:\r\n Set scrollmode  Basic color (1st par.) Secondary color(2st par.) at a specific intensity (0-31%) (3nd par.) scrollTime(4nd par.) \n\rRegistered colors are:\
+					\r\nblack, white, red, blue, green, yellow, cyan, magenta ,aqua,purple,lightblue,orange and indigo, \r\n\r\n",
+	CLI_ScrollModeCommand, /* The function to ScrollMode. */
+    4 /* four parameters are expected. */
+};
 
+/*-----------------------------------------------------------*/
+/* CLI command structure : LEDMatrixSetAllLedOn */
+const CLI_Command_Definition_t CLI_FlashModeCommandDefinition ={
+    (const int8_t* )"flashmode", /* The command string to type. */
+    (const int8_t* )"flashmode:\r\n Set flashmode  Basic color (1st par.) Secondary color(2st par.) at a specific intensity (0-31%) (3nd par.) flashTime(4nd par.)  timeBetweenFlash(5nd par.) \n\rRegistered colors are:\
+					\r\nblack, white, red, blue, green, yellow, cyan, magenta ,aqua,purple,lightblue,orange and indigo, \r\n\r\n",
+	CLI_FlashModeCommand, /* The function to FlashMode. */
+    5 /* five parameters are expected. */
+};
+/*
 
 /* ---------------------------------------------------------------------
  |							 Private Functions	                	   |
@@ -465,6 +486,22 @@ Module_Status Module_MessagingTask(uint16_t code,uint8_t port,uint8_t src,uint8_
 		LEDMatrixSetAllLedOff();
 		break;
 	}
+	case CODE_H16R6_ScrollMode:
+	{
+		uint16_t scrollTime=0;
+		memcpy(&scrollTime,&cMessage[port-1][shift+3],2);
+		LEDMatrixScrollMode(cMessage[port-1][shift], cMessage[port-1][shift+1], cMessage[port-1][shift+2], scrollTime);
+		break;
+	}
+	case CODE_H16R6_FlashMode:
+	{
+		uint16_t flashTime=0;
+		uint16_t timeBetweenFlash=0;
+		memcpy(&flashTime,&cMessage[port-1][shift+3],2);
+		memcpy(&timeBetweenFlash,&cMessage[port-1][shift+5],2);
+		LEDMatrixFlashMode(cMessage[port-1][shift], cMessage[port-1][shift+1], cMessage[port-1][shift+2], flashTime, timeBetweenFlash);
+		break;
+	}
 
 		default:
 		result =H16R6_ERR_UnknownMessage;
@@ -507,6 +544,8 @@ void RegisterModuleCLICommands(void){
     FreeRTOS_CLIRegisterCommand(&CLI_SetAllLedOffCommandDefinition);
     FreeRTOS_CLIRegisterCommand(&CLI_SetLedOnCommandDefinition);
     FreeRTOS_CLIRegisterCommand(&CLI_SetAllLedOnCommandDefinition);
+    FreeRTOS_CLIRegisterCommand(&CLI_ScrollModeCommandDefinition);
+    FreeRTOS_CLIRegisterCommand(&CLI_FlashModeCommandDefinition);
 
 }
 
@@ -697,8 +736,12 @@ Module_Status LEDMatrixSetAllLedOn(uint8_t intensity)
 /*-----------------------------------------------------------*/
 /**
  * Scroll - one row of one colour, the rest another colour, row moves down one for each update
+ *  @param baseColour Basic color
+ *  @param scrollRow Secondary color
+ *  @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ *  @param scrollTime Secondary color retention time  value in millisecond.
  */
-Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint8_t scrollTime)
+Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint16_t scrollTime)
 {
 	Module_Status Status = H16R6_OK;
 	DigiLedScrollMode(baseColour, scrollRow, intensity, scrollTime);
@@ -706,9 +749,14 @@ Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t i
 }
 /*-----------------------------------------------------------*/
 /**
-* Flash - flash from one colour to another with user-settable flash times and intervals
+ * Flash - flash from one colour to another with user-settable flash times and intervals
+ * @param baseColour  Basic color
+ * @param flashColour Secondary color
+ * @param intensity   intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ * @param flashTime   Color display time value in millisecond.
+ * @param timeBetweenFlash  The time between the display of the two colors value in millisecond.
  */
-Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint8_t flashTime,uint8_t timeBetweenFlash)
+Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint16_t flashTime,uint16_t timeBetweenFlash)
 {
 	Module_Status Status = H16R6_OK;
 	DigiLedFlashMode(baseColour, flashColour, intensity, flashTime, timeBetweenFlash);
@@ -1074,6 +1122,215 @@ portBASE_TYPE CLI_SetAllLedOnCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLe
     return pdFALSE;
 }
 
+/*-----------------------------------------------------------*/
+portBASE_TYPE CLI_ScrollModeCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString){
+    Module_Status result =H16R6_OK;
+    uint8_t baseColour =0;
+    uint8_t scrollRow =0;
+    uint8_t intensity =0;
+    uint16_t scrollTime;
+    char par[2][15] ={0};
+    static int8_t *pcParameterString1, *pcParameterString2, *pcParameterString3, *pcParameterString4;
+    portBASE_TYPE xParameterStringLength1 =0, xParameterStringLength2 =0, xParameterStringLength3 =0, xParameterStringLength4 =0;
+
+    static const int8_t *pcOKMessage =(int8_t* )"ScrollMode:baseColour is %s and scrollRow is %s and intensity %d %% and scrollTime is %d \n\r";
+    static const int8_t *pcWrongIntensityMessage =(int8_t* )"Wrong intensity!\n\r";
+
+
+    (void )xWriteBufferLen;
+    configASSERT(pcWriteBuffer);
+
+    /* Obtain the 1st parameter string. */
+    pcParameterString1 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,1,&xParameterStringLength1);
+    /* Read the color value. */
+    	if(!strncmp((const char* )pcParameterString1,"black",xParameterStringLength1))
+    		baseColour =BLACK;
+    	else if(!strncmp((const char* )pcParameterString1,"white",xParameterStringLength1))
+    		baseColour =WHITE;
+    	else if(!strncmp((const char* )pcParameterString1,"red",xParameterStringLength1))
+    		baseColour =RED;
+    	else if(!strncmp((const char* )pcParameterString1,"blue",xParameterStringLength1))
+    		baseColour =BLUE;
+    	else if(!strncmp((const char* )pcParameterString1,"yellow",xParameterStringLength1))
+    		baseColour =YELLOW;
+    	else if(!strncmp((const char* )pcParameterString1,"cyan",xParameterStringLength1))
+    		baseColour =CYAN;
+    	else if(!strncmp((const char* )pcParameterString1,"magenta",xParameterStringLength1))
+    		baseColour =MAGENTA;
+    	else if(!strncmp((const char* )pcParameterString1,"green",xParameterStringLength1))
+    		baseColour =GREEN;
+    	else if(!strncmp((const char* )pcParameterString1,"aqua",xParameterStringLength1))
+    		baseColour =AQUA;
+    	else if(!strncmp((const char* )pcParameterString1,"purple",xParameterStringLength1))
+    		baseColour =PURPLE;
+    	else if(!strncmp((const char* )pcParameterString1,"lightblue",xParameterStringLength1))
+    		baseColour =LIGHTBLUE;
+    	else if(!strncmp((const char* )pcParameterString1,"orange",xParameterStringLength1))
+    		baseColour =ORANGE;
+    	else if(!strncmp((const char* )pcParameterString1,"indigo",xParameterStringLength1))
+    		baseColour =INDIGO;
+    	/* Obtain the 2st parameter string. */
+    	    pcParameterString2 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,2,&xParameterStringLength2);
+    	    /* Read the color value. */
+    	    	if(!strncmp((const char* )pcParameterString2,"black",xParameterStringLength2))
+    	    		scrollRow =BLACK;
+    	    	else if(!strncmp((const char* )pcParameterString2,"white",xParameterStringLength2))
+    	    		scrollRow =WHITE;
+    	    	else if(!strncmp((const char* )pcParameterString2,"red",xParameterStringLength2))
+    	    		scrollRow =RED;
+    	    	else if(!strncmp((const char* )pcParameterString2,"blue",xParameterStringLength2))
+    	    		scrollRow =BLUE;
+    	    	else if(!strncmp((const char* )pcParameterString2,"yellow",xParameterStringLength2))
+    	    		scrollRow =YELLOW;
+    	    	else if(!strncmp((const char* )pcParameterString2,"cyan",xParameterStringLength2))
+    	    		scrollRow =CYAN;
+    	    	else if(!strncmp((const char* )pcParameterString2,"magenta",xParameterStringLength2))
+    	    		scrollRow =MAGENTA;
+    	    	else if(!strncmp((const char* )pcParameterString2,"green",xParameterStringLength2))
+    	    		scrollRow =GREEN;
+    	    	else if(!strncmp((const char* )pcParameterString2,"aqua",xParameterStringLength2))
+    	    		scrollRow =AQUA;
+    	    	else if(!strncmp((const char* )pcParameterString2,"purple",xParameterStringLength2))
+    	    		scrollRow =PURPLE;
+    	    	else if(!strncmp((const char* )pcParameterString2,"lightblue",xParameterStringLength2))
+    	    		scrollRow =LIGHTBLUE;
+    	    	else if(!strncmp((const char* )pcParameterString2,"orange",xParameterStringLength2))
+    	    		scrollRow =ORANGE;
+    	    	else if(!strncmp((const char* )pcParameterString2,"indigo",xParameterStringLength2))
+    	    		scrollRow =INDIGO;
+    /* Obtain the 3st parameter string. */
+    pcParameterString3 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,3,&xParameterStringLength3);
+    intensity =(uint8_t )atol((char* )pcParameterString3);
+
+    /* Obtain the 4st parameter string. */
+       pcParameterString4 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,4,&xParameterStringLength4);
+       scrollTime =(uint16_t )atol((char* )pcParameterString4);
+
+    result =LEDMatrixScrollMode(baseColour, scrollRow, intensity, scrollTime);
+
+    /* Respond to the command */
+    if(result == H16R6_OK)
+    {
+		strncpy(par[0],(char* )pcParameterString1,xParameterStringLength1);
+		strncpy(par[1],(char* )pcParameterString2,xParameterStringLength2);
+
+    	sprintf((char* )pcWriteBuffer,(char* )pcOKMessage,par[0],par[1], intensity, scrollTime);
+    }
+    else if(result == H16R6_ERR_WrongIntensity)
+        strcpy((char* )pcWriteBuffer,(char* )pcWrongIntensityMessage);
+
+    /* There is no more data to return after this single string, so return
+     pdFALSE. */
+    return pdFALSE;
+}
+/*-----------------------------------------------------------*/
+
+portBASE_TYPE CLI_FlashModeCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString){
+    Module_Status result =H16R6_OK;
+    uint8_t baseColour =0;
+    uint8_t flashColour =0;
+    uint8_t intensity =0;
+    uint16_t flashTime;
+    uint16_t timeBetweenFlash;
+    char par[2][15] ={0};
+    static int8_t *pcParameterString1, *pcParameterString2, *pcParameterString3, *pcParameterString4, *pcParameterString5;
+    portBASE_TYPE xParameterStringLength1 =0, xParameterStringLength2 =0, xParameterStringLength3 =0, xParameterStringLength4 =0, xParameterStringLength5 =0;
+
+    static const int8_t *pcOKMessage =(int8_t* )"FlashMode:baseColour is %s and flashColour is %s and intensity %d %% and flashTime is %d and timeBetweenFlash is %d \n\r";
+    static const int8_t *pcWrongIntensityMessage =(int8_t* )"Wrong intensity!\n\r";
+
+
+    (void )xWriteBufferLen;
+    configASSERT(pcWriteBuffer);
+
+    /* Obtain the 1st parameter string. */
+    pcParameterString1 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,1,&xParameterStringLength1);
+    /* Read the color value. */
+    	if(!strncmp((const char* )pcParameterString1,"black",xParameterStringLength1))
+    		baseColour =BLACK;
+    	else if(!strncmp((const char* )pcParameterString1,"white",xParameterStringLength1))
+    		baseColour =WHITE;
+    	else if(!strncmp((const char* )pcParameterString1,"red",xParameterStringLength1))
+    		baseColour =RED;
+    	else if(!strncmp((const char* )pcParameterString1,"blue",xParameterStringLength1))
+    		baseColour =BLUE;
+    	else if(!strncmp((const char* )pcParameterString1,"yellow",xParameterStringLength1))
+    		baseColour =YELLOW;
+    	else if(!strncmp((const char* )pcParameterString1,"cyan",xParameterStringLength1))
+    		baseColour =CYAN;
+    	else if(!strncmp((const char* )pcParameterString1,"magenta",xParameterStringLength1))
+    		baseColour =MAGENTA;
+    	else if(!strncmp((const char* )pcParameterString1,"green",xParameterStringLength1))
+    		baseColour =GREEN;
+    	else if(!strncmp((const char* )pcParameterString1,"aqua",xParameterStringLength1))
+    		baseColour =AQUA;
+    	else if(!strncmp((const char* )pcParameterString1,"purple",xParameterStringLength1))
+    		baseColour =PURPLE;
+    	else if(!strncmp((const char* )pcParameterString1,"lightblue",xParameterStringLength1))
+    		baseColour =LIGHTBLUE;
+    	else if(!strncmp((const char* )pcParameterString1,"orange",xParameterStringLength1))
+    		baseColour =ORANGE;
+    	else if(!strncmp((const char* )pcParameterString1,"indigo",xParameterStringLength1))
+    		baseColour =INDIGO;
+    	/* Obtain the 2st parameter string. */
+    	    pcParameterString2 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,2,&xParameterStringLength2);
+    	    /* Read the color value. */
+    	    	if(!strncmp((const char* )pcParameterString2,"black",xParameterStringLength2))
+    	    		flashColour =BLACK;
+    	    	else if(!strncmp((const char* )pcParameterString2,"white",xParameterStringLength2))
+    	    		flashColour =WHITE;
+    	    	else if(!strncmp((const char* )pcParameterString2,"red",xParameterStringLength2))
+    	    		flashColour =RED;
+    	    	else if(!strncmp((const char* )pcParameterString2,"blue",xParameterStringLength2))
+    	    		flashColour =BLUE;
+    	    	else if(!strncmp((const char* )pcParameterString2,"yellow",xParameterStringLength2))
+    	    		flashColour =YELLOW;
+    	    	else if(!strncmp((const char* )pcParameterString2,"cyan",xParameterStringLength2))
+    	    		flashColour =CYAN;
+    	    	else if(!strncmp((const char* )pcParameterString2,"magenta",xParameterStringLength2))
+    	    		flashColour =MAGENTA;
+    	    	else if(!strncmp((const char* )pcParameterString2,"green",xParameterStringLength2))
+    	    		flashColour =GREEN;
+    	    	else if(!strncmp((const char* )pcParameterString2,"aqua",xParameterStringLength2))
+    	    		flashColour =AQUA;
+    	    	else if(!strncmp((const char* )pcParameterString2,"purple",xParameterStringLength2))
+    	    		flashColour =PURPLE;
+    	    	else if(!strncmp((const char* )pcParameterString2,"lightblue",xParameterStringLength2))
+    	    		flashColour =LIGHTBLUE;
+    	    	else if(!strncmp((const char* )pcParameterString2,"orange",xParameterStringLength2))
+    	    		flashColour =ORANGE;
+    	    	else if(!strncmp((const char* )pcParameterString2,"indigo",xParameterStringLength2))
+    	    		flashColour =INDIGO;
+    /* Obtain the 3st parameter string. */
+    pcParameterString3 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,3,&xParameterStringLength3);
+    intensity =(uint8_t )atol((char* )pcParameterString3);
+
+    /* Obtain the 4st parameter string. */
+       pcParameterString4 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,4,&xParameterStringLength4);
+       flashTime =(uint16_t )atol((char* )pcParameterString4);
+
+       /* Obtain the 5st parameter string. */
+          pcParameterString5 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,5,&xParameterStringLength5);
+          timeBetweenFlash =(uint16_t )atol((char* )pcParameterString5);
+
+    result =LEDMatrixFlashMode(baseColour, flashColour, intensity, flashTime, timeBetweenFlash);
+
+    /* Respond to the command */
+    if(result == H16R6_OK)
+    {
+		strncpy(par[0],(char* )pcParameterString1,xParameterStringLength1);
+		strncpy(par[1],(char* )pcParameterString2,xParameterStringLength2);
+
+    	sprintf((char* )pcWriteBuffer,(char* )pcOKMessage,par[0],par[1], intensity, flashTime,timeBetweenFlash);
+    }
+    else if(result == H16R6_ERR_WrongIntensity)
+        strcpy((char* )pcWriteBuffer,(char* )pcWrongIntensityMessage);
+
+    /* There is no more data to return after this single string, so return
+     pdFALSE. */
+    return pdFALSE;
+
+}
 /*-----------------------------------------------------------*/
 
 /************************ (C) COPYRIGHT HEXABITZ *****END OF FILE****/
