@@ -98,9 +98,19 @@ int main(void)
 
     /* USER CODE END WHILE */
 	      /* USER CODE BEGIN 3 */
-
-	  	DigiLedFlashMode(LIGHTBLUE, RED, 1, 200,200);
-	  DigiLedScrollMode(MAGENTA, AQUA, 1, 200);
+	  DigiLedRGBColorPickerMode(ORANGE, 10, 3);
+	    HAL_Delay(1000);
+		  DigiLedRGBColorPickerMode(PURPLE, 10, 3);
+		    HAL_Delay(1000);
+			  DigiLedRGBColorPickerMode(BLACK, 10, 3);
+			    HAL_Delay(1000);
+//
+//	  DigiLedRGBColorPickerMode(ORANGE, 5);
+//	  HAL_Delay(1000);
+//	  DigiLedSetAllLedOff();
+//	  DigiLedMatrixTestMode(5);
+//	  HAL_Delay(1000);
+//	  DigiLedSetAllLedOff();
   }
   /* USER CODE END 3 */
 }

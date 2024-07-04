@@ -327,3 +327,14 @@ void DigiLedFlashMode(uint8_t baseColour, uint8_t flashColour,
 
 }
 /*-----------------------------------------------------------*/
+
+void DigiLedRGBColorPickerMode(uint8_t color,uint16_t time,uint8_t intensity)
+{
+	for (int i = 1; i <= LEDFRAMESIZE; i++)
+    {
+	 DigiLedSetColor(i,color,intensity);
+		DigiLedUpdate(1);
+	  HAL_Delay(time);
+    }
+}
+/*-----------------------------------------------------------*/
