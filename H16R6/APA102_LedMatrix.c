@@ -324,3 +324,19 @@ void DigiLedFlashMode(uint8_t baseColour, uint8_t flashColour,
 
 }
 /*-----------------------------------------------------------*/
+/**
+  * All leds on in the RGBColorPickerMode
+ * @param color Set LED color from a predefined color list "
+ * @param time   time between turning on each LED and the next
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ */
+void DigiLedRGBColorPickerMode(uint8_t color,uint16_t time,uint8_t intensity)
+{
+	for (int i = 1; i <= LEDFRAMESIZE; i++)
+    {
+	 DigiLedSetColor(i,color,intensity);
+		DigiLedUpdate(1);
+	  HAL_Delay(time);
+    }
+}
+/*-----------------------------------------------------------*/

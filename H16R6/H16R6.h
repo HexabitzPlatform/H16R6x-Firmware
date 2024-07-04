@@ -159,6 +159,7 @@ Module_Status LEDMatrixSetLedOn(uint8_t led,uint8_t intensity);
 Module_Status LEDMatrixSetAllLedOn(uint8_t intensity);
 Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint16_t scrollTime);
 Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint16_t flashTime,uint16_t timeBetweenFlash);
+Module_Status LEDMatrixRGBColorPickerMode(uint8_t color,uint16_t time,uint8_t intensity);
 
 
 void SetupPortForRemoteBootloaderUpdate(uint8_t port);
@@ -179,6 +180,7 @@ extern const CLI_Command_Definition_t CLI_SetLedOnCommandDefinition;
 extern const CLI_Command_Definition_t CLI_SetAllLedOnCommandDefinition;
 extern const CLI_Command_Definition_t CLI_ScrollModeCommandDefinition;
 extern const CLI_Command_Definition_t CLI_FlashModeCommandDefinition;
+extern const CLI_Command_Definition_t CLI_ColorPickerModeCommandDefinition;
 
 #endif /* H16R6_H */
 
