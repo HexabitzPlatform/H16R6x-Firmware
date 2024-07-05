@@ -89,6 +89,14 @@ int main(void)
   /* USER CODE BEGIN 2 */
   DigiLedInit();
 
+  DigiLedRGBSetColorSomeLed(1,8,WHITE,2);
+  DigiLedRGBSetColorSomeLed(9,16,RED,2);
+  DigiLedRGBSetColorSomeLed(17,24,GREEN,2);
+  DigiLedRGBSetColorSomeLed(25,32,BLUE,2);
+  DigiLedRGBSetColorSomeLed(33,40,YELLOW,2);
+  DigiLedRGBSetColorSomeLed(41,48,CYAN,2);
+  DigiLedRGBSetColorSomeLed(49,56,MAGENTA,2);
+  DigiLedRGBSetColorSomeLed(57,64,AQUA,2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -98,19 +106,8 @@ int main(void)
 
     /* USER CODE END WHILE */
 	      /* USER CODE BEGIN 3 */
-	  DigiLedRGBColorPickerMode(ORANGE, 10, 3);
-	    HAL_Delay(1000);
-		  DigiLedRGBColorPickerMode(PURPLE, 10, 3);
-		    HAL_Delay(1000);
-			  DigiLedRGBColorPickerMode(BLACK, 10, 3);
-			    HAL_Delay(1000);
-//
-//	  DigiLedRGBColorPickerMode(ORANGE, 5);
-//	  HAL_Delay(1000);
-//	  DigiLedSetAllLedOff();
-//	  DigiLedMatrixTestMode(5);
-//	  HAL_Delay(1000);
-//	  DigiLedSetAllLedOff();
+
+
   }
   /* USER CODE END 3 */
 }
