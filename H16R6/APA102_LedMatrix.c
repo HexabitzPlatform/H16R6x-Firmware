@@ -138,7 +138,7 @@ void DigiLedSetColor(uint8_t led, uint8_t color, uint8_t intensity) {
 		if (intensity > INTINSITYLED) {
 			intensity = INTINSITYLED;
 		}
-		digitalLedframe[led - 1].FieldsIn.INIT = 0x7;
+		digitalLedframe[led - 1].FieldsIn.INIT = 0X7;
 		digitalLedframe[led - 1].FieldsIn.GLOBAL = intensity; // Set led at maximum intensity 0x1F=31
 		digitalLedframe[led - 1].FieldsIn.BLUE = (uint8_t) (rgb);
 		digitalLedframe[led - 1].FieldsIn.GREEN = (uint8_t) (rgb >> 8);
@@ -338,5 +338,21 @@ void DigiLedRGBColorPickerMode(uint8_t color,uint16_t time,uint8_t intensity)
 		DigiLedUpdate(1);
 	  HAL_Delay(time);
     }
+}
+/*-----------------------------------------------------------*/
+/*
+ * Set the colors of some of led using single colors
+ * @param StartLed  position of the led in the string led>=1
+ * @param EndLed  position of the led in the string led<=64
+ * @param Set LED color from a predefined color list in "APA102_LedMatrix.h"
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ */
+void DigiLedRGBSetColorSomeLed(uint8_t StartLed,uint8_t EndLed,uint8_t color ,uint8_t intensity)
+{
+	for (int i = StartLed; i <=EndLed; i++) {
+		DigiLedSetColor(i, color, intensity);
+		DigiLedUpdate(1);
+		}
+
 }
 /*-----------------------------------------------------------*/

@@ -63,5 +63,6 @@ uint8_t DigiLedTestPosition(uint8_t led);
 void DigiLedScrollMode(uint8_t baseColour, uint8_t scrollRow, uint8_t intensity,uint16_t scrollTime);
 void DigiLedFlashMode(uint8_t baseColour, uint8_t flashColour,uint8_t intensity, uint16_t flashTime, uint16_t timeBetweenFlash);
 void DigiLedRGBColorPickerMode(uint8_t color,uint16_t time,uint8_t intensity);
-
+void DigiLedRGBSetColorSomeLed(uint8_t StartLed, uint8_t EndLed, uint8_t color,
+		uint8_t intensity);
 #endif /* APA102_LEDMATRIX_H_ */

@@ -794,7 +794,37 @@ Module_Status LEDMatrixRGBColorPickerMode(uint8_t color,uint16_t time,uint8_t in
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
+/*
+ * Set the colors of some of led using single colors
+ * @param StartLed  position of the led in the string led>=1
+ * @param EndLed  position of the led in the string led<=64
+ * @param Set LED color from a predefined color list in "BOS.h"
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ */
+Module_Status LEDMatrixSetColorSomeLed(uint8_t StartLed,uint8_t EndLed,uint8_t color ,uint8_t intensity)
+{
+	Module_Status Status = H16R6_OK;
+	if (StartLed <1 || EndLed<1)
+	{
+		StartLed=1;
+		EndLed=1;
+		Status = H16R6_ERR_WrongLedOutRange;
+		return Status;
+	}
+	if (EndLed >64)
+	{
+		EndLed=64;
+		Status = H16R6_ERR_WrongLedOutRange;
+		return Status;
+	}
+	for (int i = StartLed; i <=EndLed; i++) {
+		LEDMatrixSetColor(i, color, intensity);
+//	DigiLedRGBSetColorSomeLed(StartLed, EndLed, color, intensity);
+//		DigiLedUpdate(1);
+		}
 
+	return Status;
+}
 /* -----------------------------------------------------------------------
  |								Commands							      |
    -----------------------------------------------------------------------
