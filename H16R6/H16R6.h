@@ -182,6 +182,7 @@ extern const CLI_Command_Definition_t CLI_SetAllLedOnCommandDefinition;
 extern const CLI_Command_Definition_t CLI_ScrollModeCommandDefinition;
 extern const CLI_Command_Definition_t CLI_FlashModeCommandDefinition;
 extern const CLI_Command_Definition_t CLI_ColorPickerModeCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetColorSomeLedCommandDefinition;
 
 #endif /* H16R6_H */
 
