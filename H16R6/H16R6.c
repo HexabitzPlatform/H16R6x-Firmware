@@ -510,7 +510,7 @@ Module_Status Module_MessagingTask(uint16_t code,uint8_t port,uint8_t src,uint8_
 	case CODE_H16R6_SCROLLMODE:
 	{
 		uint16_t scrollTime=0;
-		memcpy(&scrollTime,&cMessage[port-1][shift+3],2);
+		scrollTime=(((uint16_t)cMessage[port-1][shift+3])+((uint16_t)cMessage[port-1][shift+4]<<8));
 		LEDMatrixScrollMode(cMessage[port-1][shift], cMessage[port-1][shift+1], cMessage[port-1][shift+2], scrollTime);
 		break;
 	}
@@ -518,23 +518,42 @@ Module_Status Module_MessagingTask(uint16_t code,uint8_t port,uint8_t src,uint8_
 	{
 		uint16_t flashTime=0;
 		uint16_t timeBetweenFlash=0;
-		memcpy(&flashTime,&cMessage[port-1][shift+3],2);
-		memcpy(&timeBetweenFlash,&cMessage[port-1][shift+5],2);
+		flashTime=(((uint16_t)cMessage[port-1][shift+3])+((uint16_t)cMessage[port-1][shift+4]<<8));
+		timeBetweenFlash=(((uint16_t)cMessage[port-1][shift+5])+((uint16_t)cMessage[port-1][shift+6]<<8));
 		LEDMatrixFlashMode(cMessage[port-1][shift], cMessage[port-1][shift+1], cMessage[port-1][shift+2], flashTime, timeBetweenFlash);
 		break;
 	}
 	case CODE_H16R6_COLORPICKERMODE:
 		{
 			uint16_t time =0;
-			memcpy(&time ,&cMessage[port-1][shift+1],2);
+			time=(((uint16_t)cMessage[port-1][shift+1])+((uint16_t)cMessage[port-1][shift+2]<<8));
 			LEDMatrixRGBColorPickerMode(cMessage[port-1][shift], time, cMessage[port-1][shift+3]);
 			break;
 		}
 	case CODE_H16R6_SETCOLORSOMELED:
 		{
-			LEDMatrixSetColorSomeLed(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2],cMessage[port-1][shift+3]);
+			LEDMatrixSetColorSomeLed(cMessage[port-1][shift], cMessage[port-1][shift+1],cMessage[port-1][shift+2], cMessage[port-1][shift+3]);
 			break;
 		}
+	case CODE_H16R6_MOTIONMODE:
+		{
+			uint32_t Number_int;
+			float scaledqom;
+			Number_int=(((uint32_t)cMessage[port-1][shift+3])+((uint32_t)cMessage[port-1][shift+4]<<8)+((uint32_t)cMessage[port-1][shift+5]<<16)+((uint32_t)cMessage[port-1][shift+6]<<24));
+			scaledqom= *((float*)&Number_int);
+			LEDMatrixMotionMode(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2], scaledqom);
+
+			break;
+		}
+	case CODE_H16R6_CROSSFADEMODE:
+		{
+			uint16_t time=0;
+			time=(((uint16_t)cMessage[port-1][shift+3])+((uint16_t)cMessage[port-1][shift+4]<<8));
+			LEDMatrixCrossFadeMode(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2], time);
+
+			break;
+		}
+
 		default:
 		result =H16R6_ERR_UnknownMessage;
 		break;
@@ -836,11 +855,73 @@ Module_Status LEDMatrixSetColorSomeLed(uint8_t StartLed,uint8_t EndLed,uint8_t c
 	}
 	for (int i = StartLed; i <=EndLed; i++) {
 		LEDMatrixSetColor(i, color, intensity);
-//	DigiLedRGBSetColorSomeLed(StartLed, EndLed, color, intensity);
-//		DigiLedUpdate(1);
+
 		}
 
 	return Status;
+}
+
+/* -----------------------------------------------------------------------*/
+/*
+ * Set the colors of leds According to the value of scaledqom
+ * @param Set LED color from a predefined color list in "BOS.h"
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ * @param scaledqom Acceleration values ​​from imu or any sensor
+ *
+ */
+Module_Status LEDMatrixMotionMode(uint8_t baseColour,uint8_t SeconedColor,uint8_t intensity,float scaledqom)
+{
+	LEDMatrixRGBColorPickerMode(baseColour, scaledqom*10, intensity);
+	Delay_ms(2000);
+
+	if(scaledqom<0.5)
+	{
+		LEDMatrixRGBColorPickerMode(baseColour, scaledqom*10, intensity);
+
+	}
+	else if(scaledqom>0.5)
+	{
+		LEDMatrixRGBColorPickerMode(SeconedColor, scaledqom*10, intensity);
+
+	}
+}
+
+/* -----------------------------------------------------------------------*/
+/*
+ * Transition between the ratios of the three colors over time
+ * @param Set LED color from a predefined color list in "BOS.h"
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ * @param time  Color grading time
+ *
+ */
+Module_Status LEDMatrixCrossFadeMode(uint8_t baseColour,uint8_t seconedColor,uint8_t thirdColor,uint16_t time)
+{
+
+	for (int var = 1; var <= 10; var++) {
+		LEDMatrixSetAllColor(baseColour,var);
+		Delay_ms(time);
+	}
+	for (int var = 10; var >= 0; var--) {
+			LEDMatrixSetAllColor(baseColour,var);
+			Delay_ms(time);
+		}
+	for (int var = 1; var <= 10; var++) {
+		LEDMatrixSetAllColor(seconedColor,var);
+		Delay_ms(time);
+	}
+	for (int var = 10; var >= 0; var--) {
+			LEDMatrixSetAllColor(seconedColor,var);
+			Delay_ms(time);
+		}
+	for (int var = 1; var <= 10; var++) {
+		LEDMatrixSetAllColor(thirdColor,var);
+		Delay_ms(time);
+	}
+	for (int var = 10; var >= 0; var--) {
+			LEDMatrixSetAllColor(thirdColor,var);
+			Delay_ms(time);
+		}
+
 }
 /* -----------------------------------------------------------------------
  |								Commands							      |

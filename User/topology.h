@@ -30,7 +30,7 @@ static uint16_t array[__N ][7] ={
 //	{_H16R6, 0, 0, 0, 0, 0,  _mod1 | P5},					    			// Module 2
 //	{_H16R6, _mod1 | P2, 0, 0, _mod4 | P1, 0,  0},					    	// Module 3
 //	{_H05R0, _mod3 | P4, 0, 0, 0, 0, 0},					    			// Module 4
-		{_H01R0, _mod2 | P1,0, 0, 0,0, 0}, 				     		// Module
+		{_H01R0, _mod2 | P1,0, 0, 0,0, 0}, 				     		         // Module1
 		{_H16R6,   _mod1 | P1, 0, 0, 0, 0,0},					    			// Module 2
 };
 
