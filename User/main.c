@@ -30,7 +30,6 @@ void UserTask(void *argument){
 	while(1){
 //		LEDMatrixSetColorSomeLed(1, 2, MAGENTA, 5);
 		LEDMatrixCrossFadeMode(BLUE, YELLOW, 5, 0.7);
-		LEDMatrixCrossFadeMode(baseColour, seconedColor, thirdColor, time)
 	}
 }
 /*-----------------------------------------------------------*/
