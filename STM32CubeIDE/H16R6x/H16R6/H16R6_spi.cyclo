@@ -1,4 +1,0 @@
-..\..\H16R6\H16R6_spi.c:23:6:MX_SPI1_Init	1
-..\..\H16R6\H16R6_spi.c:55:6:HAL_SPI_MspInit	2
-..\..\H16R6\H16R6_spi.c:85:6:HAL_SPI_MspDeInit	2
-..\..\H16R6\H16R6_spi.c:117:16:SendSPI	4

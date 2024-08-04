@@ -1,5 +1,0 @@
-..\..\H16R6\H16R6_gpio.c:22:6:GPIO_Init	1
-..\..\H16R6\H16R6_gpio.c:33:6:MX_GPIO_Init	1
-..\..\H16R6\H16R6_gpio.c:46:6:IND_LED_Init	1
-..\..\H16R6\H16R6_gpio.c:61:9:IsFactoryReset	3
-..\..\H16R6\H16R6_gpio.c:112:12:GetPortGPIOs	7
