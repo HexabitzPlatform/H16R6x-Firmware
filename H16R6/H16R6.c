@@ -1,5 +1,5 @@
 /*
- BitzOS (BOS) V0.3.5 - Copyright (C) 2017-2024 Hexabitz
+ BitzOS (BOS) V0.3.6 - Copyright (C) 2017-2024 Hexabitz
  All rights reserved
 
  File Name     : H16R6.c
@@ -26,9 +26,12 @@ UART_HandleTypeDef huart6;
 /* Exported variables */
 extern FLASH_ProcessTypeDef pFlash;
 extern uint8_t numOfRecordedSnippets;
-
+int randomNumber1[65] ={0},randomNumber2=0;
+int randomIndex[65];
 /* Local functions */
-
+uint8_t OldeColorR[65]={0};
+uint8_t OldeColorG[65]={0};
+uint8_t OldeColorB[65]={0};
 /* Module exported parameters ------------------------------------------------*/
 module_param_t modParam[NUM_MODULE_PARAMS] ={{.paramPtr = NULL, .paramFormat =FMT_FLOAT, .paramName =""}};
 
@@ -50,6 +53,8 @@ portBASE_TYPE CLI_SetLedOnCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,c
 portBASE_TYPE CLI_SetAllLedOnCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
 portBASE_TYPE CLI_ScrollModeCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
 portBASE_TYPE CLI_FlashModeCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
+portBASE_TYPE CLI_ColorPickerModeCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
+portBASE_TYPE CLI_SetColorSomeLedCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString);
 
 /*-----------------------------------------------------------*/
 /* CLI command structure : LEDMatrixSetRGB */
@@ -141,6 +146,25 @@ const CLI_Command_Definition_t CLI_FlashModeCommandDefinition ={
 	CLI_FlashModeCommand, /* The function to FlashMode. */
     5 /* five parameters are expected. */
 };
+/*-----------------------------------------------------------*/
+/* CLI command structure : LEDMatrixRGBColorPickerMode */
+const CLI_Command_Definition_t CLI_ColorPickerModeCommandDefinition ={
+    (const int8_t* )"colorpickermode", /* The command string to type. */
+    (const int8_t* )"colorpickermode:\r\n Set colorpickermode  color (1st par.)  Time(2nd par.) at a specific intensity (0-31%) (3nd par.) \n\rRegistered colors are:\
+					\r\nblack, white, red, blue, green, yellow, cyan, magenta ,aqua,purple,lightblue,orange and indigo, \r\n\r\n",
+	CLI_SetColorSomeLedCommand, /* The function to SetColorSomeLed. */
+    4 /* five parameters are expected. */
+};
+/*-----------------------------------------------------------*/
+/* CLI command structure : LEDMatrixSetColorSomeLed */
+const CLI_Command_Definition_t CLI_SetColorSomeLedCommandDefinition ={
+    (const int8_t* )"setcolorsomeled", /* The command string to type. */
+    (const int8_t* )"setcolorsomeled:\r\n Set setcolorsomeled  StartLed (1st par.)  EndLed (2nd par.) color (3nd par.) at a specific intensity (0-31%) (4nd par.) \n\rRegistered colors are:\
+					\r\nblack, white, red, blue, green, yellow, cyan, magenta ,aqua,purple,lightblue,orange and indigo, \r\n\r\n",
+	CLI_SetColorSomeLedCommand, /* The function to FlashMode. */
+    4 /* five parameters are expected. */
+};
+
 /*
 
 /* ---------------------------------------------------------------------
@@ -486,27 +510,78 @@ Module_Status Module_MessagingTask(uint16_t code,uint8_t port,uint8_t src,uint8_
 		LEDMatrixSetAllLedOff();
 		break;
 	}
-	case CODE_H16R6_ScrollMode:
+	case CODE_H16R6_SCROLLMODE:
 	{
 		uint16_t scrollTime=0;
-		memcpy(&scrollTime,&cMessage[port-1][shift+3],2);
+		scrollTime=(((uint16_t)cMessage[port-1][shift+3])+((uint16_t)cMessage[port-1][shift+4]<<8));
 		LEDMatrixScrollMode(cMessage[port-1][shift], cMessage[port-1][shift+1], cMessage[port-1][shift+2], scrollTime);
 		break;
 	}
-	case CODE_H16R6_FlashMode:
+	case CODE_H16R6_FLASHMODE:
 	{
 		uint16_t flashTime=0;
 		uint16_t timeBetweenFlash=0;
-		memcpy(&flashTime,&cMessage[port-1][shift+3],2);
-		memcpy(&timeBetweenFlash,&cMessage[port-1][shift+5],2);
+		flashTime=(((uint16_t)cMessage[port-1][shift+3])+((uint16_t)cMessage[port-1][shift+4]<<8));
+		timeBetweenFlash=(((uint16_t)cMessage[port-1][shift+5])+((uint16_t)cMessage[port-1][shift+6]<<8));
 		LEDMatrixFlashMode(cMessage[port-1][shift], cMessage[port-1][shift+1], cMessage[port-1][shift+2], flashTime, timeBetweenFlash);
 		break;
 	}
+	case CODE_H16R6_COLORPICKERMODE:
+		{
+			uint16_t time =0;
+			time=(((uint16_t)cMessage[port-1][shift+1])+((uint16_t)cMessage[port-1][shift+2]<<8));
+			LEDMatrixRGBColorPickerMode(cMessage[port-1][shift], time, cMessage[port-1][shift+3]);
+			break;
+		}
+	case CODE_H16R6_SETCOLORSOMELED:
+		{
+			LEDMatrixSetColorSomeLed(cMessage[port-1][shift], cMessage[port-1][shift+1],cMessage[port-1][shift+2], cMessage[port-1][shift+3]);
+			break;
+		}
+	case CODE_H16R6_MOTIONMODE:
+		{
+			uint32_t Number_int;
+			float scaledqom;
+			Number_int=(((uint32_t)cMessage[port-1][shift+3])+((uint32_t)cMessage[port-1][shift+4]<<8)+((uint32_t)cMessage[port-1][shift+5]<<16)+((uint32_t)cMessage[port-1][shift+6]<<24));
+			scaledqom= *((float*)&Number_int);
+			LEDMatrixMotionMode(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2], scaledqom);
 
+			break;
+		}
+	case CODE_H16R6_CROSSFADEMODE:
+		{
+			uint16_t time=0;
+			time=(((uint16_t)cMessage[port-1][shift+3])+((uint16_t)cMessage[port-1][shift+4]<<8));
+			LEDMatrixCrossFadeMode(cMessage[port-1][shift],cMessage[port-1][shift+1],cMessage[port-1][shift+2], time);
+
+			break;
+		}
+	case CODE_H16R6_CROSSFADEMODELEDRGB:
+		{
+			uint16_t interpolationtime;
+			interpolationtime=(((uint16_t)cMessage[port-1][shift+4])+((uint16_t)cMessage[port-1][shift+5]<<8));
+			LEDMatrixCrossFadeModeLEDRGB(cMessage[port-1][shift], cMessage[port-1][shift+1], cMessage[port-1][shift+2], cMessage[port-1][shift+3], interpolationtime, cMessage[port-1][shift+6]);
+			break;
+		}
+	case CODE_H16R6_CROSSFADEMODEALLLEDRGB:
+		{
+			uint16_t interpolationtime;
+			interpolationtime=(((uint16_t)cMessage[port-1][shift+3])+((uint16_t)cMessage[port-1][shift+4]<<8));
+			LEDMatrixCrossFadeModeALLLEDRGB(cMessage[port-1][shift], cMessage[port-1][shift+1], cMessage[port-1][shift+2], interpolationtime, cMessage[port-1][shift+5]);
+			break;
+		}
+	case CODE_H16R6_SPRINKLEMODE:
+		{
+			uint16_t TimeToFade;
+			TimeToFade=(((uint16_t)cMessage[port-1][shift+4])+((uint16_t)cMessage[port-1][shift+5]<<8));
+			LEDMatrixSprinkleMode(cMessage[port-1][shift], cMessage[port-1][shift+1], cMessage[port-1][shift+2], cMessage[port-1][shift+3], TimeToFade, cMessage[port-1][shift+6]);
+			break;
+		}
 		default:
 		result =H16R6_ERR_UnknownMessage;
 		break;
 	}
+
 	
 	return result;
 }
@@ -546,6 +621,8 @@ void RegisterModuleCLICommands(void){
     FreeRTOS_CLIRegisterCommand(&CLI_SetAllLedOnCommandDefinition);
     FreeRTOS_CLIRegisterCommand(&CLI_ScrollModeCommandDefinition);
     FreeRTOS_CLIRegisterCommand(&CLI_FlashModeCommandDefinition);
+    FreeRTOS_CLIRegisterCommand(&CLI_ColorPickerModeCommandDefinition);
+    FreeRTOS_CLIRegisterCommand(&CLI_SetColorSomeLedCommandDefinition);
 
 }
 
@@ -587,7 +664,7 @@ void RegisterModuleCLICommands(void){
 Module_Status LEDMatrixSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	if (led >= LEDFRAMESIZE||led==0)
+	if (led > LEDFRAMESIZE||led==0)
 	{
 		Status = H16R6_ERR_WrongLedOutRange;
 		return Status;
@@ -597,6 +674,9 @@ Module_Status LEDMatrixSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t b
 		Status = H16R6_ERR_WrongIntensity;
 		return Status;
 	}
+	memset(&OldeColorR[led], red, 1);
+	memset(&OldeColorG[led], green, 1);
+	memset(&OldeColorB[led], blue,1);
 	DigiLedSetRGB(led,red,green,blue,intensity);
 	DigiLedUpdate(1);
 	return Status;
@@ -617,6 +697,9 @@ Module_Status LEDMatrixSetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_
 		Status = H16R6_ERR_WrongIntensity;
 		return Status;
 	}
+	memset(OldeColorR, red, sizeof(OldeColorR));
+	memset(OldeColorG, green, sizeof(OldeColorG));
+	memset(OldeColorB, blue, sizeof(OldeColorB));
 	DigiLedSetAllRGB(red, green, blue, intensity);
 	DigiLedUpdate(1);
 	return Status;
@@ -631,7 +714,7 @@ Module_Status LEDMatrixSetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_
 Module_Status LEDMatrixSetColor(uint8_t led,uint8_t color ,uint8_t intensity)
 {
 	Module_Status Status = H16R6_OK;
-	if (led >= LEDFRAMESIZE||led==0)
+	if (led > LEDFRAMESIZE||led==0)
 	{
 		Status = H16R6_ERR_WrongLedOutRange;
 		return Status;
@@ -643,6 +726,7 @@ Module_Status LEDMatrixSetColor(uint8_t led,uint8_t color ,uint8_t intensity)
 	}
 	DigiLedSetColor(led, color, intensity);
 	DigiLedUpdate(1);
+
 	return Status;
 }
 /* -----------------------------------------------------------------------*/
@@ -676,6 +760,9 @@ Module_Status LEDMatrixSetLedOff(uint8_t led)
 		Status = H16R6_ERR_WrongLedOutRange;
 		return Status;
 	}
+	memset(&OldeColorR[led], 0, 1);
+	memset(&OldeColorG[led], 0, 1);
+	memset(&OldeColorB[led], 0,1);
 	DigiLedSetLedOff(led);
 	 DigiLedUpdate(1);
 	 return Status;
@@ -687,6 +774,9 @@ Module_Status LEDMatrixSetLedOff(uint8_t led)
 Module_Status LEDMatrixSetAllLedOff()
 {
 	Module_Status Status = H16R6_OK;
+	memset(OldeColorR, 0, sizeof(OldeColorR));
+	memset(OldeColorG, 0, sizeof(OldeColorG));
+	memset(OldeColorB, 0, sizeof(OldeColorB));
 	DigiLedSetAllLedOff();
 	DigiLedUpdate(1);
 	return Status;
@@ -762,7 +852,284 @@ Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t 
 	DigiLedFlashMode(baseColour, flashColour, intensity, flashTime, timeBetweenFlash);
 	return Status;
 }
+/*-----------------------------------------------------------*/
+/*
+ * All leds on in the RGBColorPickerMode
+ * @param color Set LED color from a predefined color list in "BOS.h"
+ * @param time   time between turning on each LED and the next
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ */
+Module_Status LEDMatrixRGBColorPickerMode(uint8_t color,uint16_t time,uint8_t intensity)
+{
+	Module_Status Status = H16R6_OK;
+	DigiLedRGBColorPickerMode(color, time, intensity);
+	return Status;
+}
 /* -----------------------------------------------------------------------*/
+/*
+ * Set the colors of some of led using single colors
+ * @param StartLed  position of the led in the string led>=1
+ * @param EndLed  position of the led in the string led<=64
+ * @param Set LED color from a predefined color list in "BOS.h"
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ */
+Module_Status LEDMatrixSetColorSomeLed(uint8_t StartLed,uint8_t EndLed,uint8_t color ,uint8_t intensity)
+{
+	Module_Status Status = H16R6_OK;
+	if (StartLed <1 || EndLed<1)
+	{
+		StartLed=1;
+		EndLed=1;
+		Status = H16R6_ERR_WrongLedOutRange;
+		return Status;
+	}
+	if (EndLed >64)
+	{
+		EndLed=64;
+		Status = H16R6_ERR_WrongLedOutRange;
+		return Status;
+	}
+	for (int i = StartLed; i <=EndLed; i++) {
+		LEDMatrixSetColor(i, color, intensity);
+
+		}
+
+	return Status;
+}
+
+/* -----------------------------------------------------------------------*/
+/*
+ * Set the colors of leds According to the value of scaledqom
+ * @param Set LED color from a predefined color list in "BOS.h"
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ * @param scaledqom Acceleration values ​​from imu or any sensor
+ *
+ */
+Module_Status LEDMatrixMotionMode(uint8_t baseColour,uint8_t SeconedColor,uint8_t intensity,float scaledqom)
+{
+	LEDMatrixRGBColorPickerMode(baseColour, scaledqom*10, intensity);
+	Delay_ms(2000);
+
+	if(scaledqom<0.5)
+	{
+		LEDMatrixRGBColorPickerMode(baseColour, scaledqom*10, intensity);
+
+	}
+	else if(scaledqom>0.5)
+	{
+		LEDMatrixRGBColorPickerMode(SeconedColor, scaledqom*10, intensity);
+
+	}
+}
+
+/* -----------------------------------------------------------------------*/
+/*
+ * Transition between the ratios of the three colors over time
+ * @param Set LED color from a predefined color list in "BOS.h"
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ * @param time  Color grading time
+ *
+ */
+Module_Status LEDMatrixCrossFadeMode(uint8_t baseColour,uint8_t seconedColor,uint8_t thirdColor,uint16_t time)
+{
+
+	for (int var = 1; var <= 10; var++) {
+		LEDMatrixSetAllColor(baseColour,var);
+		Delay_ms(time);
+	}
+	for (int var = 10; var >= 0; var--) {
+			LEDMatrixSetAllColor(baseColour,var);
+			Delay_ms(time);
+		}
+	for (int var = 1; var <= 10; var++) {
+		LEDMatrixSetAllColor(seconedColor,var);
+		Delay_ms(time);
+	}
+	for (int var = 10; var >= 0; var--) {
+			LEDMatrixSetAllColor(seconedColor,var);
+			Delay_ms(time);
+		}
+	for (int var = 1; var <= 10; var++) {
+		LEDMatrixSetAllColor(thirdColor,var);
+		Delay_ms(time);
+	}
+	for (int var = 10; var >= 0; var--) {
+			LEDMatrixSetAllColor(thirdColor,var);
+			Delay_ms(time);
+		}
+
+}
+/* -----------------------------------------------------------------------*/
+Module_Status LEDMatrixCrossFadeModeLEDRGB(uint8_t LED, uint8_t SecondRED,
+		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime,
+		uint8_t intensity) {
+	if (LED >= 64) {LED = 64;}
+	if (LED <1 ) {LED = 1;}
+	uint8_t NewRED=0;
+	uint8_t NewGREEN=0;
+	uint8_t NewBLUE=0;
+	int16_t DeltaR = SecondRED - OldeColorR[LED];
+	int16_t DeltaG = SecondGREEN - OldeColorG[LED];
+	int16_t DeltaB = SecondBLUE - OldeColorB[LED];
+	float delayTime = (float) interpolationtime / 100;
+	for (uint16_t currentStep = 0; currentStep <= 100; currentStep++) {
+		float t = (float) currentStep / (float) 100;
+		 NewRED = OldeColorR[LED] + (uint8_t) (t * DeltaR);
+		 NewGREEN = OldeColorG[LED] + (uint8_t) (t * DeltaG);
+		 NewBLUE = OldeColorB[LED] + (uint8_t) (t * DeltaB);
+		if (intensity >= INTINSITYLED) {
+			intensity = INTINSITYLED;
+		}
+		DigiLedSetRGB(LED, NewRED, NewGREEN, NewBLUE, intensity);
+		DigiLedUpdate(1);
+
+		HAL_Delay(delayTime);
+	}
+	memset(&OldeColorR[LED], NewRED, 1);
+	memset(&OldeColorG[LED], NewGREEN, 1);
+	memset(&OldeColorB[LED], NewBLUE, 1);
+}
+/* -----------------------------------------------------------------------*/
+
+Module_Status LEDMatrixCrossFadeModeALLLEDRGB( uint8_t SecondRED, uint8_t SecondGREEN,
+		uint8_t SecondBLUE, uint16_t interpolationtime, uint8_t intensity) {
+	int16_t DeltaR = 0;
+	int16_t DeltaG = 0;
+	int16_t DeltaB = 0;
+	uint16_t CurrentStep=0;
+	int NLED=1;
+	uint8_t NewRED=0;
+	uint8_t NewGREEN=0;
+	uint8_t NewBLUE=0;
+	if (intensity >= INTINSITYLED) {
+		intensity = INTINSITYLED;
+	}
+	float delayTime = (float) interpolationtime / 100;
+	for ( CurrentStep = 0; CurrentStep <= 40; CurrentStep++) {
+		for ( NLED = 1; NLED <= 64;NLED++)
+		{
+		float t = (float) CurrentStep / (float) 40;
+		 DeltaR = SecondRED - OldeColorR[NLED];
+		 DeltaG = SecondGREEN - OldeColorG[NLED];
+		 DeltaB = SecondBLUE - OldeColorB[NLED];
+		 NewRED = OldeColorR[NLED] + (uint8_t) (t * DeltaR);
+		 NewGREEN = OldeColorG[NLED]+ (uint8_t) (t * DeltaG);
+		 NewBLUE = OldeColorB[NLED] + (uint8_t) (t * DeltaB);
+
+		DigiLedSetRGB(NLED,NewRED, NewGREEN, NewBLUE, intensity);
+		DigiLedUpdate(1);
+		}
+		if(CurrentStep==40)
+		{
+			memset(OldeColorR, NewRED, sizeof(OldeColorR));
+			memset(OldeColorG, NewGREEN, sizeof(OldeColorG));
+			memset(OldeColorB, NewBLUE, sizeof(OldeColorB));
+		}
+		HAL_Delay(delayTime/10);
+
+	}
+
+}
+/* -----------------------------------------------------------------------*/
+void RandomArray(int randomIndex[65],int NbOfLeds)
+{
+	int i=0;
+	randomIndex[1] =(rand() % 64)+1;
+	for (int led = 2; led <= NbOfLeds; led++)
+	{
+		bool flag=true;
+		int r=0;
+		while(flag)
+		{
+			r= (rand() % 64)+1;
+			for( i=1;i<led;i++)
+			{
+				if(r==randomIndex[i])
+				{break;}
+			}
+			if(i==led)
+			{flag=false;}
+		}
+		randomIndex[led]=r;
+	}
+
+}
+
+/* -----------------------------------------------------------------------*/
+Module_Status LEDMatrixSprinkleMode(uint8_t TargetColorR, uint8_t TargetColorG,
+		uint8_t TargetColorB, uint8_t AmountOfLEDs, uint16_t TimeToFade,
+		uint8_t ColorDeviation) {
+
+if (AmountOfLEDs>100) {AmountOfLEDs=100;}
+if (AmountOfLEDs<0) {AmountOfLEDs=0;}
+	int NbOfLeds = 0.64 * AmountOfLEDs;
+	int IndexOfLeds=0,RandDev=0,TargetColorWithDev=0,TargetColorPerStep=0,TargetColor=0,OldeColor=0;
+	float DelayTimeStep=TimeToFade/100.0;
+
+	memcpy(&randomIndex[0], 0, 65);
+	if (AmountOfLEDs==100) {
+		for (int i = 1; i <+ 65; i++) {
+			randomIndex[i]=i;
+		}
+	}
+	else
+	RandomArray(randomIndex,NbOfLeds);
+
+	for (int CurrentStep = 0; CurrentStep <= 40;CurrentStep++)
+	{
+		float t=CurrentStep/40.0;
+		for (int NLED = 1; NLED <= NbOfLeds;NLED++)
+		{
+			IndexOfLeds=randomIndex[NLED];
+			int RandDev=(rand() % ColorDeviation)-(ColorDeviation/2);
+			int TargetColorWithDevR=TargetColorR+RandDev;
+			int TargetColorWithDevG=TargetColorG+RandDev;
+			int TargetColorWithDevB=TargetColorB+RandDev;
+
+			int maxmax=255;
+			if(TargetColorWithDevR>255){maxmax=TargetColorWithDevR;}
+			if(TargetColorWithDevG>255){if(maxmax<TargetColorWithDevG){maxmax=TargetColorWithDevG;}}
+			if(TargetColorWithDevB>255){if(maxmax<TargetColorWithDevB){maxmax=TargetColorWithDevB;}}
+			if(maxmax>255)
+			{
+				TargetColorWithDevR=TargetColorWithDevR-(maxmax-255);
+				TargetColorWithDevG=TargetColorWithDevG-(maxmax-255);
+				TargetColorWithDevB=TargetColorWithDevB-(maxmax-255);
+			}
+
+			int minmin=0;
+			if(TargetColorWithDevR<0){minmin=TargetColorWithDevR;}
+			if(TargetColorWithDevG<0){if(minmin>TargetColorWithDevG){minmin=TargetColorWithDevG;}}
+			if(TargetColorWithDevB<0){if(minmin<TargetColorWithDevB){minmin=TargetColorWithDevB;}}
+			if(minmin<0)
+			{
+				TargetColorWithDevR=TargetColorWithDevR-(minmin);
+				TargetColorWithDevG=TargetColorWithDevG-(minmin);
+				TargetColorWithDevB=TargetColorWithDevB-(minmin);
+			}
+			int TargetColorPerStepR=OldeColorR[IndexOfLeds]+(t*(TargetColorWithDevR-OldeColorR[IndexOfLeds]));
+			int TargetColorPerStepG=OldeColorG[IndexOfLeds]+(t*(TargetColorWithDevG-OldeColorG[IndexOfLeds]));
+			int TargetColorPerStepB=OldeColorB[IndexOfLeds]+(t*(TargetColorWithDevB-OldeColorB[IndexOfLeds]));
+
+			LEDMatrixSetRGB(IndexOfLeds, TargetColorPerStepR, TargetColorPerStepG, TargetColorPerStepB, rand()%4+1);
+
+			if(CurrentStep==40)
+			{
+				OldeColorR[IndexOfLeds] = TargetColorPerStepR;
+				OldeColorG[IndexOfLeds] = TargetColorPerStepG;
+				OldeColorB[IndexOfLeds] = TargetColorPerStepB;
+			}
+
+		}
+		if(AmountOfLEDs<80)
+		{HAL_Delay(DelayTimeStep);
+		}
+		else
+		{HAL_Delay(DelayTimeStep/10);}
+	}
+
+}
+
 
 /* -----------------------------------------------------------------------
  |								Commands							      |
@@ -1329,6 +1696,159 @@ portBASE_TYPE CLI_FlashModeCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,
     /* There is no more data to return after this single string, so return
      pdFALSE. */
     return pdFALSE;
+
+}
+/*-----------------------------------------------------------*/
+
+portBASE_TYPE CLI_ColorPickerModeCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString){
+    Module_Status result =H16R6_OK;
+    uint8_t Colour =0;
+    uint16_t Time;
+    uint8_t intensity =0;
+    char par[2][15] ={0};
+    static int8_t *pcParameterString1, *pcParameterString2, *pcParameterString3;
+    portBASE_TYPE xParameterStringLength1 =0, xParameterStringLength2 =0, xParameterStringLength3 =0;
+
+    static const int8_t *pcOKMessage =(int8_t* )"ColorPickerMode:Colour is %s and Time is %d and and intensity %d %% \n\r";
+    static const int8_t *pcWrongIntensityMessage =(int8_t* )"Wrong intensity!\n\r";
+
+
+    (void )xWriteBufferLen;
+    configASSERT(pcWriteBuffer);
+
+    /* Obtain the 1st parameter string. */
+    pcParameterString1 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,1,&xParameterStringLength1);
+    /* Read the color value. */
+    	if(!strncmp((const char* )pcParameterString1,"black",xParameterStringLength1))
+    		Colour =BLACK;
+    	else if(!strncmp((const char* )pcParameterString1,"white",xParameterStringLength1))
+    		Colour =WHITE;
+    	else if(!strncmp((const char* )pcParameterString1,"red",xParameterStringLength1))
+    		Colour =RED;
+    	else if(!strncmp((const char* )pcParameterString1,"blue",xParameterStringLength1))
+    		Colour =BLUE;
+    	else if(!strncmp((const char* )pcParameterString1,"yellow",xParameterStringLength1))
+    		Colour =YELLOW;
+    	else if(!strncmp((const char* )pcParameterString1,"cyan",xParameterStringLength1))
+    		Colour =CYAN;
+    	else if(!strncmp((const char* )pcParameterString1,"magenta",xParameterStringLength1))
+    		Colour =MAGENTA;
+    	else if(!strncmp((const char* )pcParameterString1,"green",xParameterStringLength1))
+    		Colour =GREEN;
+    	else if(!strncmp((const char* )pcParameterString1,"aqua",xParameterStringLength1))
+    		Colour =AQUA;
+    	else if(!strncmp((const char* )pcParameterString1,"purple",xParameterStringLength1))
+    		Colour =PURPLE;
+    	else if(!strncmp((const char* )pcParameterString1,"lightblue",xParameterStringLength1))
+    		Colour =LIGHTBLUE;
+    	else if(!strncmp((const char* )pcParameterString1,"orange",xParameterStringLength1))
+    		Colour =ORANGE;
+    	else if(!strncmp((const char* )pcParameterString1,"indigo",xParameterStringLength1))
+    		Colour =INDIGO;
+
+    	/* Obtain the 2st parameter string. */
+		   pcParameterString2 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,2,&xParameterStringLength2);
+		   Time =(uint16_t )atol((char* )pcParameterString2);
+
+    /* Obtain the 3st parameter string. */
+    pcParameterString3 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,3,&xParameterStringLength3);
+    intensity =(uint8_t )atol((char* )pcParameterString3);
+
+    result =LEDMatrixRGBColorPickerMode(Colour, Time, intensity);
+
+    /* Respond to the command */
+    if(result == H16R6_OK)
+    {
+		strncpy(par[0],(char* )pcParameterString1,xParameterStringLength1);
+
+    	sprintf((char* )pcWriteBuffer,(char* )pcOKMessage,par[0],Time,intensity);
+    }
+    else if(result == H16R6_ERR_WrongIntensity)
+        strcpy((char* )pcWriteBuffer,(char* )pcWrongIntensityMessage);
+
+    /* There is no more data to return after this single string, so return
+     pdFALSE. */
+    return pdFALSE;
+
+}
+/*-----------------------------------------------------------*/
+
+portBASE_TYPE CLI_SetColorSomeLedCommand(int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString){
+	 Module_Status result =H16R6_OK;
+	    uint8_t StartLed =0;
+	    uint8_t EndLed =0;
+	    uint8_t color =0;
+	    uint8_t intensity =0;
+	    char par[15] ={0};
+	    static int8_t *pcParameterString1, *pcParameterString2, *pcParameterString3, *pcParameterString4;
+	    portBASE_TYPE xParameterStringLength1 =0, xParameterStringLength2 =0;
+	    portBASE_TYPE xParameterStringLength3 =0,xParameterStringLength4 =0;
+
+	    static const int8_t *pcOKMessage =(int8_t* )"StartLed is %d ,EndLed is %d,LED color is %s at intensity %d%%\n\r";
+	    static const int8_t *pcWrongLedOutRangeMessage =(int8_t* )"Wrong LedOutRange!\n\r";
+	    static const int8_t *pcWrongIntensityMessage =(int8_t* )"Wrong intensity!\n\r";
+
+
+	    (void )xWriteBufferLen;
+	    configASSERT(pcWriteBuffer);
+
+	    /* Obtain the 1st parameter string. */
+	    pcParameterString1 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,1,&xParameterStringLength1);
+	    StartLed =(uint8_t )atol((char* )pcParameterString1);
+	    /* Obtain the 2st parameter string. */
+	    pcParameterString2 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,2,&xParameterStringLength2);
+	    EndLed =(uint8_t )atol((char* )pcParameterString2);
+
+	    /* Obtain the 3st parameter string. */
+	    pcParameterString3 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,3,&xParameterStringLength3);
+	    /* Read the color value. */
+	    	if(!strncmp((const char* )pcParameterString3,"black",xParameterStringLength3))
+	    		color =BLACK;
+	    	else if(!strncmp((const char* )pcParameterString3,"white",xParameterStringLength3))
+	    		color =WHITE;
+	    	else if(!strncmp((const char* )pcParameterString3,"red",xParameterStringLength3))
+	    		color =RED;
+	    	else if(!strncmp((const char* )pcParameterString3,"blue",xParameterStringLength3))
+	    		color =BLUE;
+	    	else if(!strncmp((const char* )pcParameterString3,"yellow",xParameterStringLength3))
+	    		color =YELLOW;
+	    	else if(!strncmp((const char* )pcParameterString3,"cyan",xParameterStringLength3))
+	    		color =CYAN;
+	    	else if(!strncmp((const char* )pcParameterString3,"magenta",xParameterStringLength3))
+	    		color =MAGENTA;
+	    	else if(!strncmp((const char* )pcParameterString3,"green",xParameterStringLength3))
+	    		color =GREEN;
+	    	else if(!strncmp((const char* )pcParameterString3,"aqua",xParameterStringLength3))
+	    		color =AQUA;
+	    	else if(!strncmp((const char* )pcParameterString3,"purple",xParameterStringLength3))
+	    		color =PURPLE;
+	    	else if(!strncmp((const char* )pcParameterString3,"lightblue",xParameterStringLength3))
+	    		color =LIGHTBLUE;
+	    	else if(!strncmp((const char* )pcParameterString3,"orange",xParameterStringLength3))
+	    		color =ORANGE;
+	    	else if(!strncmp((const char* )pcParameterString3,"indigo",xParameterStringLength3))
+	    		color =INDIGO;
+
+	    /* Obtain the 4nd parameter string. */
+	    pcParameterString4 =(int8_t* )FreeRTOS_CLIGetParameter(pcCommandString,4,&xParameterStringLength4);
+	    intensity =(uint8_t )atol((char* )pcParameterString4);
+
+
+	    result =LEDMatrixSetColorSomeLed(StartLed, EndLed, color, intensity);
+
+	    /* Respond to the command */
+	    if(result == H16R6_OK)
+	    {	strncpy(par,(char* )pcParameterString3,xParameterStringLength3);
+	        sprintf((char* )pcWriteBuffer,(char* )pcOKMessage,StartLed,EndLed,par,intensity);
+	    }
+	    else if(result == H16R6_ERR_WrongLedOutRange)
+	        strcpy((char* )pcWriteBuffer,(char* )pcWrongLedOutRangeMessage);
+	    else if(result == H16R6_ERR_WrongIntensity)
+	        strcpy((char* )pcWriteBuffer,(char* )pcWrongIntensityMessage);
+
+	    /* There is no more data to return after this single string, so return
+	     pdFALSE. */
+	    return pdFALSE;
 
 }
 /*-----------------------------------------------------------*/

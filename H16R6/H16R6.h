@@ -1,5 +1,5 @@
 /*
- BitzOS (BOS) V0.3.5 - Copyright (C) 2017-2024 Hexabitz
+ BitzOS (BOS) V0.3.6 - Copyright (C) 2017-2024 Hexabitz
  All rights reserved
  
  File Name     : H16R6.h
@@ -159,8 +159,19 @@ Module_Status LEDMatrixSetLedOn(uint8_t led,uint8_t intensity);
 Module_Status LEDMatrixSetAllLedOn(uint8_t intensity);
 Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint16_t scrollTime);
 Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint16_t flashTime,uint16_t timeBetweenFlash);
-
-
+Module_Status LEDMatrixRGBColorPickerMode(uint8_t color,uint16_t time,uint8_t intensity);
+Module_Status LEDMatrixSetColorSomeLed(uint8_t StartLed,uint8_t EndLed,uint8_t color ,uint8_t intensity);
+Module_Status LEDMatrixMotionMode(uint8_t baseColour,uint8_t SeconedColor,uint8_t intensity,float scaledqom);
+Module_Status LEDMatrixCrossFadeMode(uint8_t baseColour,uint8_t seconedColor,uint8_t thirdColor,uint16_t time);
+Module_Status LEDMatrixCrossFadeModeLEDRGB(uint8_t LED, uint8_t SecondRED,
+		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime,
+		uint8_t intensity);
+Module_Status LEDMatrixCrossFadeModeALLLEDRGB(uint8_t SecondRED,
+		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime,
+		uint8_t intensity);
+Module_Status LEDMatrixSprinkleMode(uint8_t TargetColorR, uint8_t TargetColorG,
+		uint8_t TargetColorB, uint8_t AmountOfLEDs, uint16_t TimeToFade,
+		uint8_t ColorDeviation);
 void SetupPortForRemoteBootloaderUpdate(uint8_t port);
 void remoteBootloaderUpdate(uint8_t src,uint8_t dst,uint8_t inport,uint8_t outport);
 
@@ -179,6 +190,8 @@ extern const CLI_Command_Definition_t CLI_SetLedOnCommandDefinition;
 extern const CLI_Command_Definition_t CLI_SetAllLedOnCommandDefinition;
 extern const CLI_Command_Definition_t CLI_ScrollModeCommandDefinition;
 extern const CLI_Command_Definition_t CLI_FlashModeCommandDefinition;
+extern const CLI_Command_Definition_t CLI_ColorPickerModeCommandDefinition;
+extern const CLI_Command_Definition_t CLI_SetColorSomeLedCommandDefinition;
 
 #endif /* H16R6_H */
 

@@ -1,5 +1,5 @@
 /*
- BitzOS (BOS) V0.3.5 - Copyright (C) 2017-2024 Hexabitz
+ BitzOS (BOS) V0.3.6 - Copyright (C) 2017-2024 Hexabitz
  All rights reserved
 
  File Name     : APA102_LedMatrix.c
@@ -138,7 +138,7 @@ void DigiLedSetColor(uint8_t led, uint8_t color, uint8_t intensity) {
 		if (intensity > INTINSITYLED) {
 			intensity = INTINSITYLED;
 		}
-		digitalLedframe[led - 1].FieldsIn.INIT = 0x7;
+		digitalLedframe[led - 1].FieldsIn.INIT = 0X7;
 		digitalLedframe[led - 1].FieldsIn.GLOBAL = intensity; // Set led at maximum intensity 0x1F=31
 		digitalLedframe[led - 1].FieldsIn.BLUE = (uint8_t) (rgb);
 		digitalLedframe[led - 1].FieldsIn.GREEN = (uint8_t) (rgb >> 8);
@@ -321,6 +321,38 @@ void DigiLedFlashMode(uint8_t baseColour, uint8_t flashColour,
 	DigiLedSetAllLedOff();
 	DigiLedUpdate(1);
 	HAL_Delay(timeBetweenFlash);
+
+}
+/*-----------------------------------------------------------*/
+/**
+  * All leds on in the RGBColorPickerMode
+ * @param color Set LED color from a predefined color list "
+ * @param time   time between turning on each LED and the next
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ */
+void DigiLedRGBColorPickerMode(uint8_t color,uint16_t time,uint8_t intensity)
+{
+	for (int i = 1; i <= LEDFRAMESIZE; i++)
+    {
+	 DigiLedSetColor(i,color,intensity);
+		DigiLedUpdate(1);
+	  HAL_Delay(time);
+    }
+}
+/*-----------------------------------------------------------*/
+/*
+ * Set the colors of some of led using single colors
+ * @param StartLed  position of the led in the string led>=1
+ * @param EndLed  position of the led in the string led<=64
+ * @param Set LED color from a predefined color list in "APA102_LedMatrix.h"
+ * @param intensity is a value from 0 to 31. 0 means no light, and 31 maximum intensity
+ */
+void DigiLedRGBSetColorSomeLed(uint8_t StartLed,uint8_t EndLed,uint8_t color ,uint8_t intensity)
+{
+	for (int i = StartLed; i <=EndLed; i++) {
+		DigiLedSetColor(i, color, intensity);
+		DigiLedUpdate(1);
+		}
 
 }
 /*-----------------------------------------------------------*/

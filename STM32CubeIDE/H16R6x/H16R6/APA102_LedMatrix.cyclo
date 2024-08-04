@@ -13,3 +13,5 @@
 ..\..\H16R6\APA102_LedMatrix.c:262:9:DigiLedTestPosition	2
 ..\..\H16R6\APA102_LedMatrix.c:277:6:DigiLedScrollMode	3
 ..\..\H16R6\APA102_LedMatrix.c:309:6:DigiLedFlashMode	1
+..\..\H16R6\APA102_LedMatrix.c:333:6:DigiLedRGBColorPickerMode	2
+..\..\H16R6\APA102_LedMatrix.c:350:6:DigiLedRGBSetColorSomeLed	2
