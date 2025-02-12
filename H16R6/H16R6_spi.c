@@ -117,7 +117,7 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
 Status_TypeDef SendSPI(SPI_HANDLE *xPort, uint8_t pData[], uint16_t Size)
 {
 	Status_TypeDef Status=STATUS_ERR;
-
+	taskENTER_CRITICAL();
 	if (NULL!=xPort && NULL!=pData)
 	{
 		if (HAL_OK == HAL_SPI_Transmit(xPort, pData, Size, TIM_OUT_10MS))
@@ -125,7 +125,7 @@ Status_TypeDef SendSPI(SPI_HANDLE *xPort, uint8_t pData[], uint16_t Size)
 		}
 	else
 		Status = STATUS_ERR;
-
+	taskEXIT_CRITICAL();
 	return Status;
 }
 /* USER CODE END 1 */
