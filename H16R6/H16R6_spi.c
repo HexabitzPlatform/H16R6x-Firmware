@@ -13,23 +13,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "BOS.h"
 #include "H16R6_spi.h"
-/* USER CODE BEGIN 0 */
 
-/* USER CODE END 0 */
 
 SPI_HandleTypeDef hspi1;
 
 /* SPI1 init function */
 void MX_SPI1_Init(void)
 {
-
-  /* USER CODE BEGIN SPI1_Init 0 */
-
-  /* USER CODE END SPI1_Init 0 */
-
-  /* USER CODE BEGIN SPI1_Init 1 */
-
-  /* USER CODE END SPI1_Init 1 */
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_MASTER;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
@@ -44,11 +34,8 @@ void MX_SPI1_Init(void)
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
   hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+
   HAL_SPI_Init(&hspi1);
-
-  /* USER CODE BEGIN SPI1_Init 2 */
-
-  /* USER CODE END SPI1_Init 2 */
 
 }
 
@@ -58,13 +45,10 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
   if(spiHandle->Instance==SPI1)
   {
-  /* USER CODE BEGIN SPI1_MspInit 0 */
-
-  /* USER CODE END SPI1_MspInit 0 */
     /* SPI1 clock enable */
     __HAL_RCC_SPI1_CLK_ENABLE();
-
     __HAL_RCC_GPIOB_CLK_ENABLE();
+
     /**SPI1 GPIO Configuration
     PB3     ------> SPI1_SCK
     PB5     ------> SPI1_MOSI
@@ -76,9 +60,6 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
     GPIO_InitStruct.Alternate = GPIO_AF0_SPI1;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /* USER CODE BEGIN SPI1_MspInit 1 */
-
-  /* USER CODE END SPI1_MspInit 1 */
   }
 }
 
@@ -87,9 +68,6 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
 
   if(spiHandle->Instance==SPI1)
   {
-  /* USER CODE BEGIN SPI1_MspDeInit 0 */
-
-  /* USER CODE END SPI1_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_SPI1_CLK_DISABLE();
 
@@ -98,14 +76,9 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
     PB5     ------> SPI1_MOSI
     */
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_3|GPIO_PIN_5);
-
-  /* USER CODE BEGIN SPI1_MspDeInit 1 */
-
-  /* USER CODE END SPI1_MspDeInit 1 */
   }
 }
 
-/* USER CODE BEGIN 1 */
 /* SPI functions */
 /*
  * @brief: send data buffer via SPI port
@@ -128,4 +101,4 @@ Status_TypeDef SendSPI(SPI_HANDLE *xPort, uint8_t pData[], uint16_t Size)
 	taskEXIT_CRITICAL();
 	return Status;
 }
-/* USER CODE END 1 */
+

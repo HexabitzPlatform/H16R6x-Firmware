@@ -31,7 +31,6 @@ extern SPI_HandleTypeDef hspi1;
 /* SPI type define */
 typedef SPI_HandleTypeDef SPI_HANDLE;
 
-/* USER CODE BEGIN ET */
 typedef enum{
 	STATUS_OK = 0,
 	STATUS_INV,
