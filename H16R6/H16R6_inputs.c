@@ -1,8 +1,8 @@
 /*
- BitzOS (BOS) V0.3.6 - Copyright (C) 2017-2025 Hexabitz
+ BitzOS (BOS) V0.4.0 - Copyright (C) 2017-2025 Hexabitz
  All rights reserved
 
- File Name     : H01R0_inputs.c
+ File Name     : H16R6_inputs.c
  Description   : Source code for Bitz digital and analog inputs.
 
  */
@@ -428,7 +428,7 @@ BOS_Status AddPortButton(ButtonType_e buttonType, uint8_t port) {
 
 /***************************************************************************/
 /* Undefine a button attached to one of array ports and restore the port to default state
- *  port: array port (P1 - Px)
+ * port: array port (P1 - Px)
  */
 BOS_Status RemovePortButton(uint8_t port) {
 	BOS_Status result = BOS_OK;

@@ -10,11 +10,12 @@
 /* Includes ****************************************************************/
 #include "BOS.h"
 
-/* Variables ***************************************************************/
-RTC_HandleTypeDef RtcHandle;
-
-extern const char *MonthStringAbreviated[];
+/* Local Variables *********************************************************/
 uint8_t BootStatus =POWER_ON_BOOT;
+
+/* Exported Variables ******************************************************/
+RTC_HandleTypeDef RtcHandle;
+extern const char *MonthStringAbreviated[];
 
 /* Private Functions Prototypes ********************************************/
 BOS_Status RTC_Init(void);

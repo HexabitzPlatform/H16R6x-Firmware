@@ -106,6 +106,7 @@
 #define	NUM_OF_MODULE_LEDMATRIX 	1
 #define NUM_MODULE_PARAMS	        1
 #define MAX_NUMBER_OF_LEDS          65
+
 /* Module-specific Enumeration Definitions *********************************/
 /* Basic colors */
 enum BasicColors {
