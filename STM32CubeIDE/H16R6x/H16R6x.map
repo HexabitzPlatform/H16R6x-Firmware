@@ -7200,7 +7200,7 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
 LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libm.a
 LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v6-m/nofp\libgcc.a
 
-.debug_info     0x00000000    0x36144
+.debug_info     0x00000000    0x3615b
  .debug_info    0x00000000     0x2e7e BOS\BOS.o
  .debug_info    0x00002e7e     0x10bd BOS\BOS_CLI.o
  .debug_info    0x00003f3b     0x31b4 BOS\BOS_CLIcommands.o
@@ -7209,50 +7209,50 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_info    0x00008863     0x1a5f BOS\BOS_messaging.o
  .debug_info    0x0000a2c2     0x1c8f BOS\BOS_msgparser.o
  .debug_info    0x0000bf51      0xf56 H16R6\APA102_LedMatrix.o
- .debug_info    0x0000cea7     0x37ec H16R6\H16R6.o
- .debug_info    0x00010693     0x1436 H16R6\H16R6_dma.o
- .debug_info    0x00011ac9      0xa51 H16R6\H16R6_eeprom.o
- .debug_info    0x0001251a     0x1032 H16R6\H16R6_gpio.o
- .debug_info    0x0001354c     0x1e13 H16R6\H16R6_inputs.o
- .debug_info    0x0001535f     0x1527 H16R6\H16R6_it.o
- .debug_info    0x00016886      0xf99 H16R6\H16R6_rtc.o
- .debug_info    0x0001781f      0xcde H16R6\H16R6_spi.o
- .debug_info    0x000184fd      0xd4d H16R6\H16R6_timers.o
- .debug_info    0x0001924a     0x189c H16R6\H16R6_uart.o
- .debug_info    0x0001aae6       0x30 H16R6\startup_stm32g0b1ceuxn.o
- .debug_info    0x0001ab16      0x30b Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
- .debug_info    0x0001ae21      0xeed Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
- .debug_info    0x0001bd0e      0x572 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
- .debug_info    0x0001c280     0x17a2 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
- .debug_info    0x0001da22      0x733 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
- .debug_info    0x0001e155      0x2a4 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
- .debug_info    0x0001e3f9      0x27e Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
- .debug_info    0x0001e677      0x448 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\MemMang\heap_4.o
- .debug_info    0x0001eabf     0x11f7 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\queue.o
- .debug_info    0x0001fcb6     0x1ae1 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\tasks.o
- .debug_info    0x00021797      0xe13 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\timers.o
- .debug_info    0x000225aa      0xaef Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal.o
- .debug_info    0x00023099     0x15c4 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_adc.o
- .debug_info    0x0002465d      0x8ce Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_cortex.o
- .debug_info    0x00024f2b      0x53d Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc.o
- .debug_info    0x00025468      0x350 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc_ex.o
- .debug_info    0x000257b8      0x85e Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_dma.o
- .debug_info    0x00026016      0x6b7 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash.o
- .debug_info    0x000266cd      0xb16 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash_ex.o
- .debug_info    0x000271e3      0x5ce Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_gpio.o
- .debug_info    0x000277b1       0xf1 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_msp_template.o
- .debug_info    0x000278a2      0x59f Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr.o
- .debug_info    0x00027e41      0x8aa Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr_ex.o
- .debug_info    0x000286eb      0xb90 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc.o
- .debug_info    0x0002927b      0xa36 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc_ex.o
- .debug_info    0x00029cb1      0xc90 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc.o
- .debug_info    0x0002a941     0x1299 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc_ex.o
- .debug_info    0x0002bbda     0x191e Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_spi.o
- .debug_info    0x0002d4f8     0x2c07 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_tim.o
- .debug_info    0x000300ff     0x4895 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart.o
- .debug_info    0x00034994      0xfe5 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart_ex.o
- .debug_info    0x00035979      0x3b7 User\main.o
- .debug_info    0x00035d30      0x414 syscalls.o
+ .debug_info    0x0000cea7     0x3803 H16R6\H16R6.o
+ .debug_info    0x000106aa     0x1436 H16R6\H16R6_dma.o
+ .debug_info    0x00011ae0      0xa51 H16R6\H16R6_eeprom.o
+ .debug_info    0x00012531     0x1032 H16R6\H16R6_gpio.o
+ .debug_info    0x00013563     0x1e13 H16R6\H16R6_inputs.o
+ .debug_info    0x00015376     0x1527 H16R6\H16R6_it.o
+ .debug_info    0x0001689d      0xf99 H16R6\H16R6_rtc.o
+ .debug_info    0x00017836      0xcde H16R6\H16R6_spi.o
+ .debug_info    0x00018514      0xd4d H16R6\H16R6_timers.o
+ .debug_info    0x00019261     0x189c H16R6\H16R6_uart.o
+ .debug_info    0x0001aafd       0x30 H16R6\startup_stm32g0b1ceuxn.o
+ .debug_info    0x0001ab2d      0x30b Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
+ .debug_info    0x0001ae38      0xeed Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+ .debug_info    0x0001bd25      0x572 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
+ .debug_info    0x0001c297     0x17a2 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
+ .debug_info    0x0001da39      0x733 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
+ .debug_info    0x0001e16c      0x2a4 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
+ .debug_info    0x0001e410      0x27e Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
+ .debug_info    0x0001e68e      0x448 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\MemMang\heap_4.o
+ .debug_info    0x0001ead6     0x11f7 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\queue.o
+ .debug_info    0x0001fccd     0x1ae1 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\tasks.o
+ .debug_info    0x000217ae      0xe13 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\timers.o
+ .debug_info    0x000225c1      0xaef Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal.o
+ .debug_info    0x000230b0     0x15c4 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_adc.o
+ .debug_info    0x00024674      0x8ce Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_cortex.o
+ .debug_info    0x00024f42      0x53d Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc.o
+ .debug_info    0x0002547f      0x350 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc_ex.o
+ .debug_info    0x000257cf      0x85e Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_dma.o
+ .debug_info    0x0002602d      0x6b7 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash.o
+ .debug_info    0x000266e4      0xb16 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash_ex.o
+ .debug_info    0x000271fa      0x5ce Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_gpio.o
+ .debug_info    0x000277c8       0xf1 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_msp_template.o
+ .debug_info    0x000278b9      0x59f Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr.o
+ .debug_info    0x00027e58      0x8aa Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr_ex.o
+ .debug_info    0x00028702      0xb90 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc.o
+ .debug_info    0x00029292      0xa36 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc_ex.o
+ .debug_info    0x00029cc8      0xc90 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc.o
+ .debug_info    0x0002a958     0x1299 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc_ex.o
+ .debug_info    0x0002bbf1     0x191e Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_spi.o
+ .debug_info    0x0002d50f     0x2c07 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_tim.o
+ .debug_info    0x00030116     0x4895 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart.o
+ .debug_info    0x000349ab      0xfe5 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart_ex.o
+ .debug_info    0x00035990      0x3b7 User\main.o
+ .debug_info    0x00035d47      0x414 syscalls.o
 
 .debug_abbrev   0x00000000     0x7be9
  .debug_abbrev  0x00000000      0x43c BOS\BOS.o
@@ -7592,15 +7592,15 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
                                0x1803 (size before relaxing)
  .debug_str     0x000035cf      0x46b H16R6\APA102_LedMatrix.o
                                 0xb21 (size before relaxing)
- .debug_str     0x00003a3a      0xbc6 H16R6\H16R6.o
-                               0x2074 (size before relaxing)
- .debug_str     0x00004600      0x523 H16R6\H16R6_dma.o
+ .debug_str     0x00003a3a      0xbd6 H16R6\H16R6.o
+                               0x2084 (size before relaxing)
+ .debug_str     0x00004610      0x523 H16R6\H16R6_dma.o
                                0x1287 (size before relaxing)
- .debug_str     0x00004b23      0x2b1 H16R6\H16R6_eeprom.o
+ .debug_str     0x00004b33      0x2b1 H16R6\H16R6_eeprom.o
                                 0xb28 (size before relaxing)
- .debug_str     0x00004dd4       0x60 H16R6\H16R6_gpio.o
+ .debug_str     0x00004de4       0x60 H16R6\H16R6_gpio.o
                                 0xe03 (size before relaxing)
- .debug_str     0x00004e34      0x4f3 H16R6\H16R6_inputs.o
+ .debug_str     0x00004e44      0x4e3 H16R6\H16R6_inputs.o
                                0x176d (size before relaxing)
  .debug_str     0x00005327      0x281 H16R6\H16R6_it.o
                                 0xd5c (size before relaxing)
