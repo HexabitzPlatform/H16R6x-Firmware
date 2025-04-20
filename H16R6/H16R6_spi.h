@@ -19,11 +19,8 @@ extern "C" {
 /* Includes ****************************************************************/
 #include "stm32g0xx_hal.h"
 
-/* SPI port definitions */
-#define TIM_OUT_10MS         		10u
-
 /* Exported Variables ******************************************************/
-extern SPI_HandleTypeDef hspi1;
+extern SPI_HandleTypeDef  hspi1;
 
 /* SPI Typedef definition **************************************************/
 typedef SPI_HandleTypeDef SPI_HANDLE;

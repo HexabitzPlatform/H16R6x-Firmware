@@ -595,7 +595,7 @@ void Module_Peripheral_Init(void) {
 	MX_USART4_UART_Init();
 	MX_USART5_UART_Init();
 	MX_USART6_UART_Init();
-//	MX_GPIO_Init();
+
 	MX_SPI1_Init();
 	DigiLedInit();
 
@@ -619,62 +619,67 @@ void Module_Peripheral_Init(void) {
 
 /***************************************************************************/
 /* H16R6 message processing task */
-Module_Status Module_MessagingTask(uint16_t code, uint8_t port, uint8_t src,
-		uint8_t dst, uint8_t shift) {
+Module_Status Module_MessagingTask(uint16_t code, uint8_t port, uint8_t src, uint8_t dst, uint8_t shift) {
 	Module_Status result = H16R6_OK;
 
+	uint16_t time = 0;
+	uint16_t scrollTime = 0;
+	uint16_t flashTime = 0;
+	uint16_t TimeToFade = 0;
+	uint16_t timeBetweenFlash = 0;
+	uint16_t interpolationtime = 0;
+	uint32_t Number_int;
+	float scaledqom;
+
 	switch (code) {
-	case CODE_H16R6_SETRGB: {
+	case CODE_H16R6_SETRGB:
 		LEDMatrixSetRGB(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2],
 				cMessage[port - 1][shift + 3], cMessage[port - 1][shift + 4]);
 		break;
-	}
-	case CODE_H16R6_SETALLRGB: {
+
+	case CODE_H16R6_SETALLRGB:
 		LEDMatrixSetAllRGB(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2],
 				cMessage[port - 1][shift + 3]);
 		break;
-	}
-	case CODE_H16R6_SETCOLOR: {
+
+	case CODE_H16R6_SETCOLOR:
 		LEDMatrixSetColor(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2]);
 		break;
-	}
-	case CODE_H16R6_SETALLCOLOR: {
+
+	case CODE_H16R6_SETALLCOLOR:
 		LEDMatrixSetAllColor(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1]);
 		break;
-	}
-	case CODE_H16R6_SETLEDON: {
+
+	case CODE_H16R6_SETLEDON:
 		LEDMatrixSetLedOn(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1]);
 		break;
-	}
-	case CODE_H16R6_SETALLLEDON: {
+
+	case CODE_H16R6_SETALLLEDON:
 		LEDMatrixSetAllLedOn(cMessage[port - 1][shift]);
 		break;
-	}
-	case CODE_H16R6_SETLEDOFF: {
+
+	case CODE_H16R6_SETLEDOFF:
 		LEDMatrixSetLedOff(cMessage[port - 1][shift]);
 		break;
-	}
-	case CODE_H16R6_SETALLLEDOFF: {
+
+	case CODE_H16R6_SETALLLEDOFF:
 		LEDMatrixSetAllLedOff();
 		break;
-	}
-	case CODE_H16R6_SCROLLMODE: {
-		uint16_t scrollTime = 0;
+
+	case CODE_H16R6_SCROLLMODE:
 		scrollTime = (((uint16_t) cMessage[port - 1][shift + 3])
 				+ ((uint16_t) cMessage[port - 1][shift + 4] << 8));
 		LEDMatrixScrollMode(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2],
 				scrollTime);
 		break;
-	}
-	case CODE_H16R6_FLASHMODE: {
-		uint16_t flashTime = 0;
-		uint16_t timeBetweenFlash = 0;
+
+	case CODE_H16R6_FLASHMODE:
 		flashTime = (((uint16_t) cMessage[port - 1][shift + 3])
 				+ ((uint16_t) cMessage[port - 1][shift + 4] << 8));
 		timeBetweenFlash = (((uint16_t) cMessage[port - 1][shift + 5])
@@ -683,47 +688,39 @@ Module_Status Module_MessagingTask(uint16_t code, uint8_t port, uint8_t src,
 				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2],
 				flashTime, timeBetweenFlash);
 		break;
-	}
-	case CODE_H16R6_COLORPICKERMODE: {
-		uint16_t time = 0;
+
+	case CODE_H16R6_COLORPICKERMODE:
 		time = (((uint16_t) cMessage[port - 1][shift + 1])
 				+ ((uint16_t) cMessage[port - 1][shift + 2] << 8));
 		LEDMatrixRGBColorPickerMode(cMessage[port - 1][shift], time,
 				cMessage[port - 1][shift + 3]);
 		break;
-	}
-	case CODE_H16R6_SETCOLORSOMELED: {
+
+	case CODE_H16R6_SETCOLORSOMELED:
 		LEDMatrixSetColorSomeLed(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2],
 				cMessage[port - 1][shift + 3]);
 		break;
-	}
-	case CODE_H16R6_MOTIONMODE: {
-		uint32_t Number_int;
-		float scaledqom;
+
+	case CODE_H16R6_MOTIONMODE:
 		Number_int = (((uint32_t) cMessage[port - 1][shift + 3])
 				+ ((uint32_t) cMessage[port - 1][shift + 4] << 8)
 				+ ((uint32_t) cMessage[port - 1][shift + 5] << 16)
 				+ ((uint32_t) cMessage[port - 1][shift + 6] << 24));
 		scaledqom = *((float*) &Number_int);
 		LEDMatrixMotionMode(cMessage[port - 1][shift],
-				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2],
-				scaledqom);
-
+				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2], scaledqom);
 		break;
-	}
-	case CODE_H16R6_CROSSFADEMODE: {
-		uint16_t time = 0;
+
+	case CODE_H16R6_CROSSFADEMODE:
 		time = (((uint16_t) cMessage[port - 1][shift + 3])
 				+ ((uint16_t) cMessage[port - 1][shift + 4] << 8));
 		LEDMatrixCrossFadeMode(cMessage[port - 1][shift],
-				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2],
-				time);
+				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2], time);
 
 		break;
-	}
-	case CODE_H16R6_CROSSFADEMODELEDRGB: {
-		uint16_t interpolationtime;
+
+	case CODE_H16R6_CROSSFADEMODELEDRGB:
 		interpolationtime = (((uint16_t) cMessage[port - 1][shift + 4])
 				+ ((uint16_t) cMessage[port - 1][shift + 5] << 8));
 		LEDMatrixCrossFadeModeLEDRGB(cMessage[port - 1][shift],
@@ -731,18 +728,16 @@ Module_Status Module_MessagingTask(uint16_t code, uint8_t port, uint8_t src,
 				cMessage[port - 1][shift + 3], interpolationtime,
 				cMessage[port - 1][shift + 6]);
 		break;
-	}
-	case CODE_H16R6_CROSSFADEMODEALLLEDRGB: {
-		uint16_t interpolationtime;
+
+	case CODE_H16R6_CROSSFADEMODEALLLEDRGB:
 		interpolationtime = (((uint16_t) cMessage[port - 1][shift + 3])
 				+ ((uint16_t) cMessage[port - 1][shift + 4] << 8));
 		LEDMatrixCrossFadeModeALLLEDRGB(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2],
 				interpolationtime, cMessage[port - 1][shift + 5]);
 		break;
-	}
-	case CODE_H16R6_SPRINKLEMODE: {
-		uint16_t TimeToFade;
+
+	case CODE_H16R6_SPRINKLEMODE:
 		TimeToFade = (((uint16_t) cMessage[port - 1][shift + 4])
 				+ ((uint16_t) cMessage[port - 1][shift + 5] << 8));
 		LEDMatrixSprinkleMode(cMessage[port - 1][shift],
@@ -750,7 +745,7 @@ Module_Status Module_MessagingTask(uint16_t code, uint8_t port, uint8_t src,
 				cMessage[port - 1][shift + 3], TimeToFade,
 				cMessage[port - 1][shift + 6]);
 		break;
-	}
+
 	default:
 		result = H16R6_ERR_UnknownMessage;
 		break;
@@ -850,8 +845,7 @@ void RandomArray(int RandomIndex[65], int NbOfLeds) {
  * blue: intensity of the blue color from 0 to 255
  * intensity: is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-Module_Status LEDMatrixSetRGB(uint8_t led, uint8_t red, uint8_t green,
-		uint8_t blue, uint8_t intensity) {
+Module_Status LEDMatrixSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue, uint8_t intensity) {
 
 	Module_Status Status = H16R6_OK;
 
@@ -878,8 +872,7 @@ Module_Status LEDMatrixSetRGB(uint8_t led, uint8_t red, uint8_t green,
  * blue: intensity of the blue color from 0 to 255
  * intensity: is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-Module_Status LEDMatrixSetAllRGB(uint8_t red, uint8_t green, uint8_t blue,
-		uint8_t intensity) {
+Module_Status LEDMatrixSetAllRGB(uint8_t red, uint8_t green, uint8_t blue, uint8_t intensity) {
 
 	Module_Status Status = H16R6_OK;
 
@@ -1016,8 +1009,7 @@ Module_Status LEDMatrixSetAllLedOn(uint8_t intensity) {
  * intensity: is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  * scrollTime: Secondary color retention time  value in millisecond.
  */
-Module_Status LEDMatrixScrollMode(uint8_t baseColour, uint8_t scrollRow,
-		uint8_t intensity, uint16_t scrollTime) {
+Module_Status LEDMatrixScrollMode(uint8_t baseColour, uint8_t scrollRow, uint8_t intensity, uint16_t scrollTime) {
 
 	Module_Status Status = H16R6_OK;
 
@@ -1033,8 +1025,7 @@ Module_Status LEDMatrixScrollMode(uint8_t baseColour, uint8_t scrollRow,
  * flashTime: Color display time value in millisecond.
  * timeBetweenFlash: The time between the display of the two colors value in millisecond.
  */
-Module_Status LEDMatrixFlashMode(uint8_t baseColour, uint8_t flashColour,
-		uint8_t intensity, uint16_t flashTime, uint16_t timeBetweenFlash) {
+Module_Status LEDMatrixFlashMode(uint8_t baseColour, uint8_t flashColour, uint8_t intensity, uint16_t flashTime, uint16_t timeBetweenFlash) {
 
 	Module_Status Status = H16R6_OK;
 
@@ -1049,8 +1040,7 @@ Module_Status LEDMatrixFlashMode(uint8_t baseColour, uint8_t flashColour,
  * time: time between turning on each LED and the next
  * intensity: is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-Module_Status LEDMatrixRGBColorPickerMode(uint8_t color, uint16_t time,
-		uint8_t intensity) {
+Module_Status LEDMatrixRGBColorPickerMode(uint8_t color, uint16_t time, uint8_t intensity) {
 
 	Module_Status Status = H16R6_OK;
 
@@ -1065,8 +1055,7 @@ Module_Status LEDMatrixRGBColorPickerMode(uint8_t color, uint16_t time,
  * color: Set LED color from a predefined color list in "BOS.h"
  * intensity: is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
-Module_Status LEDMatrixSetColorSomeLed(uint8_t StartLed, uint8_t EndLed,
-		uint8_t color, uint8_t intensity) {
+Module_Status LEDMatrixSetColorSomeLed(uint8_t StartLed, uint8_t EndLed, uint8_t color, uint8_t intensity) {
 
 	Module_Status Status = H16R6_OK;
 	if (StartLed < 1 || EndLed < 1) {
@@ -1114,8 +1103,7 @@ Module_Status LEDMatrixMotionMode(uint8_t baseColour, uint8_t SeconedColor, uint
  * intensity: is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  * time: Color grading time
  */
-Module_Status LEDMatrixCrossFadeMode(uint8_t baseColour, uint8_t seconedColor,
-		uint8_t thirdColor, uint16_t time) {
+Module_Status LEDMatrixCrossFadeMode(uint8_t baseColour, uint8_t seconedColor, uint8_t thirdColor, uint16_t time) {
 
 	for (int var = 1; var <= 10; var++) {
 		LEDMatrixSetAllColor(baseColour, var);
@@ -1147,8 +1135,8 @@ Module_Status LEDMatrixCrossFadeMode(uint8_t baseColour, uint8_t seconedColor,
 /***************************************************************************/
 /* */
 Module_Status LEDMatrixCrossFadeModeLEDRGB(uint8_t LED, uint8_t SecondRED,
-		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime,
-		uint8_t intensity) {
+		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime, uint8_t intensity) {
+
 	if (LED >= 64) {
 		LED = 64;
 	}
@@ -1162,6 +1150,7 @@ Module_Status LEDMatrixCrossFadeModeLEDRGB(uint8_t LED, uint8_t SecondRED,
 	int16_t DeltaG = SecondGREEN - OldColorG[LED];
 	int16_t DeltaB = SecondBLUE - OldColorB[LED];
 	float delayTime = (float) interpolationtime / 100;
+
 	for (uint16_t currentStep = 0; currentStep <= 100; currentStep++) {
 		float t = (float) currentStep / (float) 100;
 		NewRED = OldColorR[LED] + (uint8_t) (t * DeltaR);
@@ -1183,8 +1172,7 @@ Module_Status LEDMatrixCrossFadeModeLEDRGB(uint8_t LED, uint8_t SecondRED,
 /***************************************************************************/
 /* */
 Module_Status LEDMatrixCrossFadeModeALLLEDRGB(uint8_t SecondRED,
-		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime,
-		uint8_t intensity) {
+		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime, uint8_t intensity) {
 	int16_t DeltaR = 0;
 	int16_t DeltaG = 0;
 	int16_t DeltaB = 0;
@@ -1193,6 +1181,7 @@ Module_Status LEDMatrixCrossFadeModeALLLEDRGB(uint8_t SecondRED,
 	uint8_t NewRED = 0;
 	uint8_t NewGREEN = 0;
 	uint8_t NewBLUE = 0;
+
 	if (intensity >= INTINSITY_LED) {
 		intensity = INTINSITY_LED;
 	}
@@ -1224,8 +1213,7 @@ Module_Status LEDMatrixCrossFadeModeALLLEDRGB(uint8_t SecondRED,
 /***************************************************************************/
 /* */
 Module_Status LEDMatrixSprinkleMode(uint8_t TargetColorR, uint8_t TargetColorG,
-		uint8_t TargetColorB, uint8_t AmountOfLEDs, uint16_t TimeToFade,
-		uint8_t ColorDeviation) {
+		uint8_t TargetColorB, uint8_t AmountOfLEDs, uint16_t TimeToFade, uint8_t ColorDeviation) {
 
 	if (AmountOfLEDs > 100) {
 		AmountOfLEDs = 100;
@@ -1317,7 +1305,6 @@ Module_Status LEDMatrixSprinkleMode(uint8_t TargetColorR, uint8_t TargetColorG,
 			HAL_Delay(DelayTimeStep / 10);
 		}
 	}
-
 }
 
 /***************************************************************************/

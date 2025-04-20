@@ -52,12 +52,12 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *spiHandle) {
 		 PB3     ------> SPI1_SCK
 		 PB5     ------> SPI1_MOSI
 		 */
-		GPIO_InitStruct.Pin = GPIO_PIN_3 | GPIO_PIN_5;
+		GPIO_InitStruct.Pin = LED_MATRIX_SPI_SCK_PIN | LED_MATRIX_SPI_MOSI_PIN;
 		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
 		GPIO_InitStruct.Pull = GPIO_NOPULL;
 		GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 		GPIO_InitStruct.Alternate = GPIO_AF0_SPI1;
-		HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+		HAL_GPIO_Init(LED_MATRIX_SPI_PORT, &GPIO_InitStruct);
 
 	}
 }
@@ -73,7 +73,7 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *spiHandle) {
 		 PB3     ------> SPI1_SCK
 		 PB5     ------> SPI1_MOSI
 		 */
-		HAL_GPIO_DeInit(GPIOB, GPIO_PIN_3 | GPIO_PIN_5);
+		HAL_GPIO_DeInit(LED_MATRIX_SPI_PORT, LED_MATRIX_SPI_SCK_PIN | LED_MATRIX_SPI_MOSI_PIN);
 	}
 }
 
@@ -87,7 +87,7 @@ Status_TypeDef SendSPI(SPI_HANDLE *xPort, uint8_t pData[], uint16_t Size) {
 	Status_TypeDef Status = STATUS_ERR;
 	taskENTER_CRITICAL();
 	if (NULL != xPort && NULL != pData) {
-		if (HAL_OK == HAL_SPI_Transmit(xPort, pData, Size, TIM_OUT_10MS))
+		if (HAL_OK == HAL_SPI_Transmit(xPort, pData, Size, 10))
 			Status = STATUS_OK;
 	} else
 		Status = STATUS_ERR;

@@ -17,8 +17,6 @@
 #include "BOS.h"
 
 /* Exported Macros *********************************************************/
-#define LED_MATRIX_SPI_HANDLER     &hspi1
-
 #define LED_FRAME_SIZE        	NUM_OF_MODULE_LEDMATRIX*64	/* define number of LEDs in the chain */
 
 #define FALSE 					0

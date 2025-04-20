@@ -97,10 +97,16 @@
 #define	USART6_RX_PORT		GPIOB
 #define	USART6_AF			GPIO_AF8_USART6
 
-/* Module-specific Hardware Definitions */
+/* Module-specific Hardware Definitions ************************************/
+#define LED_MATRIX_SPI_SCK_PIN   GPIO_PIN_3
+#define LED_MATRIX_SPI_MOSI_PIN  GPIO_PIN_5
+#define LED_MATRIX_SPI_PORT      GPIOB
+
+#define LED_MATRIX_SPI_HANDLER   &hspi1
+
 /* Indicator LED */
-#define _IND_LED_PORT		GPIOC
-#define _IND_LED_PIN		GPIO_PIN_13
+#define _IND_LED_PORT		     GPIOC
+#define _IND_LED_PIN		     GPIO_PIN_13
 
 /* Module-specific Macro Definitions ***************************************/
 #define	NUM_OF_MODULE_LEDMATRIX 	1
