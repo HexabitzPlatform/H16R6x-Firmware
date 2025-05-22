@@ -14,9 +14,9 @@
 
 /* Local Variables *********************************************************/
 uint8_t frameModified; 		// when frame is changed the stimuli is set high
-uint8_t SpiSendFrame[LED_START_FRAME_SIZE + 4 * NUM_OF_MODULE_LEDMATRIX + LED_END_FRAME_SIZE];
+uint8_t SpiSendFrame[LED_START_FRAME_SIZE + 4 * LED_FRAME_SIZE + LED_END_FRAME_SIZE];
 
-DigitalLedframe digitalLedframe[NUM_OF_MODULE_LEDMATRIX];
+DigitalLedframe digitalLedframe[LED_FRAME_SIZE];
 
 /***************************************************************************/
 /***************************** General Functions ***************************/
@@ -25,7 +25,7 @@ DigitalLedframe digitalLedframe[NUM_OF_MODULE_LEDMATRIX];
 void DigiLedInit() {
 	frameModified = TRUE; // Initial set to true to force update after initialization of frame buffer
 
-	for (int led = 1; led <= NUM_OF_MODULE_LEDMATRIX; led++) {
+	for (int led = 1; led <= LED_FRAME_SIZE; led++) {
 		digitalLedframe[led - 1].FieldsIn.INIT = 0x07; // Set MSB first 3 bits to identify start of LED packet
 		digitalLedframe[led - 1].FieldsIn.GLOBAL = 0x00; // Switch off LED global
 		digitalLedframe[led - 1].FieldsIn.BLUE = 0x00;
@@ -121,7 +121,7 @@ void DigiLedSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,
 void DigiLedSetAllRGB(uint8_t red, uint8_t green, uint8_t blue,
 		uint8_t intensity) {
 
-	for (int led = 1; led <= NUM_OF_MODULE_LEDMATRIX; led++) {
+	for (int led = 1; led <= LED_FRAME_SIZE; led++) {
 		DigiLedSetRGB(led, red, green, blue, intensity);
 	}
 }
@@ -157,7 +157,7 @@ void DigiLedSetColor(uint8_t led, uint8_t color, uint8_t intensity) {
  * intensity: is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
 void DigiLedSetAllColor(uint8_t color, uint8_t intensity) {
-	for (int led = 1; led <= NUM_OF_MODULE_LEDMATRIX; led++) {
+	for (int led = 1; led <= LED_FRAME_SIZE; led++) {
 		DigiLedSetColor(led, color, intensity);
 	}
 }
@@ -179,7 +179,7 @@ void DigiLedSetLedOff(uint8_t led) {
 /***************************************************************************/
 /* @All leds off */
 void DigiLedSetAllLedOff() {
-	for (int led = 1; led <= NUM_OF_MODULE_LEDMATRIX; led++) {
+	for (int led = 1; led <= LED_FRAME_SIZE; led++) {
 		DigiLedSetLedOff(led);
 	}
 }
@@ -209,7 +209,7 @@ void DigiLedSetLedOn(uint8_t led, uint8_t intensity) {
  * intensity: is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
 void DigiLedSetAllLedOn(uint8_t intensity) {
-	for (int led = 1; led <= NUM_OF_MODULE_LEDMATRIX; led++) {
+	for (int led = 1; led <= LED_FRAME_SIZE; led++) {
 		DigiLedSetLedOn(led, intensity);
 	}
 }
@@ -226,7 +226,7 @@ void DigiLedUpdate(uint8_t forceUpdate) {
 		}
 		// add all LED packets of the frame
 		uint32_t SpiDataPacket = 0;
-		for (uint32_t led = 0; led < NUM_OF_MODULE_LEDMATRIX; led++) {
+		for (uint32_t led = 0; led < LED_FRAME_SIZE; led++) {
 			SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 0] =
 					digitalLedframe[led].FieldsOut.CMD;	// Add INIT and GLOBAL to SPI send frame
 			SpiSendFrame[LED_START_FRAME_SIZE + SpiDataPacket + 1] =
@@ -239,7 +239,7 @@ void DigiLedUpdate(uint8_t forceUpdate) {
 		}
 		// add end of frame (0xffffffff)
 		for (int i = 0; i < 4; i++) {
-			SpiSendFrame[LED_START_FRAME_SIZE + 4 * NUM_OF_MODULE_LEDMATRIX + i] =
+			SpiSendFrame[LED_START_FRAME_SIZE + 4 * LED_FRAME_SIZE + i] =
 					0xFF;
 		}
 		// send spi frame with all led values
@@ -253,7 +253,7 @@ void DigiLedUpdate(uint8_t forceUpdate) {
 /***************************************************************************/
 /* get LED frame size */
 uint8_t DigiLedGetFrameSize(void) {
-	return NUM_OF_MODULE_LEDMATRIX;
+	return LED_FRAME_SIZE;
 }
 
 /***************************************************************************/
@@ -262,7 +262,7 @@ uint8_t DigiLedGetFrameSize(void) {
  */
 uint8_t DigiLedTestPosition(uint8_t led) {
 	uint8_t returnValue = OUT_OF_RANGE;
-	if (led <= NUM_OF_MODULE_LEDMATRIX) {
+	if (led <= LED_FRAME_SIZE) {
 		returnValue = RANGE_OK;
 	}
 	return returnValue;
@@ -333,7 +333,7 @@ void DigiLedFlashMode(uint8_t baseColour, uint8_t flashColour,
  * intensity: is a value from 0 to 31. 0 means no light, and 31 maximum intensity
  */
 void DigiLedRGBColorPickerMode(uint8_t color, uint16_t time, uint8_t intensity) {
-	for (int i = 1; i <= NUM_OF_MODULE_LEDMATRIX; i++) {
+	for (int i = 1; i <= LED_FRAME_SIZE; i++) {
 		DigiLedSetColor(i, color, intensity);
 		DigiLedUpdate(1);
 		HAL_Delay(time);
