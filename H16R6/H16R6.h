@@ -78,7 +78,6 @@
 #define	USART3_TX_PORT		GPIOB
 #define	USART3_RX_PORT		GPIOB
 #define	USART3_AF			GPIO_AF4_USART3
-
 #define	USART4_TX_PIN		GPIO_PIN_0
 #define	USART4_RX_PIN		GPIO_PIN_1
 #define	USART4_TX_PORT		GPIOA
@@ -109,7 +108,7 @@
 #define _IND_LED_PIN		     GPIO_PIN_13
 
 /* Module-specific Macro Definitions ***************************************/
-#define	NUM_OF_MODULE_LEDMATRIX 	1
+#define	NUM_OF_MODULE_LEDMATRIX 	2
 #define NUM_MODULE_PARAMS	        1
 #define MAX_NUMBER_OF_LEDS          65
 
@@ -130,6 +129,17 @@ typedef enum {
 	H16R6_ERR_WrongIntensity,
 	H16R6_ERROR =255
 } Module_Status;
+
+/* RGB LED operating modes */
+enum LedMatrixMode {
+	SCROLL_MODE = 1,
+	FLASH_MODE,
+	PICKER_MODE,
+    FADE_MODE,
+	FADE_ONE_RGB_LED_MODE,
+	FADE_ALL_RGB_LED_MODE,
+//	SPRINKLE_MODE,
+};
 
 /* Export UART variables */
 extern UART_HandleTypeDef huart1;
@@ -170,8 +180,16 @@ Module_Status LEDMatrixCrossFadeModeLEDRGB(uint8_t LED, uint8_t SecondRED,
 Module_Status LEDMatrixCrossFadeModeALLLEDRGB(uint8_t SecondRED,
 		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime, uint8_t intensity);
 Module_Status LEDMatrixSprinkleMode(uint8_t TargetColorR, uint8_t TargetColorG,
-		uint8_t TargetColorB, uint8_t AmountOfLEDs, uint16_t TimeToFade, uint8_t ColorDeviation);
+		uint8_t TargetColorB, uint16_t TimeToFade, uint8_t ColorDeviation);
+void LedMatrixTask(void *argument);
 
+Module_Status LED_Matrix_Sprinkle_Mode();
+Module_Status LED_Matrix_Cross_Fade_Mode_ALL_LED_RGB();
+Module_Status LED_Matrix_Cross_Fade_Mode_LED_RGB();
+Module_Status LED_Matrix_Cross_Fade_Mode();
+Module_Status LED_Matrix_RGB_Color_Picker_Mode();
+Module_Status LED_Matrix_Flash_Mode();
+Module_Status LED_Matrix_Scroll_Mode();
 #endif /* H16R6_H */
 
 /***************** (C) COPYRIGHT HEXABITZ ***** END OF FILE ****************/
