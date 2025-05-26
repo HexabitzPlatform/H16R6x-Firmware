@@ -17,6 +17,7 @@ uint8_t *error_restart_message ="Restarting...\r\n";
 extern uint8_t WakeupFromStopFlag;
 extern uint8_t UARTRxBuf[NUM_OF_PORTS][MSG_RX_BUF_SIZE];
 extern TaskHandle_t xCommandConsoleTaskHandle; /* CLI Task handler */
+extern DMA_HandleTypeDef hdma_spi1_tx;
 
 /* Local Variables *********************************************************/
 uint16_t PacketLength =0;
@@ -216,6 +217,11 @@ void DMA1_Ch4_7_DMA2_Ch1_5_DMAMUX1_OVR_IRQHandler(void) {
 #if defined (_USART6)
 	if (HAL_DMA_GET_IT_SOURCE(DMA1,DMA_ISR_GIF6) == SET)
 		DMA_IRQHandler(GetPort(&huart6));
+#endif
+
+#if defined (SPI1)
+	if (HAL_DMA_GET_IT_SOURCE(DMA2,DMA_ISR_GIF1) == SET)
+		HAL_DMA_IRQHandler(&hdma_spi1_tx);
 #endif
 
 }

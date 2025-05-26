@@ -13,7 +13,7 @@
 
 /* Exported Variables ******************************************************/
 SPI_HandleTypeDef hspi1;
-
+DMA_HandleTypeDef hdma_spi1_tx;
 /***************************************************************************/
 /* Configure SPI ***********************************************************/
 /***************************************************************************/
@@ -22,7 +22,7 @@ SPI_HandleTypeDef hspi1;
 void MX_SPI1_Init(void) {
 	hspi1.Instance = SPI1;
 	hspi1.Init.Mode = SPI_MODE_MASTER;
-	hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+	hspi1.Init.Direction = SPI_DIRECTION_1LINE;
 	hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
 	hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
 	hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
@@ -59,6 +59,24 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *spiHandle) {
 		GPIO_InitStruct.Alternate = GPIO_AF0_SPI1;
 		HAL_GPIO_Init(LED_MATRIX_SPI_PORT, &GPIO_InitStruct);
 
+	    /* SPI1 DMA Init */
+	    /* SPI1_TX Init */
+	    hdma_spi1_tx.Instance = DMA2_Channel1;
+	    hdma_spi1_tx.Init.Request = DMA_REQUEST_SPI1_TX;
+	    hdma_spi1_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+	    hdma_spi1_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+	    hdma_spi1_tx.Init.MemInc = DMA_MINC_ENABLE;
+	    hdma_spi1_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+	    hdma_spi1_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+	    hdma_spi1_tx.Init.Mode = DMA_CIRCULAR;
+	    hdma_spi1_tx.Init.Priority = DMA_PRIORITY_LOW;
+	    if (HAL_DMA_Init(&hdma_spi1_tx) != HAL_OK)
+	    {
+//	      Error_Handler();
+	    }
+
+	    __HAL_LINKDMA(spiHandle,hdmatx,hdma_spi1_tx);
+
 	}
 }
 
@@ -74,6 +92,8 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *spiHandle) {
 		 PB5     ------> SPI1_MOSI
 		 */
 		HAL_GPIO_DeInit(LED_MATRIX_SPI_PORT, LED_MATRIX_SPI_SCK_PIN | LED_MATRIX_SPI_MOSI_PIN);
+	    /* SPI1 DMA DeInit */
+	    HAL_DMA_DeInit(spiHandle->hdmatx);
 	}
 }
 
@@ -85,13 +105,13 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *spiHandle) {
  */
 Status_TypeDef SendSPI(SPI_HANDLE *xPort, uint8_t pData[], uint16_t Size) {
 	Status_TypeDef Status = STATUS_ERR;
-	taskENTER_CRITICAL();
+//	taskENTER_CRITICAL();
 	if (NULL != xPort && NULL != pData) {
-		if (HAL_OK == HAL_SPI_Transmit(xPort, pData, Size, 10))
+		if (HAL_OK == HAL_SPI_Transmit_DMA(xPort, pData, Size))
 			Status = STATUS_OK;
 	} else
 		Status = STATUS_ERR;
-	taskEXIT_CRITICAL();
+//	taskEXIT_CRITICAL();
 	return Status;
 }
 
