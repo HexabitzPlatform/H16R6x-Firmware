@@ -280,11 +280,11 @@ void DigiLedScrollMode(uint8_t baseColour, uint8_t scrollRow, uint8_t intensity,
 
 	DigiLedSetAllColor(baseColour, intensity);
 	DigiLedUpdate(1);
-	HAL_Delay(scrollTime);
+	osDelay(scrollTime);
 	int led = 1;
 	int ledON = 1;
 
-	for (led = 1; led <= 64;) {
+	for (led = 1; led <= LED_FRAME_SIZE;) {
 		DigiLedSetAllColor(baseColour, intensity);
 		DigiLedUpdate(1);
 		for (ledON = led; ledON < led + 8;) {
@@ -292,7 +292,7 @@ void DigiLedScrollMode(uint8_t baseColour, uint8_t scrollRow, uint8_t intensity,
 			DigiLedUpdate(1);
 			ledON++;
 		}
-		HAL_Delay(scrollTime);
+		osDelay(scrollTime);
 		led = led + 8;
 
 	}
@@ -313,16 +313,16 @@ void DigiLedFlashMode(uint8_t baseColour, uint8_t flashColour,
 
 	DigiLedSetAllColor(baseColour, intensity);
 	DigiLedUpdate(1);
-	HAL_Delay(flashTime);
+	osDelay(flashTime);
 	DigiLedSetAllLedOff();
 	DigiLedUpdate(1);
-	HAL_Delay(timeBetweenFlash);
+	osDelay(timeBetweenFlash);
 	DigiLedSetAllColor(flashColour, intensity);
 	DigiLedUpdate(1);
-	HAL_Delay(flashTime);
+	osDelay(flashTime);
 	DigiLedSetAllLedOff();
 	DigiLedUpdate(1);
-	HAL_Delay(timeBetweenFlash);
+	osDelay(timeBetweenFlash);
 
 }
 
@@ -336,7 +336,7 @@ void DigiLedRGBColorPickerMode(uint8_t color, uint16_t time, uint8_t intensity) 
 	for (int i = 1; i <= LED_FRAME_SIZE; i++) {
 		DigiLedSetColor(i, color, intensity);
 		DigiLedUpdate(1);
-		HAL_Delay(time);
+		osDelay(time);
 	}
 }
 
