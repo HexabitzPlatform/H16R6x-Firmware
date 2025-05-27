@@ -7,7 +7,7 @@
  	 	 	 	 (Description_of_module)
 
 (Description of Special module peripheral configuration):
->>
+>> Note : The maximum number of LED matrix modules that can be connected is 6.
 >>
 >>
 
@@ -108,7 +108,7 @@
 #define _IND_LED_PIN		     GPIO_PIN_13
 
 /* Module-specific Macro Definitions ***************************************/
-#define	NUM_OF_MODULE_LEDMATRIX 	2
+#define	NUM_OF_MODULE_LEDMATRIX 	1
 #define NUM_MODULE_PARAMS	        1
 #define MAX_NUMBER_OF_LEDS          65
 
