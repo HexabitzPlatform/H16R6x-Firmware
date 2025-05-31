@@ -1,5 +1,5 @@
 /*
- BitzOS (BOS) V0.3.6 - Copyright (C) 2017-2024 Hexabitz
+ BitzOS (BOS) V0.4.0 - Copyright (C) 2017-2025 Hexabitz
  All rights reserved
  
  File Name     : H16R6.h
@@ -7,17 +7,17 @@
  	 	 	 	 (Description_of_module)
 
 (Description of Special module peripheral configuration):
->>
+>> Note : The maximum number of LED matrix modules that can be connected is 6.
 >>
 >>
 
  */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
+/* Define to prevent recursive inclusion ***********************************/
 #ifndef H16R6_H
 #define H16R6_H
 
-/* Includes ------------------------------------------------------------------*/
+/* Includes ****************************************************************/
 #include "BOS.h"
 #include "H16R6_MemoryMap.h"
 #include "H16R6_uart.h"
@@ -28,42 +28,38 @@
 #include "H16R6_spi.h"
 #include "APA102_LedMatrix.h"
 
-/* Exported definitions -------------------------------------------------------*/
-
-#define	modulePN		_H16R6
-
-#define	NumOfModuleLedMatrix	    1
+/* Exported Macros *********************************************************/
+#define	MODULE_PN		_H16R6
 
 /* Port-related definitions */
-#define	NumOfPorts			6
+#define	NUM_OF_PORTS	6
+#define P_PROG 			P2		/* ST factory bootloader UART */
 
-#define P_PROG 				P2						/* ST factory bootloader UART */
-
-/* Define available ports */
-#define _P1 
-#define _P2 
-#define _P3 
-#define _P4 
-#define _P5 
+/* Define Available ports */
+#define _P1
+#define _P2
+#define _P3
+#define _P4
+#define _P5
 #define _P6
 
-/* Define available USARTs */
-#define _Usart1 1
-#define _Usart2 1
-#define _Usart3 1
-#define _Usart4	1
-#define _Usart5 1
-#define _Usart6	1
+/* Define Available USARTs */
+#define _USART1
+#define _USART2
+#define _USART3
+#define _USART4
+#define _USART5
+#define _USART6
 
 /* Port-UART mapping */
+#define UART_P1 &huart4
+#define UART_P2 &huart2
+#define UART_P3 &huart3
+#define UART_P4 &huart5
+#define UART_P5 &huart1
+#define UART_P6 &huart6
 
-#define P1uart &huart4
-#define P2uart &huart2
-#define P3uart &huart3
-#define P4uart &huart5
-#define P5uart &huart1
-#define P6uart &huart6
-
+/* Module-specific Hardware Definitions ************************************/
 /* Port Definitions */
 #define	USART1_TX_PIN		GPIO_PIN_6
 #define	USART1_RX_PIN		GPIO_PIN_7
@@ -82,7 +78,6 @@
 #define	USART3_TX_PORT		GPIOB
 #define	USART3_RX_PORT		GPIOB
 #define	USART3_AF			GPIO_AF4_USART3
-
 #define	USART4_TX_PIN		GPIO_PIN_0
 #define	USART4_RX_PIN		GPIO_PIN_1
 #define	USART4_TX_PORT		GPIOA
@@ -101,20 +96,30 @@
 #define	USART6_RX_PORT		GPIOB
 #define	USART6_AF			GPIO_AF8_USART6
 
-/* Module-specific Definitions */
+/* SPI Pin Definition */
+#define LED_MATRIX_SPI_SCK_PIN   GPIO_PIN_3
+#define LED_MATRIX_SPI_MOSI_PIN  GPIO_PIN_5
+#define LED_MATRIX_SPI_PORT      GPIOB
+
+#define LED_MATRIX_SPI_HANDLER   &hspi1
 
 /* Indicator LED */
-#define _IND_LED_PORT		 GPIOC
-#define _IND_LED_PIN		 GPIO_PIN_13
+#define _IND_LED_PORT		     GPIOC
+#define _IND_LED_PIN		     GPIO_PIN_13
 
-#define NUM_MODULE_PARAMS	 1
+/* Module-specific Macro Definitions ***************************************/
+#define	NUM_OF_MODULE_LEDMATRIX 	1
+#define NUM_MODULE_PARAMS	        1
+#define MAX_NUMBER_OF_LEDS          65
 
-/* Module EEPROM Variables */
-// Module Addressing Space 500 - 599
-#define _EE_MODULE			500
+/* Module-specific Enumeration Definitions *********************************/
+/* Basic colors */
+enum BasicColors {
+	BLACK = 1, WHITE, RED, BLUE, YELLOW, CYAN, MAGENTA, GREEN, AQUA, PURPLE, LIGHTBLUE, ORANGE, INDIGO,
+};
 
-/* Exported types ------------------------------------------------------------*/
-
+ /* Module-specific Type Definition *****************************************/
+ /* Module-status Type Definition */
 typedef enum {
 	H16R6_OK =0,
 	H16R6_ERR_UnknownMessage,
@@ -124,6 +129,17 @@ typedef enum {
 	H16R6_ERR_WrongIntensity,
 	H16R6_ERROR =255
 } Module_Status;
+
+/* RGB LED operating modes */
+enum LedMatrixMode {
+	SCROLL_MODE = 1,
+	FLASH_MODE,
+	PICKER_MODE,
+    FADE_MODE,
+	FADE_ONE_RGB_LED_MODE,
+	FADE_ALL_RGB_LED_MODE,
+//	SPRINKLE_MODE,
+};
 
 /* Export UART variables */
 extern UART_HandleTypeDef huart1;
@@ -141,14 +157,10 @@ extern void MX_USART4_UART_Init(void);
 extern void MX_USART5_UART_Init(void);
 extern void MX_USART6_UART_Init(void);
 extern void SystemClock_Config(void);
-extern void ExecuteMonitor(void);
 
-
-
-/* -----------------------------------------------------------------------
- |								  APIs							          |  																 	|
-/* -----------------------------------------------------------------------
- */
+/***************************************************************************/
+/***************************** General Functions ***************************/
+/***************************************************************************/
 Module_Status LEDMatrixSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
 Module_Status LEDMatrixSetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
 Module_Status LEDMatrixSetColor(uint8_t led,uint8_t color ,uint8_t intensity);
@@ -164,35 +176,20 @@ Module_Status LEDMatrixSetColorSomeLed(uint8_t StartLed,uint8_t EndLed,uint8_t c
 Module_Status LEDMatrixMotionMode(uint8_t baseColour,uint8_t SeconedColor,uint8_t intensity,float scaledqom);
 Module_Status LEDMatrixCrossFadeMode(uint8_t baseColour,uint8_t seconedColor,uint8_t thirdColor,uint16_t time);
 Module_Status LEDMatrixCrossFadeModeLEDRGB(uint8_t LED, uint8_t SecondRED,
-		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime,
-		uint8_t intensity);
+		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime, uint8_t intensity);
 Module_Status LEDMatrixCrossFadeModeALLLEDRGB(uint8_t SecondRED,
-		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime,
-		uint8_t intensity);
+		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime, uint8_t intensity);
 Module_Status LEDMatrixSprinkleMode(uint8_t TargetColorR, uint8_t TargetColorG,
-		uint8_t TargetColorB, uint8_t AmountOfLEDs, uint16_t TimeToFade,
-		uint8_t ColorDeviation);
-void SetupPortForRemoteBootloaderUpdate(uint8_t port);
-void remoteBootloaderUpdate(uint8_t src,uint8_t dst,uint8_t inport,uint8_t outport);
+		uint8_t TargetColorB, uint16_t TimeToFade, uint8_t ColorDeviation);
+void LedMatrixTask(void *argument);
 
-
-/* -----------------------------------------------------------------------
- |								Commands							      |															 	|
-/* -----------------------------------------------------------------------
- */
-extern const CLI_Command_Definition_t CLI_SetRGBCommandDefinition;
-extern const CLI_Command_Definition_t CLI_SetAllRGBCommandDefinition;
-extern const CLI_Command_Definition_t CLI_SetColorCommandDefinition;
-extern const CLI_Command_Definition_t CLI_SetAllColorCommandDefinition;
-extern const CLI_Command_Definition_t CLI_SetLedOffCommandDefinition;
-extern const CLI_Command_Definition_t CLI_SetAllLedOffCommandDefinition;
-extern const CLI_Command_Definition_t CLI_SetLedOnCommandDefinition;
-extern const CLI_Command_Definition_t CLI_SetAllLedOnCommandDefinition;
-extern const CLI_Command_Definition_t CLI_ScrollModeCommandDefinition;
-extern const CLI_Command_Definition_t CLI_FlashModeCommandDefinition;
-extern const CLI_Command_Definition_t CLI_ColorPickerModeCommandDefinition;
-extern const CLI_Command_Definition_t CLI_SetColorSomeLedCommandDefinition;
-
+Module_Status LED_Matrix_Sprinkle_Mode();
+Module_Status LED_Matrix_Cross_Fade_Mode_ALL_LED_RGB();
+Module_Status LED_Matrix_Cross_Fade_Mode_LED_RGB();
+Module_Status LED_Matrix_Cross_Fade_Mode();
+Module_Status LED_Matrix_RGB_Color_Picker_Mode();
+Module_Status LED_Matrix_Flash_Mode();
+Module_Status LED_Matrix_Scroll_Mode();
 #endif /* H16R6_H */
 
-/************************ (C) COPYRIGHT HEXABITZ *****END OF FILE****/
+/***************** (C) COPYRIGHT HEXABITZ ***** END OF FILE ****************/
