@@ -106,9 +106,7 @@ void UserTask(void *argument) {
 		 if(f==16){f=0;
 		 LEDMatrixCrossFadeModeALLLEDRGB(1,
 				2, 3, 1000, 20);}
-		 if(f==17){f=0;
-		 LEDMatrixSprinkleMode(1, 2,
-				3, 10, 1000, 50);}
+
 //		if(f==1)
 //		{
 //			ADCSelectPort(P1);
