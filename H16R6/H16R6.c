@@ -26,18 +26,20 @@ UART_HandleTypeDef huart4;
 UART_HandleTypeDef huart5;
 UART_HandleTypeDef huart6;
 
+TaskHandle_t LedMatrixTaskHandle = NULL;
+
 /* Private Variables *******************************************************/
 uint8_t OldColorR[LED_FRAME_SIZE] = { 0 };
 uint8_t OldColorG[LED_FRAME_SIZE] = { 0 };
 uint8_t OldColorB[LED_FRAME_SIZE] = { 0 };
+uint8_t LedMatrixMode;
+uint8_t BasicColor,SecondColor,ThirdColor,Intensity,Led,AmountOfLeds,Colordeviation,Color;
+uint16_t FlashTime,TimeBetweenFlash,Time,InterpolationTime,TimetoFade,ScrollTime;
 int RandomIndex[LED_FRAME_SIZE];
 
 /* Module Parameters */
 ModuleParam_t ModuleParam[NUM_MODULE_PARAMS] = { 0 };
-TaskHandle_t LedMatrixTaskHandle = NULL;
-uint8_t LedMatrixMode;
-uint8_t BasicColor,SecondColor,ThirdColor,Intensity,Led,AmountOfLeds,Colordeviation,Color;
-uint16_t FlashTime,TimeBetweenFlash,Time,InterpolationTime,TimetoFade,ScrollTime;
+
 /* Private Function Prototypes *********************************************/
 uint8_t ClearROtopology(void);
 void Module_Peripheral_Init(void);

@@ -119,16 +119,6 @@
 			<locationURI>PARENT-1-PROJECT_LOC/BOS/FreeRTOSConfig.h</locationURI>
 		</link>
 		<link>
-			<name>H16R6/APA102_LedMatrix.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/H16R6/APA102_LedMatrix.c</locationURI>
-		</link>
-		<link>
-			<name>H16R6/APA102_LedMatrix.h</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/H16R6/APA102_LedMatrix.h</locationURI>
-		</link>
-		<link>
 			<name>H16R6/H16R6.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/H16R6/H16R6.c</locationURI>
@@ -232,6 +222,11 @@
 			<name>Thirdparty/.git</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Thirdparty/.git</locationURI>
+		</link>
+		<link>
+			<name>Thirdparty/APA102-LedMatrix</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Thirdparty/APA102-LedMatrix</locationURI>
 		</link>
 		<link>
 			<name>Thirdparty/CMSIS</name>

@@ -289,12 +289,6 @@ Discarded input sections
                 0x00000000       0xb4 BOS\BOS_messaging.o
  .text          0x00000000        0x0 BOS\BOS_msgparser.o
  .data          0x00000000        0x0 BOS\BOS_msgparser.o
- .text          0x00000000        0x0 H16R6\APA102_LedMatrix.o
- .data          0x00000000        0x0 H16R6\APA102_LedMatrix.o
- .text.DigiLedGetFrameSize
-                0x00000000        0xc H16R6\APA102_LedMatrix.o
- .text.DigiLedRGBSetColorSomeLed
-                0x00000000       0x60 H16R6\APA102_LedMatrix.o
  .text          0x00000000        0x0 H16R6\H16R6.o
  .text.RandomArray
                 0x00000000       0xbe H16R6\H16R6.o
@@ -349,6 +343,12 @@ Discarded input sections
  .text          0x00000000       0x14 H16R6\startup_stm32g0b1ceuxn.o
  .data          0x00000000        0x0 H16R6\startup_stm32g0b1ceuxn.o
  .bss           0x00000000        0x0 H16R6\startup_stm32g0b1ceuxn.o
+ .text          0x00000000        0x0 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+ .data          0x00000000        0x0 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+ .text.DigiLedGetFrameSize
+                0x00000000        0xc Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+ .text.DigiLedRGBSetColorSomeLed
+                0x00000000       0x60 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
  .text          0x00000000        0x0 Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
  .bss           0x00000000        0x0 Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
  .text.SystemCoreClockUpdate
@@ -4332,7 +4332,6 @@ LOAD BOS\BOS_dma.o
 LOAD BOS\BOS_freertos.o
 LOAD BOS\BOS_messaging.o
 LOAD BOS\BOS_msgparser.o
-LOAD H16R6\APA102_LedMatrix.o
 LOAD H16R6\H16R6.o
 LOAD H16R6\H16R6_dma.o
 LOAD H16R6\H16R6_eeprom.o
@@ -4344,6 +4343,7 @@ LOAD H16R6\H16R6_spi.o
 LOAD H16R6\H16R6_timers.o
 LOAD H16R6\H16R6_uart.o
 LOAD H16R6\startup_stm32g0b1ceuxn.o
+LOAD Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
 LOAD Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
 LOAD Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
 LOAD Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
@@ -4839,614 +4839,615 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .text.User_MessagingParser
                 0x08010fd4       0x3a BOS\BOS_msgparser.o
                 0x08010fd4                User_MessagingParser
- *fill*         0x0801100e        0x2 
- .text.DigiLedInit
-                0x08011010       0x88 H16R6\APA102_LedMatrix.o
-                0x08011010                DigiLedInit
- .text.DigiLedSwitchColors
-                0x08011098       0xa0 H16R6\APA102_LedMatrix.o
-                0x08011098                DigiLedSwitchColors
- .text.DigiLedSetRGB
-                0x08011138       0xe4 H16R6\APA102_LedMatrix.o
-                0x08011138                DigiLedSetRGB
- .text.DigiLedSetAllRGB
-                0x0801121c       0x5e H16R6\APA102_LedMatrix.o
-                0x0801121c                DigiLedSetAllRGB
- *fill*         0x0801127a        0x2 
- .text.DigiLedSetColor
-                0x0801127c       0xf0 H16R6\APA102_LedMatrix.o
-                0x0801127c                DigiLedSetColor
- .text.DigiLedSetAllColor
-                0x0801136c       0x40 H16R6\APA102_LedMatrix.o
-                0x0801136c                DigiLedSetAllColor
- .text.DigiLedSetLedOff
-                0x080113ac       0x54 H16R6\APA102_LedMatrix.o
-                0x080113ac                DigiLedSetLedOff
- .text.DigiLedSetAllLedOff
-                0x08011400       0x2c H16R6\APA102_LedMatrix.o
-                0x08011400                DigiLedSetAllLedOff
- .text.DigiLedSetLedOn
-                0x0801142c       0x7c H16R6\APA102_LedMatrix.o
-                0x0801142c                DigiLedSetLedOn
- .text.DigiLedSetAllLedOn
-                0x080114a8       0x38 H16R6\APA102_LedMatrix.o
-                0x080114a8                DigiLedSetAllLedOn
- .text.DigiLedUpdate
-                0x080114e0       0xec H16R6\APA102_LedMatrix.o
-                0x080114e0                DigiLedUpdate
- .text.DigiLedTestPosition
-                0x080115cc       0x30 H16R6\APA102_LedMatrix.o
-                0x080115cc                DigiLedTestPosition
- .text.DigiLedScrollMode
-                0x080115fc       0xb8 H16R6\APA102_LedMatrix.o
-                0x080115fc                DigiLedScrollMode
- .text.DigiLedFlashMode
-                0x080116b4       0x98 H16R6\APA102_LedMatrix.o
-                0x080116b4                DigiLedFlashMode
- .text.DigiLedRGBColorPickerMode
-                0x0801174c       0x5c H16R6\APA102_LedMatrix.o
-                0x0801174c                DigiLedRGBColorPickerMode
  .text.SystemClock_Config
-                0x080117a8       0xb4 H16R6\H16R6.o
-                0x080117a8                SystemClock_Config
+                0x0801100e       0xb4 H16R6\H16R6.o
+                0x0801100e                SystemClock_Config
+ *fill*         0x080110c2        0x2 
  .text.EnableStopModebyUARTx
-                0x0801185c       0xb8 H16R6\H16R6.o
-                0x0801185c                EnableStopModebyUARTx
+                0x080110c4       0xb8 H16R6\H16R6.o
+                0x080110c4                EnableStopModebyUARTx
  .text.EnableStandbyModebyWakeupPinx
-                0x08011914       0x64 H16R6\H16R6.o
-                0x08011914                EnableStandbyModebyWakeupPinx
+                0x0801117c       0x64 H16R6\H16R6.o
+                0x0801117c                EnableStandbyModebyWakeupPinx
  .text.DisableStandbyModeWakeupPinx
-                0x08011978       0x9c H16R6\H16R6.o
-                0x08011978                DisableStandbyModeWakeupPinx
+                0x080111e0       0x9c H16R6\H16R6.o
+                0x080111e0                DisableStandbyModeWakeupPinx
  .text.SaveTopologyToRO
-                0x08011a14      0x1bc H16R6\H16R6.o
-                0x08011a14                SaveTopologyToRO
+                0x0801127c      0x1bc H16R6\H16R6.o
+                0x0801127c                SaveTopologyToRO
  .text.SaveSnippetsToRO
-                0x08011bd0      0x1f8 H16R6\H16R6.o
-                0x08011bd0                SaveSnippetsToRO
+                0x08011438      0x1f8 H16R6\H16R6.o
+                0x08011438                SaveSnippetsToRO
  .text.ClearROtopology
-                0x08011dc8       0x38 H16R6\H16R6.o
-                0x08011dc8                ClearROtopology
+                0x08011630       0x38 H16R6\H16R6.o
+                0x08011630                ClearROtopology
  .text.RemoteBootloaderUpdate
-                0x08011e00      0x178 H16R6\H16R6.o
-                0x08011e00                RemoteBootloaderUpdate
+                0x08011668      0x178 H16R6\H16R6.o
+                0x08011668                RemoteBootloaderUpdate
  .text.SetupPortForRemoteBootloaderUpdate
-                0x08011f78       0x52 H16R6\H16R6.o
-                0x08011f78                SetupPortForRemoteBootloaderUpdate
- *fill*         0x08011fca        0x2 
+                0x080117e0       0x52 H16R6\H16R6.o
+                0x080117e0                SetupPortForRemoteBootloaderUpdate
+ *fill*         0x08011832        0x2 
  .text.Module_Peripheral_Init
-                0x08011fcc      0x160 H16R6\H16R6.o
-                0x08011fcc                Module_Peripheral_Init
+                0x08011834      0x160 H16R6\H16R6.o
+                0x08011834                Module_Peripheral_Init
  .text.Module_MessagingTask
-                0x0801212c      0x884 H16R6\H16R6.o
-                0x0801212c                Module_MessagingTask
- .text.GetPort  0x080129b0       0x80 H16R6\H16R6.o
-                0x080129b0                GetPort
+                0x08011994      0x884 H16R6\H16R6.o
+                0x08011994                Module_MessagingTask
+ .text.GetPort  0x08012218       0x80 H16R6\H16R6.o
+                0x08012218                GetPort
  .text.RegisterModuleCLICommands
-                0x08012a30       0xcc H16R6\H16R6.o
-                0x08012a30                RegisterModuleCLICommands
+                0x08012298       0xcc H16R6\H16R6.o
+                0x08012298                RegisterModuleCLICommands
  .text.GetModuleParameter
-                0x08012afc       0x2a H16R6\H16R6.o
-                0x08012afc                GetModuleParameter
- *fill*         0x08012b26        0x2 
+                0x08012364       0x2a H16R6\H16R6.o
+                0x08012364                GetModuleParameter
+ *fill*         0x0801238e        0x2 
  .text.LedMatrixTask
-                0x08012b28       0x70 H16R6\H16R6.o
-                0x08012b28                LedMatrixTask
+                0x08012390       0x70 H16R6\H16R6.o
+                0x08012390                LedMatrixTask
  .text.LEDMatrixSetRGB
-                0x08012b98       0xf4 H16R6\H16R6.o
-                0x08012b98                LEDMatrixSetRGB
+                0x08012400       0xf4 H16R6\H16R6.o
+                0x08012400                LEDMatrixSetRGB
  .text.LEDMatrixSetAllRGB
-                0x08012c8c       0xb4 H16R6\H16R6.o
-                0x08012c8c                LEDMatrixSetAllRGB
+                0x080124f4       0xb4 H16R6\H16R6.o
+                0x080124f4                LEDMatrixSetAllRGB
  .text.LEDMatrixSetColor
-                0x08012d40       0x92 H16R6\H16R6.o
-                0x08012d40                LEDMatrixSetColor
+                0x080125a8       0x92 H16R6\H16R6.o
+                0x080125a8                LEDMatrixSetColor
  .text.LEDMatrixSetAllColor
-                0x08012dd2       0x64 H16R6\H16R6.o
-                0x08012dd2                LEDMatrixSetAllColor
- *fill*         0x08012e36        0x2 
+                0x0801263a       0x64 H16R6\H16R6.o
+                0x0801263a                LEDMatrixSetAllColor
+ *fill*         0x0801269e        0x2 
  .text.LEDMatrixSetLedOff
-                0x08012e38       0x94 H16R6\H16R6.o
-                0x08012e38                LEDMatrixSetLedOff
+                0x080126a0       0x94 H16R6\H16R6.o
+                0x080126a0                LEDMatrixSetLedOff
  .text.LEDMatrixSetAllLedOff
-                0x08012ecc       0x54 H16R6\H16R6.o
-                0x08012ecc                LEDMatrixSetAllLedOff
+                0x08012734       0x54 H16R6\H16R6.o
+                0x08012734                LEDMatrixSetAllLedOff
  .text.LEDMatrixSetLedOn
-                0x08012f20       0x84 H16R6\H16R6.o
-                0x08012f20                LEDMatrixSetLedOn
+                0x08012788       0x84 H16R6\H16R6.o
+                0x08012788                LEDMatrixSetLedOn
  .text.LEDMatrixSetAllLedOn
-                0x08012fa4       0x58 H16R6\H16R6.o
-                0x08012fa4                LEDMatrixSetAllLedOn
+                0x0801280c       0x58 H16R6\H16R6.o
+                0x0801280c                LEDMatrixSetAllLedOn
  .text.LEDMatrixScrollMode
-                0x08012ffc       0x88 H16R6\H16R6.o
-                0x08012ffc                LEDMatrixScrollMode
+                0x08012864       0x88 H16R6\H16R6.o
+                0x08012864                LEDMatrixScrollMode
  .text.LED_Matrix_Scroll_Mode
-                0x08013084       0x3c H16R6\H16R6.o
-                0x08013084                LED_Matrix_Scroll_Mode
+                0x080128ec       0x3c H16R6\H16R6.o
+                0x080128ec                LED_Matrix_Scroll_Mode
  .text.LEDMatrixFlashMode
-                0x080130c0       0x94 H16R6\H16R6.o
-                0x080130c0                LEDMatrixFlashMode
+                0x08012928       0x94 H16R6\H16R6.o
+                0x08012928                LEDMatrixFlashMode
  .text.LED_Matrix_Flash_Mode
-                0x08013154       0x48 H16R6\H16R6.o
-                0x08013154                LED_Matrix_Flash_Mode
+                0x080129bc       0x48 H16R6\H16R6.o
+                0x080129bc                LED_Matrix_Flash_Mode
  .text.LEDMatrixRGBColorPickerMode
-                0x0801319c       0x74 H16R6\H16R6.o
-                0x0801319c                LEDMatrixRGBColorPickerMode
+                0x08012a04       0x74 H16R6\H16R6.o
+                0x08012a04                LEDMatrixRGBColorPickerMode
  .text.LED_Matrix_RGB_Color_Picker_Mode
-                0x08013210       0x38 H16R6\H16R6.o
-                0x08013210                LED_Matrix_RGB_Color_Picker_Mode
+                0x08012a78       0x38 H16R6\H16R6.o
+                0x08012a78                LED_Matrix_RGB_Color_Picker_Mode
  .text.LEDMatrixSetColorSomeLed
-                0x08013248       0xbe H16R6\H16R6.o
-                0x08013248                LEDMatrixSetColorSomeLed
- *fill*         0x08013306        0x2 
+                0x08012ab0       0xbe H16R6\H16R6.o
+                0x08012ab0                LEDMatrixSetColorSomeLed
+ *fill*         0x08012b6e        0x2 
  .text.LEDMatrixMotionMode
-                0x08013308       0xd0 H16R6\H16R6.o
-                0x08013308                LEDMatrixMotionMode
+                0x08012b70       0xd0 H16R6\H16R6.o
+                0x08012b70                LEDMatrixMotionMode
  .text.LEDMatrixCrossFadeMode
-                0x080133d8       0x74 H16R6\H16R6.o
-                0x080133d8                LEDMatrixCrossFadeMode
+                0x08012c40       0x74 H16R6\H16R6.o
+                0x08012c40                LEDMatrixCrossFadeMode
  .text.LED_Matrix_Cross_Fade_Mode
-                0x0801344c      0x128 H16R6\H16R6.o
-                0x0801344c                LED_Matrix_Cross_Fade_Mode
+                0x08012cb4      0x128 H16R6\H16R6.o
+                0x08012cb4                LED_Matrix_Cross_Fade_Mode
  .text.LEDMatrixCrossFadeModeLEDRGB
-                0x08013574       0xb0 H16R6\H16R6.o
-                0x08013574                LEDMatrixCrossFadeModeLEDRGB
+                0x08012ddc       0xb0 H16R6\H16R6.o
+                0x08012ddc                LEDMatrixCrossFadeModeLEDRGB
  .text.LED_Matrix_Cross_Fade_Mode_LED_RGB
-                0x08013624      0x240 H16R6\H16R6.o
-                0x08013624                LED_Matrix_Cross_Fade_Mode_LED_RGB
+                0x08012e8c      0x240 H16R6\H16R6.o
+                0x08012e8c                LED_Matrix_Cross_Fade_Mode_LED_RGB
  .text.LEDMatrixCrossFadeModeALLLEDRGB
-                0x08013864       0xa0 H16R6\H16R6.o
-                0x08013864                LEDMatrixCrossFadeModeALLLEDRGB
+                0x080130cc       0xa0 H16R6\H16R6.o
+                0x080130cc                LEDMatrixCrossFadeModeALLLEDRGB
  .text.LED_Matrix_Cross_Fade_Mode_ALL_LED_RGB
-                0x08013904      0x248 H16R6\H16R6.o
-                0x08013904                LED_Matrix_Cross_Fade_Mode_ALL_LED_RGB
+                0x0801316c      0x248 H16R6\H16R6.o
+                0x0801316c                LED_Matrix_Cross_Fade_Mode_ALL_LED_RGB
  .text.CLI_SetRGBCommand
-                0x08013b4c      0x1d0 H16R6\H16R6.o
-                0x08013b4c                CLI_SetRGBCommand
+                0x080133b4      0x1d0 H16R6\H16R6.o
+                0x080133b4                CLI_SetRGBCommand
  .text.CLI_SetAllRGBCommand
-                0x08013d1c      0x168 H16R6\H16R6.o
-                0x08013d1c                CLI_SetAllRGBCommand
+                0x08013584      0x168 H16R6\H16R6.o
+                0x08013584                CLI_SetAllRGBCommand
  .text.CLI_SetColorCommand
-                0x08013e84      0x2f0 H16R6\H16R6.o
-                0x08013e84                CLI_SetColorCommand
+                0x080136ec      0x2f0 H16R6\H16R6.o
+                0x080136ec                CLI_SetColorCommand
  .text.CLI_SetAllColorCommand
-                0x08014174      0x290 H16R6\H16R6.o
-                0x08014174                CLI_SetAllColorCommand
+                0x080139dc      0x290 H16R6\H16R6.o
+                0x080139dc                CLI_SetAllColorCommand
  .text.CLI_SetLedOffCommand
-                0x08014404       0xa0 H16R6\H16R6.o
-                0x08014404                CLI_SetLedOffCommand
+                0x08013c6c       0xa0 H16R6\H16R6.o
+                0x08013c6c                CLI_SetLedOffCommand
  .text.CLI_SetAllLedOffCommand
-                0x080144a4       0x44 H16R6\H16R6.o
-                0x080144a4                CLI_SetAllLedOffCommand
+                0x08013d0c       0x44 H16R6\H16R6.o
+                0x08013d0c                CLI_SetAllLedOffCommand
  .text.CLI_SetLedOnCommand
-                0x080144e8       0xfc H16R6\H16R6.o
-                0x080144e8                CLI_SetLedOnCommand
+                0x08013d50       0xfc H16R6\H16R6.o
+                0x08013d50                CLI_SetLedOnCommand
  .text.CLI_SetAllLedOnCommand
-                0x080145e4       0xa0 H16R6\H16R6.o
-                0x080145e4                CLI_SetAllLedOnCommand
+                0x08013e4c       0xa0 H16R6\H16R6.o
+                0x08013e4c                CLI_SetAllLedOnCommand
  .text.CLI_ScrollModeCommand
-                0x08014684      0x488 H16R6\H16R6.o
-                0x08014684                CLI_ScrollModeCommand
+                0x08013eec      0x488 H16R6\H16R6.o
+                0x08013eec                CLI_ScrollModeCommand
  .text.CLI_FlashModeCommand
-                0x08014b0c      0x4c4 H16R6\H16R6.o
-                0x08014b0c                CLI_FlashModeCommand
+                0x08014374      0x4c4 H16R6\H16R6.o
+                0x08014374                CLI_FlashModeCommand
  .text.CLI_ColorPickerModeCommand
-                0x08014fd0      0x2c8 H16R6\H16R6.o
-                0x08014fd0                CLI_ColorPickerModeCommand
+                0x08014838      0x2c8 H16R6\H16R6.o
+                0x08014838                CLI_ColorPickerModeCommand
  .text.CLI_SetColorSomeLedCommand
-                0x08015298      0x334 H16R6\H16R6.o
-                0x08015298                CLI_SetColorSomeLedCommand
+                0x08014b00      0x334 H16R6\H16R6.o
+                0x08014b00                CLI_SetColorSomeLedCommand
  .text.CLI_MotionModeCommand
-                0x080155cc      0x1ac H16R6\H16R6.o
-                0x080155cc                CLI_MotionModeCommand
+                0x08014e34      0x1ac H16R6\H16R6.o
+                0x08014e34                CLI_MotionModeCommand
  .text.CLI_CrossFadeModeCommand
-                0x08015778      0x198 H16R6\H16R6.o
-                0x08015778                CLI_CrossFadeModeCommand
+                0x08014fe0      0x198 H16R6\H16R6.o
+                0x08014fe0                CLI_CrossFadeModeCommand
  .text.CLI_CrossFadeModeLEDRGBCommand
-                0x08015910      0x230 H16R6\H16R6.o
-                0x08015910                CLI_CrossFadeModeLEDRGBCommand
+                0x08015178      0x230 H16R6\H16R6.o
+                0x08015178                CLI_CrossFadeModeLEDRGBCommand
  .text.CLI_CrossFadeModeALLLEDRGBCommand
-                0x08015b40      0x1fc H16R6\H16R6.o
-                0x08015b40                CLI_CrossFadeModeALLLEDRGBCommand
+                0x080153a8      0x1fc H16R6\H16R6.o
+                0x080153a8                CLI_CrossFadeModeALLLEDRGBCommand
  .text.DMA_Init
-                0x08015d3c       0x74 H16R6\H16R6_dma.o
-                0x08015d3c                DMA_Init
+                0x080155a4       0x74 H16R6\H16R6_dma.o
+                0x080155a4                DMA_Init
  .text.SetupMessagingRxDMAs
-                0x08015db0      0x11c H16R6\H16R6_dma.o
-                0x08015db0                SetupMessagingRxDMAs
+                0x08015618      0x11c H16R6\H16R6_dma.o
+                0x08015618                SetupMessagingRxDMAs
  .text.DMA_MSG_RX_Setup
-                0x08015ecc       0x68 H16R6\H16R6_dma.o
-                0x08015ecc                DMA_MSG_RX_Setup
+                0x08015734       0x68 H16R6\H16R6_dma.o
+                0x08015734                DMA_MSG_RX_Setup
  .text.DMA_STREAM_Setup
-                0x08015f34       0xf0 H16R6\H16R6_dma.o
-                0x08015f34                DMA_STREAM_Setup
- .text.StopDMA  0x08016024       0x98 H16R6\H16R6_dma.o
-                0x08016024                StopDMA
+                0x0801579c       0xf0 H16R6\H16R6_dma.o
+                0x0801579c                DMA_STREAM_Setup
+ .text.StopDMA  0x0801588c       0x98 H16R6\H16R6_dma.o
+                0x0801588c                StopDMA
  .text.SwitchMsgDMAToStream
-                0x080160bc       0x52 H16R6\H16R6_dma.o
-                0x080160bc                SwitchMsgDMAToStream
- *fill*         0x0801610e        0x2 
+                0x08015924       0x52 H16R6\H16R6_dma.o
+                0x08015924                SwitchMsgDMAToStream
+ *fill*         0x08015976        0x2 
  .text.SwitchStreamDMAToMsg
-                0x08016110       0xc8 H16R6\H16R6_dma.o
-                0x08016110                SwitchStreamDMAToMsg
+                0x08015978       0xc8 H16R6\H16R6_dma.o
+                0x08015978                SwitchStreamDMAToMsg
  .text.CRC_Init
-                0x080161d8       0x44 H16R6\H16R6_dma.o
-                0x080161d8                CRC_Init
+                0x08015a40       0x44 H16R6\H16R6_dma.o
+                0x08015a40                CRC_Init
  .text.HAL_CRC_MspInit
-                0x0801621c       0x30 H16R6\H16R6_dma.o
-                0x0801621c                HAL_CRC_MspInit
+                0x08015a84       0x30 H16R6\H16R6_dma.o
+                0x08015a84                HAL_CRC_MspInit
  .text.CalculateCRC8
-                0x0801624c      0x154 H16R6\H16R6_dma.o
-                0x0801624c                CalculateCRC8
+                0x08015ab4      0x154 H16R6\H16R6_dma.o
+                0x08015ab4                CalculateCRC8
  .text.__NVIC_SystemReset
-                0x080163a0       0x24 H16R6\H16R6_eeprom.o
- .text.EE_Init  0x080163c4       0x56 H16R6\H16R6_eeprom.o
-                0x080163c4                EE_Init
+                0x08015c08       0x24 H16R6\H16R6_eeprom.o
+ .text.EE_Init  0x08015c2c       0x56 H16R6\H16R6_eeprom.o
+                0x08015c2c                EE_Init
  .text.EE_ReadVariable
-                0x0801641a       0x42 H16R6\H16R6_eeprom.o
-                0x0801641a                EE_ReadVariable
+                0x08015c82       0x42 H16R6\H16R6_eeprom.o
+                0x08015c82                EE_ReadVariable
  .text.EE_WriteVariable
-                0x0801645c       0x72 H16R6\H16R6_eeprom.o
-                0x0801645c                EE_WriteVariable
+                0x08015cc4       0x72 H16R6\H16R6_eeprom.o
+                0x08015cc4                EE_WriteVariable
  .text.EE_Format
-                0x080164ce       0x3a H16R6\H16R6_eeprom.o
-                0x080164ce                EE_Format
+                0x08015d36       0x3a H16R6\H16R6_eeprom.o
+                0x08015d36                EE_Format
  .text.EE_FormatForFactoryReset
-                0x08016508       0x2c H16R6\H16R6_eeprom.o
-                0x08016508                EE_FormatForFactoryReset
+                0x08015d70       0x2c H16R6\H16R6_eeprom.o
+                0x08015d70                EE_FormatForFactoryReset
  .text.GPIO_Init
-                0x08016534       0x90 H16R6\H16R6_gpio.o
-                0x08016534                GPIO_Init
+                0x08015d9c       0x90 H16R6\H16R6_gpio.o
+                0x08015d9c                GPIO_Init
  .text.IND_LED_Init
-                0x080165c4       0x38 H16R6\H16R6_gpio.o
-                0x080165c4                IND_LED_Init
+                0x08015e2c       0x38 H16R6\H16R6_gpio.o
+                0x08015e2c                IND_LED_Init
  .text.IsFactoryReset
-                0x080165fc      0x15c H16R6\H16R6_gpio.o
-                0x080165fc                IsFactoryReset
+                0x08015e64      0x15c H16R6\H16R6_gpio.o
+                0x08015e64                IsFactoryReset
  .text.GetPortGPIOs
-                0x08016758      0x13c H16R6\H16R6_gpio.o
-                0x08016758                GetPortGPIOs
+                0x08015fc0      0x13c H16R6\H16R6_gpio.o
+                0x08015fc0                GetPortGPIOs
  .text.MX_ADC_Init
-                0x08016894       0x88 H16R6\H16R6_inputs.o
-                0x08016894                MX_ADC_Init
+                0x080160fc       0x88 H16R6\H16R6_inputs.o
+                0x080160fc                MX_ADC_Init
  .text.HAL_ADC_MspInit
-                0x0801691c       0xa8 H16R6\H16R6_inputs.o
-                0x0801691c                HAL_ADC_MspInit
+                0x08016184       0xa8 H16R6\H16R6_inputs.o
+                0x08016184                HAL_ADC_MspInit
  .text.Error_Handler
-                0x080169c4       0x10 H16R6\H16R6_inputs.o
-                0x080169c4                Error_Handler
+                0x0801622c       0x10 H16R6\H16R6_inputs.o
+                0x0801622c                Error_Handler
  .text.GetChannel
-                0x080169d4       0xa8 H16R6\H16R6_inputs.o
-                0x080169d4                GetChannel
- .text.GetRank  0x08016a7c       0xa4 H16R6\H16R6_inputs.o
-                0x08016a7c                GetRank
+                0x0801623c       0xa8 H16R6\H16R6_inputs.o
+                0x0801623c                GetChannel
+ .text.GetRank  0x080162e4       0xa4 H16R6\H16R6_inputs.o
+                0x080162e4                GetRank
  .text.CheckAttachedButtons
-                0x08016b20      0x580 H16R6\H16R6_inputs.o
-                0x08016b20                CheckAttachedButtons
+                0x08016388      0x580 H16R6\H16R6_inputs.o
+                0x08016388                CheckAttachedButtons
  .text.AddPortButton
-                0x080170a0      0x268 H16R6\H16R6_inputs.o
-                0x080170a0                AddPortButton
+                0x08016908      0x268 H16R6\H16R6_inputs.o
+                0x08016908                AddPortButton
  .text.RemovePortButton
-                0x08017308      0x19c H16R6\H16R6_inputs.o
-                0x08017308                RemovePortButton
+                0x08016b70      0x19c H16R6\H16R6_inputs.o
+                0x08016b70                RemovePortButton
  .text.SetButtonEvents
-                0x080174a4      0x174 H16R6\H16R6_inputs.o
-                0x080174a4                SetButtonEvents
+                0x08016d0c      0x174 H16R6\H16R6_inputs.o
+                0x08016d0c                SetButtonEvents
  .text.ADCSelectPort
-                0x08017618       0x98 H16R6\H16R6_inputs.o
-                0x08017618                ADCSelectPort
+                0x08016e80       0x98 H16R6\H16R6_inputs.o
+                0x08016e80                ADCSelectPort
  .text.ReadADCChannel
-                0x080176b0      0x154 H16R6\H16R6_inputs.o
-                0x080176b0                ReadADCChannel
+                0x08016f18      0x154 H16R6\H16R6_inputs.o
+                0x08016f18                ReadADCChannel
  .text.ReadTempAndVref
-                0x08017804      0x1dc H16R6\H16R6_inputs.o
-                0x08017804                ReadTempAndVref
+                0x0801706c      0x1dc H16R6\H16R6_inputs.o
+                0x0801706c                ReadTempAndVref
  .text.GetReadPercentage
-                0x080179e0       0x7c H16R6\H16R6_inputs.o
-                0x080179e0                GetReadPercentage
+                0x08017248       0x7c H16R6\H16R6_inputs.o
+                0x08017248                GetReadPercentage
  .text.buttonReleasedCallback
-                0x08017a5c       0x14 H16R6\H16R6_inputs.o
-                0x08017a5c                buttonReleasedCallback
+                0x080172c4       0x14 H16R6\H16R6_inputs.o
+                0x080172c4                buttonReleasedCallback
  .text.buttonClickedCallback
-                0x08017a70       0x14 H16R6\H16R6_inputs.o
-                0x08017a70                buttonClickedCallback
+                0x080172d8       0x14 H16R6\H16R6_inputs.o
+                0x080172d8                buttonClickedCallback
  .text.buttonDblClickedCallback
-                0x08017a84       0x14 H16R6\H16R6_inputs.o
-                0x08017a84                buttonDblClickedCallback
+                0x080172ec       0x14 H16R6\H16R6_inputs.o
+                0x080172ec                buttonDblClickedCallback
  .text.__NVIC_SystemReset
-                0x08017a98       0x24 H16R6\H16R6_it.o
+                0x08017300       0x24 H16R6\H16R6_it.o
  .text.SysTick_Handler
-                0x08017abc       0x12 H16R6\H16R6_it.o
-                0x08017abc                SysTick_Handler
- *fill*         0x08017ace        0x2 
+                0x08017324       0x12 H16R6\H16R6_it.o
+                0x08017324                SysTick_Handler
+ *fill*         0x08017336        0x2 
  .text.HardFault_Handler
-                0x08017ad0       0x40 H16R6\H16R6_it.o
-                0x08017ad0                HardFault_Handler
+                0x08017338       0x40 H16R6\H16R6_it.o
+                0x08017338                HardFault_Handler
  .text.HAL_UARTEx_RxEventCallback
-                0x08017b10       0x74 H16R6\H16R6_it.o
-                0x08017b10                HAL_UARTEx_RxEventCallback
+                0x08017378       0x74 H16R6\H16R6_it.o
+                0x08017378                HAL_UARTEx_RxEventCallback
  .text.USART1_IRQHandler
-                0x08017b84       0xac H16R6\H16R6_it.o
-                0x08017b84                USART1_IRQHandler
+                0x080173ec       0xac H16R6\H16R6_it.o
+                0x080173ec                USART1_IRQHandler
  .text.USART2_LPUART2_IRQHandler
-                0x08017c30       0xac H16R6\H16R6_it.o
-                0x08017c30                USART2_LPUART2_IRQHandler
+                0x08017498       0xac H16R6\H16R6_it.o
+                0x08017498                USART2_LPUART2_IRQHandler
  .text.USART3_4_5_6_LPUART1_IRQHandler
-                0x08017cdc      0x254 H16R6\H16R6_it.o
-                0x08017cdc                USART3_4_5_6_LPUART1_IRQHandler
+                0x08017544      0x254 H16R6\H16R6_it.o
+                0x08017544                USART3_4_5_6_LPUART1_IRQHandler
  .text.DMA1_Channel1_IRQHandler
-                0x08017f30       0x20 H16R6\H16R6_it.o
-                0x08017f30                DMA1_Channel1_IRQHandler
+                0x08017798       0x20 H16R6\H16R6_it.o
+                0x08017798                DMA1_Channel1_IRQHandler
  .text.DMA1_Channel2_3_IRQHandler
-                0x08017f50       0x54 H16R6\H16R6_it.o
-                0x08017f50                DMA1_Channel2_3_IRQHandler
+                0x080177b8       0x54 H16R6\H16R6_it.o
+                0x080177b8                DMA1_Channel2_3_IRQHandler
  .text.DMA1_Ch4_7_DMA2_Ch1_5_DMAMUX1_OVR_IRQHandler
-                0x08017fa4       0x9c H16R6\H16R6_it.o
-                0x08017fa4                DMA1_Ch4_7_DMA2_Ch1_5_DMAMUX1_OVR_IRQHandler
+                0x0801780c       0x9c H16R6\H16R6_it.o
+                0x0801780c                DMA1_Ch4_7_DMA2_Ch1_5_DMAMUX1_OVR_IRQHandler
  .text.HAL_UART_TxCpltCallback
-                0x08018040       0x38 H16R6\H16R6_it.o
-                0x08018040                HAL_UART_TxCpltCallback
+                0x080178a8       0x38 H16R6\H16R6_it.o
+                0x080178a8                HAL_UART_TxCpltCallback
  .text.HAL_UART_ErrorCallback
-                0x08018078       0xd4 H16R6\H16R6_it.o
-                0x08018078                HAL_UART_ErrorCallback
+                0x080178e0       0xd4 H16R6\H16R6_it.o
+                0x080178e0                HAL_UART_ErrorCallback
  .text.HAL_UART_RxCpltCallback
-                0x0801814c       0x10 H16R6\H16R6_it.o
-                0x0801814c                HAL_UART_RxCpltCallback
+                0x080179b4       0x10 H16R6\H16R6_it.o
+                0x080179b4                HAL_UART_RxCpltCallback
  .text.HAL_UARTEx_WakeupCallback
-                0x0801815c       0x5c H16R6\H16R6_it.o
-                0x0801815c                HAL_UARTEx_WakeupCallback
+                0x080179c4       0x5c H16R6\H16R6_it.o
+                0x080179c4                HAL_UARTEx_WakeupCallback
  .text.vApplicationStackOverflowHook
-                0x080181b8       0x44 H16R6\H16R6_it.o
-                0x080181b8                vApplicationStackOverflowHook
+                0x08017a20       0x44 H16R6\H16R6_it.o
+                0x08017a20                vApplicationStackOverflowHook
  .text.vApplicationMallocFailedHook
-                0x080181fc       0x40 H16R6\H16R6_it.o
-                0x080181fc                vApplicationMallocFailedHook
+                0x08017a64       0x40 H16R6\H16R6_it.o
+                0x08017a64                vApplicationMallocFailedHook
  .text.RTC_Init
-                0x0801823c       0xd8 H16R6\H16R6_rtc.o
-                0x0801823c                RTC_Init
+                0x08017aa4       0xd8 H16R6\H16R6_rtc.o
+                0x08017aa4                RTC_Init
  .text.RTC_CalendarConfig
-                0x08018314      0x18c H16R6\H16R6_rtc.o
-                0x08018314                RTC_CalendarConfig
+                0x08017b7c      0x18c H16R6\H16R6_rtc.o
+                0x08017b7c                RTC_CalendarConfig
  .text.BOS_CalendarConfig
-                0x080184a0      0x194 H16R6\H16R6_rtc.o
-                0x080184a0                BOS_CalendarConfig
+                0x08017d08      0x194 H16R6\H16R6_rtc.o
+                0x08017d08                BOS_CalendarConfig
  .text.GetTimeDate
-                0x08018634       0x90 H16R6\H16R6_rtc.o
-                0x08018634                GetTimeDate
+                0x08017e9c       0x90 H16R6\H16R6_rtc.o
+                0x08017e9c                GetTimeDate
  .text.HAL_RTC_MspInit
-                0x080186c4       0x74 H16R6\H16R6_rtc.o
-                0x080186c4                HAL_RTC_MspInit
+                0x08017f2c       0x74 H16R6\H16R6_rtc.o
+                0x08017f2c                HAL_RTC_MspInit
  .text.HAL_RTC_MspDeInit
-                0x08018738       0x44 H16R6\H16R6_rtc.o
-                0x08018738                HAL_RTC_MspDeInit
+                0x08017fa0       0x44 H16R6\H16R6_rtc.o
+                0x08017fa0                HAL_RTC_MspDeInit
  .text.MX_SPI1_Init
-                0x0801877c       0x78 H16R6\H16R6_spi.o
-                0x0801877c                MX_SPI1_Init
+                0x08017fe4       0x78 H16R6\H16R6_spi.o
+                0x08017fe4                MX_SPI1_Init
  .text.HAL_SPI_MspInit
-                0x080187f4       0xe8 H16R6\H16R6_spi.o
-                0x080187f4                HAL_SPI_MspInit
- .text.SendSPI  0x080188dc       0x52 H16R6\H16R6_spi.o
-                0x080188dc                SendSPI
- *fill*         0x0801892e        0x2 
+                0x0801805c       0xe8 H16R6\H16R6_spi.o
+                0x0801805c                HAL_SPI_MspInit
+ .text.SendSPI  0x08018144       0x52 H16R6\H16R6_spi.o
+                0x08018144                SendSPI
+ *fill*         0x08018196        0x2 
  .text.TIM_USEC_Init
-                0x08018930       0x74 H16R6\H16R6_timers.o
-                0x08018930                TIM_USEC_Init
+                0x08018198       0x74 H16R6\H16R6_timers.o
+                0x08018198                TIM_USEC_Init
  .text.TIM_MSEC_Init
-                0x080189a4       0x78 H16R6\H16R6_timers.o
-                0x080189a4                TIM_MSEC_Init
+                0x0801820c       0x78 H16R6\H16R6_timers.o
+                0x0801820c                TIM_MSEC_Init
  .text.StartMicroDelay
-                0x08018a1c       0x48 H16R6\H16R6_timers.o
-                0x08018a1c                StartMicroDelay
+                0x08018284       0x48 H16R6\H16R6_timers.o
+                0x08018284                StartMicroDelay
  .text.StartMilliDelay
-                0x08018a64       0x48 H16R6\H16R6_timers.o
-                0x08018a64                StartMilliDelay
+                0x080182cc       0x48 H16R6\H16R6_timers.o
+                0x080182cc                StartMilliDelay
  .text.MX_USART1_UART_Init
-                0x08018aac       0x7c H16R6\H16R6_uart.o
-                0x08018aac                MX_USART1_UART_Init
+                0x08018314       0x7c H16R6\H16R6_uart.o
+                0x08018314                MX_USART1_UART_Init
  .text.MX_USART2_UART_Init
-                0x08018b28       0x7c H16R6\H16R6_uart.o
-                0x08018b28                MX_USART2_UART_Init
+                0x08018390       0x7c H16R6\H16R6_uart.o
+                0x08018390                MX_USART2_UART_Init
  .text.MX_USART3_UART_Init
-                0x08018ba4       0x7c H16R6\H16R6_uart.o
-                0x08018ba4                MX_USART3_UART_Init
+                0x0801840c       0x7c H16R6\H16R6_uart.o
+                0x0801840c                MX_USART3_UART_Init
  .text.MX_USART4_UART_Init
-                0x08018c20       0x60 H16R6\H16R6_uart.o
-                0x08018c20                MX_USART4_UART_Init
+                0x08018488       0x60 H16R6\H16R6_uart.o
+                0x08018488                MX_USART4_UART_Init
  .text.MX_USART5_UART_Init
-                0x08018c80       0x60 H16R6\H16R6_uart.o
-                0x08018c80                MX_USART5_UART_Init
+                0x080184e8       0x60 H16R6\H16R6_uart.o
+                0x080184e8                MX_USART5_UART_Init
  .text.MX_USART6_UART_Init
-                0x08018ce0       0x60 H16R6\H16R6_uart.o
-                0x08018ce0                MX_USART6_UART_Init
+                0x08018548       0x60 H16R6\H16R6_uart.o
+                0x08018548                MX_USART6_UART_Init
  .text.HAL_UART_MspInit
-                0x08018d40      0x720 H16R6\H16R6_uart.o
-                0x08018d40                HAL_UART_MspInit
+                0x080185a8      0x720 H16R6\H16R6_uart.o
+                0x080185a8                HAL_UART_MspInit
  .text.writePxMutex
-                0x08019460       0xac H16R6\H16R6_uart.o
-                0x08019460                writePxMutex
+                0x08018cc8       0xac H16R6\H16R6_uart.o
+                0x08018cc8                writePxMutex
  .text.writePxITMutex
-                0x0801950c       0x80 H16R6\H16R6_uart.o
-                0x0801950c                writePxITMutex
+                0x08018d74       0x80 H16R6\H16R6_uart.o
+                0x08018d74                writePxITMutex
  .text.UpdateBaudrate
-                0x0801958c       0x3e H16R6\H16R6_uart.o
-                0x0801958c                UpdateBaudrate
- *fill*         0x080195ca        0x2 
- .text.GetUart  0x080195cc       0x5c H16R6\H16R6_uart.o
-                0x080195cc                GetUart
+                0x08018df4       0x3e H16R6\H16R6_uart.o
+                0x08018df4                UpdateBaudrate
+ *fill*         0x08018e32        0x2 
+ .text.GetUart  0x08018e34       0x5c H16R6\H16R6_uart.o
+                0x08018e34                GetUart
  .text.SwapUartPins
-                0x08019628      0x118 H16R6\H16R6_uart.o
-                0x08019628                SwapUartPins
+                0x08018e90      0x118 H16R6\H16R6_uart.o
+                0x08018e90                SwapUartPins
  .text.ReadPortsDir
-                0x08019740       0xa8 H16R6\H16R6_uart.o
-                0x08019740                ReadPortsDir
+                0x08018fa8       0xa8 H16R6\H16R6_uart.o
+                0x08018fa8                ReadPortsDir
  .text.ReadPortsDirMSG
-                0x080197e8       0x80 H16R6\H16R6_uart.o
-                0x080197e8                ReadPortsDirMSG
+                0x08019050       0x80 H16R6\H16R6_uart.o
+                0x08019050                ReadPortsDirMSG
  .text.UpdateMyPortsDir
-                0x08019868       0x84 H16R6\H16R6_uart.o
-                0x08019868                UpdateMyPortsDir
+                0x080190d0       0x84 H16R6\H16R6_uart.o
+                0x080190d0                UpdateMyPortsDir
  .text.Reset_Handler
-                0x080198ec       0x90 H16R6\startup_stm32g0b1ceuxn.o
-                0x080198ec                Reset_Handler
+                0x08019154       0x90 H16R6\startup_stm32g0b1ceuxn.o
+                0x08019154                Reset_Handler
  .text.Default_Handler
-                0x0801997c        0x2 H16R6\startup_stm32g0b1ceuxn.o
-                0x0801997c                I2C2_3_IRQHandler
-                0x0801997c                TIM1_CC_IRQHandler
-                0x0801997c                ADC1_COMP_IRQHandler
-                0x0801997c                NMI_Handler
-                0x0801997c                I2C1_IRQHandler
-                0x0801997c                TIM7_LPTIM2_IRQHandler
-                0x0801997c                TIM17_FDCAN_IT1_IRQHandler
-                0x0801997c                RCC_CRS_IRQHandler
-                0x0801997c                RTC_TAMP_IRQHandler
-                0x0801997c                SPI1_IRQHandler
-                0x0801997c                USB_UCPD1_2_IRQHandler
-                0x0801997c                EXTI2_3_IRQHandler
-                0x0801997c                PVD_VDDIO2_IRQHandler
-                0x0801997c                EXTI4_15_IRQHandler
-                0x0801997c                Default_Handler
-                0x0801997c                CEC_IRQHandler
-                0x0801997c                TIM14_IRQHandler
-                0x0801997c                TIM15_IRQHandler
-                0x0801997c                TIM3_TIM4_IRQHandler
-                0x0801997c                EXTI0_1_IRQHandler
-                0x0801997c                SPI2_3_IRQHandler
-                0x0801997c                TIM6_DAC_LPTIM1_IRQHandler
-                0x0801997c                WWDG_IRQHandler
-                0x0801997c                TIM2_IRQHandler
-                0x0801997c                FLASH_IRQHandler
-                0x0801997c                TIM16_FDCAN_IT0_IRQHandler
-                0x0801997c                TIM1_BRK_UP_TRG_COM_IRQHandler
+                0x080191e4        0x2 H16R6\startup_stm32g0b1ceuxn.o
+                0x080191e4                I2C2_3_IRQHandler
+                0x080191e4                TIM1_CC_IRQHandler
+                0x080191e4                ADC1_COMP_IRQHandler
+                0x080191e4                NMI_Handler
+                0x080191e4                I2C1_IRQHandler
+                0x080191e4                TIM7_LPTIM2_IRQHandler
+                0x080191e4                TIM17_FDCAN_IT1_IRQHandler
+                0x080191e4                RCC_CRS_IRQHandler
+                0x080191e4                RTC_TAMP_IRQHandler
+                0x080191e4                SPI1_IRQHandler
+                0x080191e4                USB_UCPD1_2_IRQHandler
+                0x080191e4                EXTI2_3_IRQHandler
+                0x080191e4                PVD_VDDIO2_IRQHandler
+                0x080191e4                EXTI4_15_IRQHandler
+                0x080191e4                Default_Handler
+                0x080191e4                CEC_IRQHandler
+                0x080191e4                TIM14_IRQHandler
+                0x080191e4                TIM15_IRQHandler
+                0x080191e4                TIM3_TIM4_IRQHandler
+                0x080191e4                EXTI0_1_IRQHandler
+                0x080191e4                SPI2_3_IRQHandler
+                0x080191e4                TIM6_DAC_LPTIM1_IRQHandler
+                0x080191e4                WWDG_IRQHandler
+                0x080191e4                TIM2_IRQHandler
+                0x080191e4                FLASH_IRQHandler
+                0x080191e4                TIM16_FDCAN_IT0_IRQHandler
+                0x080191e4                TIM1_BRK_UP_TRG_COM_IRQHandler
+ *fill*         0x080191e6        0x2 
+ .text.DigiLedInit
+                0x080191e8       0x88 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x080191e8                DigiLedInit
+ .text.DigiLedSwitchColors
+                0x08019270       0xa0 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x08019270                DigiLedSwitchColors
+ .text.DigiLedSetRGB
+                0x08019310       0xe4 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x08019310                DigiLedSetRGB
+ .text.DigiLedSetAllRGB
+                0x080193f4       0x5e Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x080193f4                DigiLedSetAllRGB
+ *fill*         0x08019452        0x2 
+ .text.DigiLedSetColor
+                0x08019454       0xf0 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x08019454                DigiLedSetColor
+ .text.DigiLedSetAllColor
+                0x08019544       0x40 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x08019544                DigiLedSetAllColor
+ .text.DigiLedSetLedOff
+                0x08019584       0x54 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x08019584                DigiLedSetLedOff
+ .text.DigiLedSetAllLedOff
+                0x080195d8       0x2c Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x080195d8                DigiLedSetAllLedOff
+ .text.DigiLedSetLedOn
+                0x08019604       0x7c Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x08019604                DigiLedSetLedOn
+ .text.DigiLedSetAllLedOn
+                0x08019680       0x38 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x08019680                DigiLedSetAllLedOn
+ .text.DigiLedUpdate
+                0x080196b8       0xec Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x080196b8                DigiLedUpdate
+ .text.DigiLedTestPosition
+                0x080197a4       0x30 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x080197a4                DigiLedTestPosition
+ .text.DigiLedScrollMode
+                0x080197d4       0xb8 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x080197d4                DigiLedScrollMode
+ .text.DigiLedFlashMode
+                0x0801988c       0x98 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x0801988c                DigiLedFlashMode
+ .text.DigiLedRGBColorPickerMode
+                0x08019924       0x5c Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x08019924                DigiLedRGBColorPickerMode
  .text.SystemInit
-                0x0801997e        0xa Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
-                0x0801997e                SystemInit
+                0x08019980        0xa Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
+                0x08019980                SystemInit
  .text.LL_CRC_ResetCRCCalculationUnit
-                0x08019988       0x1c Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801998a       0x1c Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.LL_CRC_SetPolynomialSize
-                0x080199a4       0x24 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x080199a6       0x24 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.LL_CRC_SetPolynomialCoef
-                0x080199c8       0x18 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x080199ca       0x18 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.LL_CRC_FeedData32
-                0x080199e0       0x18 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x080199e2       0x18 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.LL_CRC_FeedData16
-                0x080199f8       0x22 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x080199fa       0x22 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.LL_CRC_ReadData16
-                0x08019a1a       0x16 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x08019a1c       0x16 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+ *fill*         0x08019a32        0x2 
  .text.LL_AHB1_GRP1_EnableClock
-                0x08019a30       0x2c Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x08019a34       0x2c Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.EEPROM_Init
-                0x08019a5c     0x1874 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
-                0x08019a5c                EEPROM_Init
+                0x08019a60     0x1874 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x08019a60                EEPROM_Init
  .text.EEPROM_Format
-                0x0801b2d0      0x2a8 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
-                0x0801b2d0                EEPROM_Format
+                0x0801b2d4      0x2a8 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801b2d4                EEPROM_Format
  .text.EE_ReadVariable16bits
-                0x0801b578       0x60 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
-                0x0801b578                EE_ReadVariable16bits
+                0x0801b57c       0x60 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801b57c                EE_ReadVariable16bits
  .text.EE_WriteVariable16bits
-                0x0801b5d8       0x48 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
-                0x0801b5d8                EE_WriteVariable16bits
+                0x0801b5dc       0x48 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801b5dc                EE_WriteVariable16bits
  .text.EE_CleanUp
-                0x0801b620      0x2a4 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
-                0x0801b620                EE_CleanUp
+                0x0801b624      0x2a4 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801b624                EE_CleanUp
  .text.ReadVariable
-                0x0801b8c4      0x340 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801b8c8      0x340 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.WriteVariable
-                0x0801bc04       0x52 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801bc08       0x52 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.VerifyPageFullyErased
-                0x0801bc56       0x4e Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801bc5a       0x4e Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.FindPage
-                0x0801bca4      0x444 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801bca8      0x444 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.PagesTransfer
-                0x0801c0e8      0x8ec Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801c0ec      0x8ec Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.VerifyPagesFullWriteVariable
-                0x0801c9d4      0x1ac Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801c9d8      0x1ac Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.SetPageState
-                0x0801cb80      0x364 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801cb84      0x364 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.GetPageState
-                0x0801cee4       0xa0 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801cee8       0xa0 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .text.ConfigureCrc
-                0x0801cf84       0x34 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
-                0x0801cf84                ConfigureCrc
+                0x0801cf88       0x34 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801cf88                ConfigureCrc
  .text.CalculateCrc
-                0x0801cfb8       0x48 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
-                0x0801cfb8                CalculateCrc
+                0x0801cfbc       0x48 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+                0x0801cfbc                CalculateCrc
  .text.FI_WriteDoubleWord
-                0x0801d000       0x22 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
-                0x0801d000                FI_WriteDoubleWord
- *fill*         0x0801d022        0x2 
+                0x0801d004       0x22 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
+                0x0801d004                FI_WriteDoubleWord
+ *fill*         0x0801d026        0x2 
  .text.FI_PageErase
-                0x0801d024      0x120 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
-                0x0801d024                FI_PageErase
+                0x0801d028      0x120 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
+                0x0801d028                FI_PageErase
  .text.FI_CacheFlush
-                0x0801d144        0xa Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
-                0x0801d144                FI_CacheFlush
- *fill*         0x0801d14e        0x2 
+                0x0801d148        0xa Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
+                0x0801d148                FI_CacheFlush
+ *fill*         0x0801d152        0x2 
  .text.GetBankNumber
-                0x0801d150       0x90 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
+                0x0801d154       0x90 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
  .text.FI_CheckBankConfig
-                0x0801d1e0       0x18 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
-                0x0801d1e0                FI_CheckBankConfig
+                0x0801d1e4       0x18 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
+                0x0801d1e4                FI_CheckBankConfig
  .text.inHandlerMode
-                0x0801d1f8       0x1c Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
+                0x0801d1fc       0x1c Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
  .text.osKernelStart
-                0x0801d214       0x10 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
-                0x0801d214                osKernelStart
- .text.osDelay  0x0801d224       0x28 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
-                0x0801d224                osDelay
+                0x0801d218       0x10 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
+                0x0801d218                osKernelStart
+ .text.osDelay  0x0801d228       0x28 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
+                0x0801d228                osDelay
  .text.osSemaphoreCreate
-                0x0801d24c       0x4a Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
-                0x0801d24c                osSemaphoreCreate
- *fill*         0x0801d296        0x2 
+                0x0801d250       0x4a Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
+                0x0801d250                osSemaphoreCreate
+ *fill*         0x0801d29a        0x2 
  .text.osSemaphoreWait
-                0x0801d298       0x94 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
-                0x0801d298                osSemaphoreWait
+                0x0801d29c       0x94 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
+                0x0801d29c                osSemaphoreWait
  .text.osSemaphoreRelease
-                0x0801d32c       0x64 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
-                0x0801d32c                osSemaphoreRelease
+                0x0801d330       0x64 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
+                0x0801d330                osSemaphoreRelease
  .text.osSystickHandler
-                0x0801d390       0x18 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
-                0x0801d390                osSystickHandler
+                0x0801d394       0x18 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
+                0x0801d394                osSystickHandler
  .text.FreeRTOS_CLIRegisterCommand
-                0x0801d3a8       0x50 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
-                0x0801d3a8                FreeRTOS_CLIRegisterCommand
+                0x0801d3ac       0x50 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
+                0x0801d3ac                FreeRTOS_CLIRegisterCommand
  .text.FreeRTOS_CLIProcessCommand
-                0x0801d3f8      0x11c Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
-                0x0801d3f8                FreeRTOS_CLIProcessCommand
+                0x0801d3fc      0x11c Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
+                0x0801d3fc                FreeRTOS_CLIProcessCommand
  .text.FreeRTOS_CLIGetOutputBuffer
-                0x0801d514       0x10 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
-                0x0801d514                FreeRTOS_CLIGetOutputBuffer
+                0x0801d518       0x10 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
+                0x0801d518                FreeRTOS_CLIGetOutputBuffer
  .text.FreeRTOS_CLIGetParameter
-                0x0801d524       0xbc Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
-                0x0801d524                FreeRTOS_CLIGetParameter
+                0x0801d528       0xbc Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
+                0x0801d528                FreeRTOS_CLIGetParameter
  .text.prvHelpCommand
-                0x0801d5e0      0x154 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
+                0x0801d5e4      0x154 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
  .text.prvGetNumberOfParameters
-                0x0801d734       0x7a Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
+                0x0801d738       0x7a Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
  .text.vListInitialise
-                0x0801d7ae       0x3c Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
-                0x0801d7ae                vListInitialise
+                0x0801d7b2       0x3c Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
+                0x0801d7b2                vListInitialise
  .text.vListInitialiseItem
-                0x0801d7ea       0x16 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
-                0x0801d7ea                vListInitialiseItem
+                0x0801d7ee       0x16 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
+                0x0801d7ee                vListInitialiseItem
  .text.vListInsertEnd
-                0x0801d800       0x44 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
-                0x0801d800                vListInsertEnd
+                0x0801d804       0x44 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
+                0x0801d804                vListInsertEnd
  .text.vListInsert
-                0x0801d844       0x6c Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
-                0x0801d844                vListInsert
+                0x0801d848       0x6c Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
+                0x0801d848                vListInsert
  .text.uxListRemove
-                0x0801d8b0       0x50 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
-                0x0801d8b0                uxListRemove
+                0x0801d8b4       0x50 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
+                0x0801d8b4                uxListRemove
  .text.pxPortInitialiseStack
-                0x0801d900       0x54 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
-                0x0801d900                pxPortInitialiseStack
+                0x0801d904       0x54 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
+                0x0801d904                pxPortInitialiseStack
  .text.prvTaskExitError
-                0x0801d954       0x1e Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
+                0x0801d958       0x1e Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
  .text.SVC_Handler
-                0x0801d972        0xa Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
-                0x0801d972                SVC_Handler
- *fill*         0x0801d97c        0x4 
+                0x0801d976        0xa Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
+                0x0801d976                SVC_Handler
  .text.vPortStartFirstTask
                 0x0801d980       0x38 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
  .text.xPortStartScheduler
@@ -6439,32 +6440,32 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  *fill*         0x080302c2        0x2 
  .rodata        0x080302c4       0x30 BOS\BOS_messaging.o
  .rodata        0x080302f4      0x228 BOS\BOS_msgparser.o
- .rodata        0x0803051c       0x40 H16R6\APA102_LedMatrix.o
- .rodata        0x0803055c     0x1331 H16R6\H16R6.o
-                0x08030604                CLI_SetRGBCommandDefinition
-                0x080306ac                CLI_SetAllRGBCommandDefinition
-                0x080307b0                CLI_SetColorCommandDefinition
-                0x080308a4                CLI_SetAllColorCommandDefinition
-                0x080308ec                CLI_SetLedOffCommandDefinition
-                0x08030930                CLI_SetAllLedOffCommandDefinition
-                0x080309a0                CLI_SetLedOnCommandDefinition
-                0x08030a10                CLI_SetAllLedOnCommandDefinition
-                0x08030b40                CLI_ScrollModeCommandDefinition
-                0x08030c88                CLI_FlashModeCommandDefinition
-                0x08030da0                CLI_ColorPickerModeCommandDefinition
-                0x08030ed0                CLI_SetColorSomeLedCommandDefinition
-                0x08030ff0                CLI_MotionModeCommandDefinition
-                0x08031100                CLI_CrossFadeModeCommandDefinition
-                0x08031238                CLI_CrossFadeModeLEDRGBCommandDefinition
-                0x0803136c                CLI_CrossFadeModeALLLEDRGBCommandDefinition
- *fill*         0x0803188d        0x3 
- .rodata        0x08031890       0x13 H16R6\H16R6_inputs.o
- *fill*         0x080318a3        0x1 
- .rodata        0x080318a4       0x55 H16R6\H16R6_it.o
- *fill*         0x080318f9        0x3 
- .rodata        0x080318fc       0x1d H16R6\H16R6_rtc.o
- *fill*         0x08031919        0x3 
- .rodata        0x0803191c       0x24 H16R6\H16R6_uart.o
+ .rodata        0x0803051c     0x1331 H16R6\H16R6.o
+                0x080305c4                CLI_SetRGBCommandDefinition
+                0x0803066c                CLI_SetAllRGBCommandDefinition
+                0x08030770                CLI_SetColorCommandDefinition
+                0x08030864                CLI_SetAllColorCommandDefinition
+                0x080308ac                CLI_SetLedOffCommandDefinition
+                0x080308f0                CLI_SetAllLedOffCommandDefinition
+                0x08030960                CLI_SetLedOnCommandDefinition
+                0x080309d0                CLI_SetAllLedOnCommandDefinition
+                0x08030b00                CLI_ScrollModeCommandDefinition
+                0x08030c48                CLI_FlashModeCommandDefinition
+                0x08030d60                CLI_ColorPickerModeCommandDefinition
+                0x08030e90                CLI_SetColorSomeLedCommandDefinition
+                0x08030fb0                CLI_MotionModeCommandDefinition
+                0x080310c0                CLI_CrossFadeModeCommandDefinition
+                0x080311f8                CLI_CrossFadeModeLEDRGBCommandDefinition
+                0x0803132c                CLI_CrossFadeModeALLLEDRGBCommandDefinition
+ *fill*         0x0803184d        0x3 
+ .rodata        0x08031850       0x13 H16R6\H16R6_inputs.o
+ *fill*         0x08031863        0x1 
+ .rodata        0x08031864       0x55 H16R6\H16R6_it.o
+ *fill*         0x080318b9        0x3 
+ .rodata        0x080318bc       0x1d H16R6\H16R6_rtc.o
+ *fill*         0x080318d9        0x3 
+ .rodata        0x080318dc       0x24 H16R6\H16R6_uart.o
+ .rodata        0x08031900       0x40 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
  .rodata        0x08031940       0x68 Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
                 0x08031948                AHBPrescTable
                 0x08031988                APBPrescTable
@@ -6753,82 +6754,82 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
                 0x20002458                EthernetDefaultSetting
                 0x20002478                RemoteDataBuffer
  *fill*         0x200025f2        0x2 
- .bss           0x200025f4      0x25c H16R6\APA102_LedMatrix.o
-                0x20002644                frameModified
-                0x20002648                SpiSendFrame
-                0x20002750                digitalLedframe
- .bss           0x20002850      0x684 H16R6\H16R6.o
-                0x200028a0                huart1
-                0x20002934                huart2
-                0x200029c8                huart3
-                0x20002a5c                huart4
-                0x20002af0                huart5
-                0x20002b84                huart6
-                0x20002c18                OldColorR
-                0x20002c58                OldColorG
-                0x20002c98                OldColorB
-                0x20002cd8                RandomIndex
-                0x20002dd8                ModuleParam
-                0x20002de4                LedMatrixTaskHandle
-                0x20002de8                LedMatrixMode
-                0x20002de9                BasicColor
-                0x20002dea                SecondColor
-                0x20002deb                ThirdColor
-                0x20002dec                Intensity
-                0x20002ded                Led
-                0x20002dee                AmountOfLeds
-                0x20002def                Colordeviation
-                0x20002df0                Color
-                0x20002df2                FlashTime
-                0x20002df4                TimeBetweenFlash
-                0x20002df6                Time
-                0x20002df8                InterpolationTime
-                0x20002dfa                TimetoFade
-                0x20002dfc                ScrollTime
- .bss           0x20002ed4       0x8c H16R6\H16R6_dma.o
-                0x20002f24                UARTDMAHandler
-                0x20002f3c                hcrc
- .bss           0x20002f60      0x13d H16R6\H16R6_inputs.o
-                0x20002fb0                DelayButtonStateReset
-                0x20002fb1                NeedToDelayButtonStateReset
-                0x20002fb4                dblCounter
-                0x20002fbc                PressCounter
-                0x20002fd8                ReleaseCounter
-                0x20002ff4                Button
-                0x2000300c                adcSelectFlag
-                0x2000300e                adcEnableFlag
-                0x2000300f                adcChannelRank
-                0x20003010                Channel
-                0x20003014                adcChannelValue
-                0x2000301c                adcValueTemp
-                0x2000301e                adcValueVref
-                0x20003020                Percentage
-                0x20003024                Current
-                0x20003028                adcDeInitFlag
-                0x2000302c                hadc
-                0x20003090                sConfig
- *fill*         0x2000309d        0x3 
- .bss           0x200030a0       0x53 H16R6\H16R6_it.o
-                0x200030f0                PacketLength
-                0x200030f2                Count
- *fill*         0x200030f3        0x1 
- .bss           0x200030f4       0x80 H16R6\H16R6_rtc.o
-                0x20003144                BootStatus
-                0x20003148                RtcHandle
- .bss           0x20003174      0x114 H16R6\H16R6_spi.o
-                0x200031c4                hspi1
-                0x20003228                hdma_spi1_tx
- .bss           0x20003288       0xf8 H16R6\H16R6_timers.o
-                0x200032d8                htim16
-                0x20003324                htim17
-                0x20003370                hiwdg
- .bss           0x20003380      0x290 H16R6\H16R6_uart.o
-                0x200033d0                hdma_usart1_rx
-                0x20003430                hdma_usart2_rx
-                0x20003490                hdma_usart3_rx
-                0x200034f0                hdma_usart4_rx
-                0x20003550                hdma_usart5_rx
-                0x200035b0                hdma_usart6_rx
+ .bss           0x200025f4      0x684 H16R6\H16R6.o
+                0x20002644                huart1
+                0x200026d8                huart2
+                0x2000276c                huart3
+                0x20002800                huart4
+                0x20002894                huart5
+                0x20002928                huart6
+                0x200029bc                LedMatrixTaskHandle
+                0x200029c0                OldColorR
+                0x20002a00                OldColorG
+                0x20002a40                OldColorB
+                0x20002a80                LedMatrixMode
+                0x20002a81                BasicColor
+                0x20002a82                SecondColor
+                0x20002a83                ThirdColor
+                0x20002a84                Intensity
+                0x20002a85                Led
+                0x20002a86                AmountOfLeds
+                0x20002a87                Colordeviation
+                0x20002a88                Color
+                0x20002a8a                FlashTime
+                0x20002a8c                TimeBetweenFlash
+                0x20002a8e                Time
+                0x20002a90                InterpolationTime
+                0x20002a92                TimetoFade
+                0x20002a94                ScrollTime
+                0x20002a98                RandomIndex
+                0x20002b98                ModuleParam
+ .bss           0x20002c78       0x8c H16R6\H16R6_dma.o
+                0x20002cc8                UARTDMAHandler
+                0x20002ce0                hcrc
+ .bss           0x20002d04      0x13d H16R6\H16R6_inputs.o
+                0x20002d54                DelayButtonStateReset
+                0x20002d55                NeedToDelayButtonStateReset
+                0x20002d58                dblCounter
+                0x20002d60                PressCounter
+                0x20002d7c                ReleaseCounter
+                0x20002d98                Button
+                0x20002db0                adcSelectFlag
+                0x20002db2                adcEnableFlag
+                0x20002db3                adcChannelRank
+                0x20002db4                Channel
+                0x20002db8                adcChannelValue
+                0x20002dc0                adcValueTemp
+                0x20002dc2                adcValueVref
+                0x20002dc4                Percentage
+                0x20002dc8                Current
+                0x20002dcc                adcDeInitFlag
+                0x20002dd0                hadc
+                0x20002e34                sConfig
+ *fill*         0x20002e41        0x3 
+ .bss           0x20002e44       0x53 H16R6\H16R6_it.o
+                0x20002e94                PacketLength
+                0x20002e96                Count
+ *fill*         0x20002e97        0x1 
+ .bss           0x20002e98       0x80 H16R6\H16R6_rtc.o
+                0x20002ee8                BootStatus
+                0x20002eec                RtcHandle
+ .bss           0x20002f18      0x114 H16R6\H16R6_spi.o
+                0x20002f68                hspi1
+                0x20002fcc                hdma_spi1_tx
+ .bss           0x2000302c       0xf8 H16R6\H16R6_timers.o
+                0x2000307c                htim16
+                0x200030c8                htim17
+                0x20003114                hiwdg
+ .bss           0x20003124      0x290 H16R6\H16R6_uart.o
+                0x20003174                hdma_usart1_rx
+                0x200031d4                hdma_usart2_rx
+                0x20003234                hdma_usart3_rx
+                0x20003294                hdma_usart4_rx
+                0x200032f4                hdma_usart5_rx
+                0x20003354                hdma_usart6_rx
+ .bss           0x200033b4      0x25c Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                0x20003404                frameModified
+                0x20003408                SpiSendFrame
+                0x20003510                digitalLedframe
  .bss           0x20003610        0x9 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
                 0x20003610                uhNbWrittenElements
                 0x20003612                ubCurrentActivePage
@@ -6933,29 +6934,29 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .ARM.attributes
                 0x00000152       0x2c BOS\BOS_msgparser.o
  .ARM.attributes
-                0x0000017e       0x2c H16R6\APA102_LedMatrix.o
+                0x0000017e       0x2c H16R6\H16R6.o
  .ARM.attributes
-                0x000001aa       0x2c H16R6\H16R6.o
+                0x000001aa       0x2c H16R6\H16R6_dma.o
  .ARM.attributes
-                0x000001d6       0x2c H16R6\H16R6_dma.o
+                0x000001d6       0x2c H16R6\H16R6_eeprom.o
  .ARM.attributes
-                0x00000202       0x2c H16R6\H16R6_eeprom.o
+                0x00000202       0x2c H16R6\H16R6_gpio.o
  .ARM.attributes
-                0x0000022e       0x2c H16R6\H16R6_gpio.o
+                0x0000022e       0x2c H16R6\H16R6_inputs.o
  .ARM.attributes
-                0x0000025a       0x2c H16R6\H16R6_inputs.o
+                0x0000025a       0x2c H16R6\H16R6_it.o
  .ARM.attributes
-                0x00000286       0x2c H16R6\H16R6_it.o
+                0x00000286       0x2c H16R6\H16R6_rtc.o
  .ARM.attributes
-                0x000002b2       0x2c H16R6\H16R6_rtc.o
+                0x000002b2       0x2c H16R6\H16R6_spi.o
  .ARM.attributes
-                0x000002de       0x2c H16R6\H16R6_spi.o
+                0x000002de       0x2c H16R6\H16R6_timers.o
  .ARM.attributes
-                0x0000030a       0x2c H16R6\H16R6_timers.o
+                0x0000030a       0x2c H16R6\H16R6_uart.o
  .ARM.attributes
-                0x00000336       0x2c H16R6\H16R6_uart.o
+                0x00000336       0x22 H16R6\startup_stm32g0b1ceuxn.o
  .ARM.attributes
-                0x00000362       0x22 H16R6\startup_stm32g0b1ceuxn.o
+                0x00000358       0x2c Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
  .ARM.attributes
                 0x00000384       0x2c Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
  .ARM.attributes
@@ -7260,7 +7261,7 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
 LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libm.a
 LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v6-m/nofp\libgcc.a
 
-.debug_info     0x00000000    0x35616
+.debug_info     0x00000000    0x35617
  .debug_info    0x00000000     0x305c BOS\BOS.o
  .debug_info    0x0000305c      0xf30 BOS\BOS_CLI.o
  .debug_info    0x00003f8c     0x3120 BOS\BOS_CLIcommands.o
@@ -7268,51 +7269,51 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_info    0x00007cbd      0x8fd BOS\BOS_freertos.o
  .debug_info    0x000085ba     0x1911 BOS\BOS_messaging.o
  .debug_info    0x00009ecb     0x1ba1 BOS\BOS_msgparser.o
- .debug_info    0x0000ba6c      0xe45 H16R6\APA102_LedMatrix.o
- .debug_info    0x0000c8b1     0x3eea H16R6\H16R6.o
- .debug_info    0x0001079b     0x1303 H16R6\H16R6_dma.o
- .debug_info    0x00011a9e      0x8c5 H16R6\H16R6_eeprom.o
- .debug_info    0x00012363      0xf03 H16R6\H16R6_gpio.o
- .debug_info    0x00013266     0x1d0e H16R6\H16R6_inputs.o
- .debug_info    0x00014f74     0x13b9 H16R6\H16R6_it.o
- .debug_info    0x0001632d      0xe11 H16R6\H16R6_rtc.o
- .debug_info    0x0001713e      0xb7b H16R6\H16R6_spi.o
- .debug_info    0x00017cb9      0xbbb H16R6\H16R6_timers.o
- .debug_info    0x00018874     0x17ab H16R6\H16R6_uart.o
- .debug_info    0x0001a01f       0x30 H16R6\startup_stm32g0b1ceuxn.o
- .debug_info    0x0001a04f      0x30b Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
- .debug_info    0x0001a35a      0xeed Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
- .debug_info    0x0001b247      0x572 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
- .debug_info    0x0001b7b9     0x17a2 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
- .debug_info    0x0001cf5b      0x6a4 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
- .debug_info    0x0001d5ff      0x2a4 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
- .debug_info    0x0001d8a3      0x27e Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
- .debug_info    0x0001db21      0x448 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\MemMang\heap_4.o
- .debug_info    0x0001df69     0x11f7 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\queue.o
- .debug_info    0x0001f160     0x1ae1 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\tasks.o
- .debug_info    0x00020c41      0xe13 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\timers.o
- .debug_info    0x00021a54      0xaef Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal.o
- .debug_info    0x00022543     0x15c4 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_adc.o
- .debug_info    0x00023b07      0x8ce Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_cortex.o
- .debug_info    0x000243d5      0x53d Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc.o
- .debug_info    0x00024912      0x350 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc_ex.o
- .debug_info    0x00024c62      0x85e Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_dma.o
- .debug_info    0x000254c0      0x6b7 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash.o
- .debug_info    0x00025b77      0xb16 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash_ex.o
- .debug_info    0x0002668d      0x5ce Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_gpio.o
- .debug_info    0x00026c5b       0xf1 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_msp_template.o
- .debug_info    0x00026d4c      0x59f Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr.o
- .debug_info    0x000272eb      0x8aa Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr_ex.o
- .debug_info    0x00027b95      0xb90 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc.o
- .debug_info    0x00028725      0xa36 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc_ex.o
- .debug_info    0x0002915b      0xc90 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc.o
- .debug_info    0x00029deb     0x1299 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc_ex.o
- .debug_info    0x0002b084     0x191e Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_spi.o
- .debug_info    0x0002c9a2     0x2c07 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_tim.o
- .debug_info    0x0002f5a9     0x4895 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart.o
- .debug_info    0x00033e3e      0xfe5 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart_ex.o
- .debug_info    0x00034e23      0x3df User\main.o
- .debug_info    0x00035202      0x414 syscalls.o
+ .debug_info    0x0000ba6c     0x3eeb H16R6\H16R6.o
+ .debug_info    0x0000f957     0x1303 H16R6\H16R6_dma.o
+ .debug_info    0x00010c5a      0x8c5 H16R6\H16R6_eeprom.o
+ .debug_info    0x0001151f      0xf03 H16R6\H16R6_gpio.o
+ .debug_info    0x00012422     0x1d0e H16R6\H16R6_inputs.o
+ .debug_info    0x00014130     0x13b9 H16R6\H16R6_it.o
+ .debug_info    0x000154e9      0xe11 H16R6\H16R6_rtc.o
+ .debug_info    0x000162fa      0xb7b H16R6\H16R6_spi.o
+ .debug_info    0x00016e75      0xbbb H16R6\H16R6_timers.o
+ .debug_info    0x00017a30     0x17ab H16R6\H16R6_uart.o
+ .debug_info    0x000191db       0x30 H16R6\startup_stm32g0b1ceuxn.o
+ .debug_info    0x0001920b      0xe45 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+ .debug_info    0x0001a050      0x30b Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
+ .debug_info    0x0001a35b      0xeed Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+ .debug_info    0x0001b248      0x572 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
+ .debug_info    0x0001b7ba     0x17a2 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
+ .debug_info    0x0001cf5c      0x6a4 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
+ .debug_info    0x0001d600      0x2a4 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
+ .debug_info    0x0001d8a4      0x27e Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
+ .debug_info    0x0001db22      0x448 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\MemMang\heap_4.o
+ .debug_info    0x0001df6a     0x11f7 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\queue.o
+ .debug_info    0x0001f161     0x1ae1 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\tasks.o
+ .debug_info    0x00020c42      0xe13 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\timers.o
+ .debug_info    0x00021a55      0xaef Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal.o
+ .debug_info    0x00022544     0x15c4 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_adc.o
+ .debug_info    0x00023b08      0x8ce Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_cortex.o
+ .debug_info    0x000243d6      0x53d Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc.o
+ .debug_info    0x00024913      0x350 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc_ex.o
+ .debug_info    0x00024c63      0x85e Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_dma.o
+ .debug_info    0x000254c1      0x6b7 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash.o
+ .debug_info    0x00025b78      0xb16 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash_ex.o
+ .debug_info    0x0002668e      0x5ce Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_gpio.o
+ .debug_info    0x00026c5c       0xf1 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_msp_template.o
+ .debug_info    0x00026d4d      0x59f Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr.o
+ .debug_info    0x000272ec      0x8aa Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr_ex.o
+ .debug_info    0x00027b96      0xb90 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc.o
+ .debug_info    0x00028726      0xa36 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc_ex.o
+ .debug_info    0x0002915c      0xc90 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc.o
+ .debug_info    0x00029dec     0x1299 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc_ex.o
+ .debug_info    0x0002b085     0x191e Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_spi.o
+ .debug_info    0x0002c9a3     0x2c07 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_tim.o
+ .debug_info    0x0002f5aa     0x4895 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart.o
+ .debug_info    0x00033e3f      0xfe5 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart_ex.o
+ .debug_info    0x00034e24      0x3df User\main.o
+ .debug_info    0x00035203      0x414 syscalls.o
 
 .debug_abbrev   0x00000000     0x7b1e
  .debug_abbrev  0x00000000      0x43c BOS\BOS.o
@@ -7322,18 +7323,18 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_abbrev  0x00000cd0      0x2a5 BOS\BOS_freertos.o
  .debug_abbrev  0x00000f75      0x353 BOS\BOS_messaging.o
  .debug_abbrev  0x000012c8      0x386 BOS\BOS_msgparser.o
- .debug_abbrev  0x0000164e      0x34e H16R6\APA102_LedMatrix.o
- .debug_abbrev  0x0000199c      0x3d1 H16R6\H16R6.o
- .debug_abbrev  0x00001d6d      0x2be H16R6\H16R6_dma.o
- .debug_abbrev  0x0000202b      0x20d H16R6\H16R6_eeprom.o
- .debug_abbrev  0x00002238      0x21a H16R6\H16R6_gpio.o
- .debug_abbrev  0x00002452      0x330 H16R6\H16R6_inputs.o
- .debug_abbrev  0x00002782      0x364 H16R6\H16R6_it.o
- .debug_abbrev  0x00002ae6      0x264 H16R6\H16R6_rtc.o
- .debug_abbrev  0x00002d4a      0x221 H16R6\H16R6_spi.o
- .debug_abbrev  0x00002f6b      0x204 H16R6\H16R6_timers.o
- .debug_abbrev  0x0000316f      0x30f H16R6\H16R6_uart.o
- .debug_abbrev  0x0000347e       0x24 H16R6\startup_stm32g0b1ceuxn.o
+ .debug_abbrev  0x0000164e      0x3d1 H16R6\H16R6.o
+ .debug_abbrev  0x00001a1f      0x2be H16R6\H16R6_dma.o
+ .debug_abbrev  0x00001cdd      0x20d H16R6\H16R6_eeprom.o
+ .debug_abbrev  0x00001eea      0x21a H16R6\H16R6_gpio.o
+ .debug_abbrev  0x00002104      0x330 H16R6\H16R6_inputs.o
+ .debug_abbrev  0x00002434      0x364 H16R6\H16R6_it.o
+ .debug_abbrev  0x00002798      0x264 H16R6\H16R6_rtc.o
+ .debug_abbrev  0x000029fc      0x221 H16R6\H16R6_spi.o
+ .debug_abbrev  0x00002c1d      0x204 H16R6\H16R6_timers.o
+ .debug_abbrev  0x00002e21      0x30f H16R6\H16R6_uart.o
+ .debug_abbrev  0x00003130       0x24 H16R6\startup_stm32g0b1ceuxn.o
+ .debug_abbrev  0x00003154      0x34e Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
  .debug_abbrev  0x000034a2      0x117 Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
  .debug_abbrev  0x000035b9      0x2ac Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .debug_abbrev  0x00003865      0x1d4 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
@@ -7384,29 +7385,29 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_aranges
                 0x00000400       0x38 BOS\BOS_msgparser.o
  .debug_aranges
-                0x00000438       0xa0 H16R6\APA102_LedMatrix.o
+                0x00000438      0x1c8 H16R6\H16R6.o
  .debug_aranges
-                0x000004d8      0x1c8 H16R6\H16R6.o
+                0x00000600       0x70 H16R6\H16R6_dma.o
  .debug_aranges
-                0x000006a0       0x70 H16R6\H16R6_dma.o
+                0x00000670       0x58 H16R6\H16R6_eeprom.o
  .debug_aranges
-                0x00000710       0x58 H16R6\H16R6_eeprom.o
+                0x000006c8       0x38 H16R6\H16R6_gpio.o
  .debug_aranges
-                0x00000768       0x38 H16R6\H16R6_gpio.o
+                0x00000700       0xc0 H16R6\H16R6_inputs.o
  .debug_aranges
-                0x000007a0       0xc0 H16R6\H16R6_inputs.o
+                0x000007c0       0x98 H16R6\H16R6_it.o
  .debug_aranges
-                0x00000860       0x98 H16R6\H16R6_it.o
+                0x00000858       0x48 H16R6\H16R6_rtc.o
  .debug_aranges
-                0x000008f8       0x48 H16R6\H16R6_rtc.o
+                0x000008a0       0x38 H16R6\H16R6_spi.o
  .debug_aranges
-                0x00000940       0x38 H16R6\H16R6_spi.o
+                0x000008d8       0x40 H16R6\H16R6_timers.o
  .debug_aranges
-                0x00000978       0x40 H16R6\H16R6_timers.o
+                0x00000918       0xa0 H16R6\H16R6_uart.o
  .debug_aranges
-                0x000009b8       0xa0 H16R6\H16R6_uart.o
+                0x000009b8       0x28 H16R6\startup_stm32g0b1ceuxn.o
  .debug_aranges
-                0x00000a58       0x28 H16R6\startup_stm32g0b1ceuxn.o
+                0x000009e0       0xa0 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
  .debug_aranges
                 0x00000a80       0x28 Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
  .debug_aranges
@@ -7491,29 +7492,29 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_rnglists
                 0x0000033f       0x34 BOS\BOS_msgparser.o
  .debug_rnglists
-                0x00000373       0x7a H16R6\APA102_LedMatrix.o
+                0x00000373      0x179 H16R6\H16R6.o
  .debug_rnglists
-                0x000003ed      0x179 H16R6\H16R6.o
+                0x000004ec       0x54 H16R6\H16R6_dma.o
  .debug_rnglists
-                0x00000566       0x54 H16R6\H16R6_dma.o
+                0x00000540       0x3d H16R6\H16R6_eeprom.o
  .debug_rnglists
-                0x000005ba       0x3d H16R6\H16R6_eeprom.o
+                0x0000057d       0x28 H16R6\H16R6_gpio.o
  .debug_rnglists
-                0x000005f7       0x28 H16R6\H16R6_gpio.o
+                0x000005a5       0x97 H16R6\H16R6_inputs.o
  .debug_rnglists
-                0x0000061f       0x97 H16R6\H16R6_inputs.o
+                0x0000063c       0x72 H16R6\H16R6_it.o
  .debug_rnglists
-                0x000006b6       0x72 H16R6\H16R6_it.o
+                0x000006ae       0x35 H16R6\H16R6_rtc.o
  .debug_rnglists
-                0x00000728       0x35 H16R6\H16R6_rtc.o
+                0x000006e3       0x26 H16R6\H16R6_spi.o
  .debug_rnglists
-                0x0000075d       0x26 H16R6\H16R6_spi.o
+                0x00000709       0x2b H16R6\H16R6_timers.o
  .debug_rnglists
-                0x00000783       0x2b H16R6\H16R6_timers.o
+                0x00000734       0x7b H16R6\H16R6_uart.o
  .debug_rnglists
-                0x000007ae       0x7b H16R6\H16R6_uart.o
+                0x000007af       0x1a H16R6\startup_stm32g0b1ceuxn.o
  .debug_rnglists
-                0x00000829       0x1a H16R6\startup_stm32g0b1ceuxn.o
+                0x000007c9       0x7a Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
  .debug_rnglists
                 0x00000843       0x1a Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
  .debug_rnglists
@@ -7581,7 +7582,7 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_rnglists
                 0x00001fbc       0x3d syscalls.o
 
-.debug_line     0x00000000    0x2a320
+.debug_line     0x00000000    0x2a390
  .debug_line    0x00000000     0x2264 BOS\BOS.o
  .debug_line    0x00002264      0xbc2 BOS\BOS_CLI.o
  .debug_line    0x00002e26     0x1706 BOS\BOS_CLIcommands.o
@@ -7589,53 +7590,53 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_line    0x00004969      0x557 BOS\BOS_freertos.o
  .debug_line    0x00004ec0      0xd9b BOS\BOS_messaging.o
  .debug_line    0x00005c5b     0x25cf BOS\BOS_msgparser.o
- .debug_line    0x0000822a      0x813 H16R6\APA102_LedMatrix.o
- .debug_line    0x00008a3d     0x1f1d H16R6\H16R6.o
- .debug_line    0x0000a95a      0x7ec H16R6\H16R6_dma.o
- .debug_line    0x0000b146      0x526 H16R6\H16R6_eeprom.o
- .debug_line    0x0000b66c      0x43d H16R6\H16R6_gpio.o
- .debug_line    0x0000baa9      0xd8d H16R6\H16R6_inputs.o
- .debug_line    0x0000c836      0xb8c H16R6\H16R6_it.o
- .debug_line    0x0000d3c2      0x671 H16R6\H16R6_rtc.o
- .debug_line    0x0000da33      0x40b H16R6\H16R6_spi.o
- .debug_line    0x0000de3e      0x47e H16R6\H16R6_timers.o
- .debug_line    0x0000e2bc      0xa53 H16R6\H16R6_uart.o
- .debug_line    0x0000ed0f       0x98 H16R6\startup_stm32g0b1ceuxn.o
- .debug_line    0x0000eda7      0x392 Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
- .debug_line    0x0000f139     0x1d25 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
- .debug_line    0x00010e5e      0x5c5 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
- .debug_line    0x00011423     0x10b0 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
- .debug_line    0x000124d3      0x78d Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
- .debug_line    0x00012c60      0x3f5 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
- .debug_line    0x00013055      0x4b0 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
- .debug_line    0x00013505      0x67f Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\MemMang\heap_4.o
- .debug_line    0x00013b84      0xea2 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\queue.o
- .debug_line    0x00014a26     0x1890 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\tasks.o
- .debug_line    0x000162b6      0x93d Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\timers.o
- .debug_line    0x00016bf3      0x743 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal.o
- .debug_line    0x00017336     0x1564 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_adc.o
- .debug_line    0x0001889a      0x787 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_cortex.o
- .debug_line    0x00019021      0x65e Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc.o
- .debug_line    0x0001967f      0x3bf Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc_ex.o
- .debug_line    0x00019a3e      0xa5c Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_dma.o
- .debug_line    0x0001a49a      0x6bd Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash.o
- .debug_line    0x0001ab57      0xc03 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash_ex.o
- .debug_line    0x0001b75a      0x74a Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_gpio.o
- .debug_line    0x0001bea4      0x2d0 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_msp_template.o
- .debug_line    0x0001c174      0x49c Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr.o
- .debug_line    0x0001c610      0x7f1 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr_ex.o
- .debug_line    0x0001ce01      0xb94 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc.o
- .debug_line    0x0001d995      0xdd8 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc_ex.o
- .debug_line    0x0001e76d      0xd47 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc.o
- .debug_line    0x0001f4b4     0x1147 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc_ex.o
- .debug_line    0x000205fb     0x1fbd Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_spi.o
- .debug_line    0x000225b8     0x3938 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_tim.o
- .debug_line    0x00025ef0     0x330d Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart.o
- .debug_line    0x000291fd      0xa43 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart_ex.o
- .debug_line    0x00029c40      0x3f0 User\main.o
- .debug_line    0x0002a030      0x2f0 syscalls.o
+ .debug_line    0x0000822a     0x1f6b H16R6\H16R6.o
+ .debug_line    0x0000a195      0x7ec H16R6\H16R6_dma.o
+ .debug_line    0x0000a981      0x526 H16R6\H16R6_eeprom.o
+ .debug_line    0x0000aea7      0x43d H16R6\H16R6_gpio.o
+ .debug_line    0x0000b2e4      0xd8d H16R6\H16R6_inputs.o
+ .debug_line    0x0000c071      0xb8c H16R6\H16R6_it.o
+ .debug_line    0x0000cbfd      0x671 H16R6\H16R6_rtc.o
+ .debug_line    0x0000d26e      0x40b H16R6\H16R6_spi.o
+ .debug_line    0x0000d679      0x47e H16R6\H16R6_timers.o
+ .debug_line    0x0000daf7      0xa53 H16R6\H16R6_uart.o
+ .debug_line    0x0000e54a       0x98 H16R6\startup_stm32g0b1ceuxn.o
+ .debug_line    0x0000e5e2      0x835 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+ .debug_line    0x0000ee17      0x392 Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
+ .debug_line    0x0000f1a9     0x1d25 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+ .debug_line    0x00010ece      0x5c5 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
+ .debug_line    0x00011493     0x10b0 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
+ .debug_line    0x00012543      0x78d Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
+ .debug_line    0x00012cd0      0x3f5 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
+ .debug_line    0x000130c5      0x4b0 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
+ .debug_line    0x00013575      0x67f Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\MemMang\heap_4.o
+ .debug_line    0x00013bf4      0xea2 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\queue.o
+ .debug_line    0x00014a96     0x1890 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\tasks.o
+ .debug_line    0x00016326      0x93d Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\timers.o
+ .debug_line    0x00016c63      0x743 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal.o
+ .debug_line    0x000173a6     0x1564 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_adc.o
+ .debug_line    0x0001890a      0x787 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_cortex.o
+ .debug_line    0x00019091      0x65e Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc.o
+ .debug_line    0x000196ef      0x3bf Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc_ex.o
+ .debug_line    0x00019aae      0xa5c Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_dma.o
+ .debug_line    0x0001a50a      0x6bd Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash.o
+ .debug_line    0x0001abc7      0xc03 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash_ex.o
+ .debug_line    0x0001b7ca      0x74a Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_gpio.o
+ .debug_line    0x0001bf14      0x2d0 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_msp_template.o
+ .debug_line    0x0001c1e4      0x49c Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr.o
+ .debug_line    0x0001c680      0x7f1 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr_ex.o
+ .debug_line    0x0001ce71      0xb94 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc.o
+ .debug_line    0x0001da05      0xdd8 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc_ex.o
+ .debug_line    0x0001e7dd      0xd47 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc.o
+ .debug_line    0x0001f524     0x1147 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc_ex.o
+ .debug_line    0x0002066b     0x1fbd Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_spi.o
+ .debug_line    0x00022628     0x3938 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_tim.o
+ .debug_line    0x00025f60     0x330d Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart.o
+ .debug_line    0x0002926d      0xa43 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart_ex.o
+ .debug_line    0x00029cb0      0x3f0 User\main.o
+ .debug_line    0x0002a0a0      0x2f0 syscalls.o
 
-.debug_str      0x00000000     0xd951
+.debug_str      0x00000000     0xd967
  .debug_str     0x00000000     0x1ac7 BOS\BOS.o
                                0x1cc6 (size before relaxing)
  .debug_str     0x00001ac7      0x338 BOS\BOS_CLI.o
@@ -7650,95 +7651,95 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
                                0x12f5 (size before relaxing)
  .debug_str     0x000032e5      0x39a BOS\BOS_msgparser.o
                                0x16eb (size before relaxing)
- .debug_str     0x0000367f      0x465 H16R6\APA102_LedMatrix.o
-                                0xa9c (size before relaxing)
- .debug_str     0x00003ae4      0xdc1 H16R6\H16R6.o
+ .debug_str     0x0000367f      0xf5e H16R6\H16R6.o
                                0x2341 (size before relaxing)
- .debug_str     0x000048a5      0x523 H16R6\H16R6_dma.o
+ .debug_str     0x000045dd      0x532 H16R6\H16R6_dma.o
                                0x1157 (size before relaxing)
- .debug_str     0x00004dc8      0x2b1 H16R6\H16R6_eeprom.o
+ .debug_str     0x00004b0f      0x2b1 H16R6\H16R6_eeprom.o
                                 0x9d5 (size before relaxing)
- .debug_str     0x00005079       0x60 H16R6\H16R6_gpio.o
+ .debug_str     0x00004dc0       0x60 H16R6\H16R6_gpio.o
                                 0xcd3 (size before relaxing)
- .debug_str     0x000050d9      0x4e8 H16R6\H16R6_inputs.o
+ .debug_str     0x00004e20      0x4e8 H16R6\H16R6_inputs.o
                                0x163f (size before relaxing)
- .debug_str     0x000055c1      0x28e H16R6\H16R6_it.o
+ .debug_str     0x00005308      0x28e H16R6\H16R6_it.o
                                 0xc12 (size before relaxing)
- .debug_str     0x0000584f      0x4eb H16R6\H16R6_rtc.o
+ .debug_str     0x00005596      0x4eb H16R6\H16R6_rtc.o
                                 0xd17 (size before relaxing)
- .debug_str     0x00005d3a       0x8e H16R6\H16R6_spi.o
+ .debug_str     0x00005a81      0x251 H16R6\H16R6_spi.o
                                 0x923 (size before relaxing)
- .debug_str     0x00005dc8      0x3c2 H16R6\H16R6_timers.o
+ .debug_str     0x00005cd2      0x3c2 H16R6\H16R6_timers.o
                                 0x9dc (size before relaxing)
- .debug_str     0x0000618a      0x151 H16R6\H16R6_uart.o
+ .debug_str     0x00006094      0x151 H16R6\H16R6_uart.o
                                0x14b6 (size before relaxing)
- .debug_str     0x000062db       0x41 H16R6\startup_stm32g0b1ceuxn.o
+ .debug_str     0x000061e5       0x41 H16R6\startup_stm32g0b1ceuxn.o
                                  0x87 (size before relaxing)
- .debug_str     0x0000631c       0xb8 Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
+ .debug_str     0x00006226      0x10c Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
+                                0xab2 (size before relaxing)
+ .debug_str     0x00006332       0xb8 Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
                                 0x312 (size before relaxing)
- .debug_str     0x000063d4      0x571 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
+ .debug_str     0x000063ea      0x571 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
                                 0xada (size before relaxing)
- .debug_str     0x00006945       0x7e Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
+ .debug_str     0x0000695b       0x7e Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
                                 0x58e (size before relaxing)
- .debug_str     0x000069c3      0x835 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
+ .debug_str     0x000069d9      0x835 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.o
                                 0xeac (size before relaxing)
- .debug_str     0x000071f8      0x135 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
+ .debug_str     0x0000720e      0x135 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\FreeRTOS_CLI.o
                                 0x6c3 (size before relaxing)
- .debug_str     0x0000732d      0x145 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
+ .debug_str     0x00007343      0x145 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\list.o
                                 0x2f0 (size before relaxing)
- .debug_str     0x00007472      0x15d Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
+ .debug_str     0x00007488      0x15d Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\GCC\ARM_CM0\port.o
                                 0x398 (size before relaxing)
- .debug_str     0x000075cf      0x2cf Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\MemMang\heap_4.o
+ .debug_str     0x000075e5      0x2cf Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\portable\MemMang\heap_4.o
                                 0x507 (size before relaxing)
- .debug_str     0x0000789e      0x60b Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\queue.o
+ .debug_str     0x000078b4      0x60b Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\queue.o
                                 0xb0b (size before relaxing)
- .debug_str     0x00007ea9      0x9c3 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\tasks.o
+ .debug_str     0x00007ebf      0x9c3 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\tasks.o
                                0x1224 (size before relaxing)
- .debug_str     0x0000886c      0x4e1 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\timers.o
+ .debug_str     0x00008882      0x4e1 Thirdparty\Middleware\STM32G0xx\FreeRTOS\Source\timers.o
                                 0x9ce (size before relaxing)
- .debug_str     0x00008d4d      0x440 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal.o
+ .debug_str     0x00008d63      0x440 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal.o
                                 0xa5f (size before relaxing)
- .debug_str     0x0000918d      0x77e Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_adc.o
+ .debug_str     0x000091a3      0x77e Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_adc.o
                                 0xfbb (size before relaxing)
- .debug_str     0x0000990b      0x307 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_cortex.o
+ .debug_str     0x00009921      0x307 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_cortex.o
                                 0x7ef (size before relaxing)
- .debug_str     0x00009c12       0x9f Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc.o
+ .debug_str     0x00009c28       0x9f Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc.o
                                 0x47e (size before relaxing)
- .debug_str     0x00009cb1       0xaa Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc_ex.o
+ .debug_str     0x00009cc7       0xaa Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_crc_ex.o
                                 0x424 (size before relaxing)
- .debug_str     0x00009d5b      0x261 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_dma.o
+ .debug_str     0x00009d71      0x261 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_dma.o
                                 0x78e (size before relaxing)
- .debug_str     0x00009fbc      0x169 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash.o
+ .debug_str     0x00009fd2      0x169 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash.o
                                 0x552 (size before relaxing)
- .debug_str     0x0000a125      0x3f5 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash_ex.o
+ .debug_str     0x0000a13b      0x3f5 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_flash_ex.o
                                 0x794 (size before relaxing)
- .debug_str     0x0000a51a      0x134 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_gpio.o
+ .debug_str     0x0000a530      0x134 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_gpio.o
                                 0x42f (size before relaxing)
- .debug_str     0x0000a64e       0x69 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_msp_template.o
+ .debug_str     0x0000a664       0x69 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_msp_template.o
                                 0x203 (size before relaxing)
- .debug_str     0x0000a6b7      0x170 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr.o
+ .debug_str     0x0000a6cd      0x170 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr.o
                                 0x4df (size before relaxing)
- .debug_str     0x0000a827      0x412 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr_ex.o
+ .debug_str     0x0000a83d      0x412 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_pwr_ex.o
                                 0x7a2 (size before relaxing)
- .debug_str     0x0000ac39      0x22c Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc.o
+ .debug_str     0x0000ac4f      0x22c Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc.o
                                 0x7f5 (size before relaxing)
- .debug_str     0x0000ae65      0x2b8 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc_ex.o
+ .debug_str     0x0000ae7b      0x2b8 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rcc_ex.o
                                 0x8cb (size before relaxing)
- .debug_str     0x0000b11d      0x27c Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc.o
+ .debug_str     0x0000b133      0x27c Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc.o
                                 0x7e0 (size before relaxing)
- .debug_str     0x0000b399      0x6c0 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc_ex.o
+ .debug_str     0x0000b3af      0x6c0 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_rtc_ex.o
                                 0xc4c (size before relaxing)
- .debug_str     0x0000ba59      0x5a4 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_spi.o
+ .debug_str     0x0000ba6f      0x5a4 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_spi.o
                                 0xd3f (size before relaxing)
- .debug_str     0x0000bffd      0xf40 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_tim.o
+ .debug_str     0x0000c013      0xf40 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_tim.o
                                0x1828 (size before relaxing)
- .debug_str     0x0000cf3d      0x72a Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart.o
+ .debug_str     0x0000cf53      0x72a Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart.o
                                0x1160 (size before relaxing)
- .debug_str     0x0000d667      0x193 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart_ex.o
+ .debug_str     0x0000d67d      0x193 Thirdparty\STM32G0xx_HAL_Driver\Src\stm32g0xx_hal_uart_ex.o
                                 0xb6d (size before relaxing)
- .debug_str     0x0000d7fa       0x17 User\main.o
+ .debug_str     0x0000d810       0x17 User\main.o
                                 0x3e8 (size before relaxing)
- .debug_str     0x0000d811      0x140 syscalls.o
+ .debug_str     0x0000d827      0x140 syscalls.o
                                 0x2f7 (size before relaxing)
 
 .comment        0x00000000       0x43
@@ -7750,7 +7751,6 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .comment       0x00000043       0x44 BOS\BOS_freertos.o
  .comment       0x00000043       0x44 BOS\BOS_messaging.o
  .comment       0x00000043       0x44 BOS\BOS_msgparser.o
- .comment       0x00000043       0x44 H16R6\APA102_LedMatrix.o
  .comment       0x00000043       0x44 H16R6\H16R6.o
  .comment       0x00000043       0x44 H16R6\H16R6_dma.o
  .comment       0x00000043       0x44 H16R6\H16R6_eeprom.o
@@ -7761,6 +7761,7 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .comment       0x00000043       0x44 H16R6\H16R6_spi.o
  .comment       0x00000043       0x44 H16R6\H16R6_timers.o
  .comment       0x00000043       0x44 H16R6\H16R6_uart.o
+ .comment       0x00000043       0x44 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
  .comment       0x00000043       0x44 Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
  .comment       0x00000043       0x44 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .comment       0x00000043       0x44 Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
@@ -7803,17 +7804,17 @@ LOAD C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_frame   0x00000bd8       0x8c BOS\BOS_freertos.o
  .debug_frame   0x00000c64      0x244 BOS\BOS_messaging.o
  .debug_frame   0x00000ea8       0xa0 BOS\BOS_msgparser.o
- .debug_frame   0x00000f48      0x240 H16R6\APA102_LedMatrix.o
- .debug_frame   0x00001188      0x754 H16R6\H16R6.o
- .debug_frame   0x000018dc      0x170 H16R6\H16R6_dma.o
- .debug_frame   0x00001a4c      0x110 H16R6\H16R6_eeprom.o
- .debug_frame   0x00001b5c       0x94 H16R6\H16R6_gpio.o
- .debug_frame   0x00001bf0      0x2b8 H16R6\H16R6_inputs.o
- .debug_frame   0x00001ea8      0x200 H16R6\H16R6_it.o
- .debug_frame   0x000020a8       0xd4 H16R6\H16R6_rtc.o
- .debug_frame   0x0000217c       0x8c H16R6\H16R6_spi.o
- .debug_frame   0x00002208       0xac H16R6\H16R6_timers.o
- .debug_frame   0x000022b4      0x22c H16R6\H16R6_uart.o
+ .debug_frame   0x00000f48      0x754 H16R6\H16R6.o
+ .debug_frame   0x0000169c      0x170 H16R6\H16R6_dma.o
+ .debug_frame   0x0000180c      0x110 H16R6\H16R6_eeprom.o
+ .debug_frame   0x0000191c       0x94 H16R6\H16R6_gpio.o
+ .debug_frame   0x000019b0      0x2b8 H16R6\H16R6_inputs.o
+ .debug_frame   0x00001c68      0x200 H16R6\H16R6_it.o
+ .debug_frame   0x00001e68       0xd4 H16R6\H16R6_rtc.o
+ .debug_frame   0x00001f3c       0x8c H16R6\H16R6_spi.o
+ .debug_frame   0x00001fc8       0xac H16R6\H16R6_timers.o
+ .debug_frame   0x00002074      0x22c H16R6\H16R6_uart.o
+ .debug_frame   0x000022a0      0x240 Thirdparty\APA102-LedMatrix\APA102_LedMatrix.o
  .debug_frame   0x000024e0       0x4c Thirdparty\CMSIS\STM32G0xx\Device\ST\STM32G0xx\Source\Templates\system_stm32g0xx.o
  .debug_frame   0x0000252c      0x3c8 Thirdparty\EEPROM_Emul\Core\eeprom_emul.o
  .debug_frame   0x000028f4       0xec Thirdparty\EEPROM_Emul\Porting\STM32G0\flash_interface.o
