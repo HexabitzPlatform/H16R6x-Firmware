@@ -701,46 +701,46 @@ Module_Status Module_MessagingTask(uint16_t code, uint8_t port, uint8_t src, uin
 	float scaledqom;
 
 	switch (code) {
-	case CODE_H16R6_SETRGB:
+	case CODE_H16R6_SET_RGB:
 		LEDMatrixSetRGB(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2],
 				cMessage[port - 1][shift + 3], cMessage[port - 1][shift + 4]);
 		break;
 
-	case CODE_H16R6_SETALLRGB:
+	case CODE_H16R6_SET_ALL_RGB:
 		LEDMatrixSetAllRGB(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2],
 				cMessage[port - 1][shift + 3]);
 		break;
 
-	case CODE_H16R6_SETCOLOR:
+	case CODE_H16R6_SET_COLOR:
 		LEDMatrixSetColor(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2]);
 		break;
 
-	case CODE_H16R6_SETALLCOLOR:
+	case CODE_H16R6_SET_ALL_COLOR:
 		LEDMatrixSetAllColor(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1]);
 		break;
 
-	case CODE_H16R6_SETLEDON:
+	case CODE_H16R6_SET_LED_ON:
 		LEDMatrixSetLedOn(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1]);
 		break;
 
-	case CODE_H16R6_SETALLLEDON:
+	case CODE_H16R6_SET_ALL_LED_ON:
 		LEDMatrixSetAllLedOn(cMessage[port - 1][shift]);
 		break;
 
-	case CODE_H16R6_SETLEDOFF:
+	case CODE_H16R6_SET_LED_OFF:
 		LEDMatrixSetLedOff(cMessage[port - 1][shift]);
 		break;
 
-	case CODE_H16R6_SETALLLEDOFF:
+	case CODE_H16R6_SET_ALL_LED_OFF:
 		LEDMatrixSetAllLedOff();
 		break;
 
-	case CODE_H16R6_SCROLLMODE:
+	case CODE_H16R6_SCROLL_MODE:
 		scrollTime = (((uint16_t) cMessage[port - 1][shift + 3])
 				+ ((uint16_t) cMessage[port - 1][shift + 4] << 8));
 		LEDMatrixScrollMode(cMessage[port - 1][shift],
@@ -748,7 +748,7 @@ Module_Status Module_MessagingTask(uint16_t code, uint8_t port, uint8_t src, uin
 				scrollTime);
 		break;
 
-	case CODE_H16R6_FLASHMODE:
+	case CODE_H16R6_FLASH_MODE:
 		flashTime = (((uint16_t) cMessage[port - 1][shift + 3])
 				+ ((uint16_t) cMessage[port - 1][shift + 4] << 8));
 		timeBetweenFlash = (((uint16_t) cMessage[port - 1][shift + 5])
@@ -758,20 +758,20 @@ Module_Status Module_MessagingTask(uint16_t code, uint8_t port, uint8_t src, uin
 				flashTime, timeBetweenFlash);
 		break;
 
-	case CODE_H16R6_COLORPICKERMODE:
+	case CODE_H16R6_COLOR_PICKER_MODE:
 		time = (((uint16_t) cMessage[port - 1][shift + 1])
 				+ ((uint16_t) cMessage[port - 1][shift + 2] << 8));
 		LEDMatrixRGBColorPickerMode(cMessage[port - 1][shift], time,
 				cMessage[port - 1][shift + 3]);
 		break;
 
-	case CODE_H16R6_SETCOLORSOMELED:
+	case CODE_H16R6_SET_COLOR_SOME_LED:
 		LEDMatrixSetColorSomeLed(cMessage[port - 1][shift],
 				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2],
 				cMessage[port - 1][shift + 3]);
 		break;
 
-	case CODE_H16R6_MOTIONMODE:
+	case CODE_H16R6_MOTION_MODE:
 		Number_int = (((uint32_t) cMessage[port - 1][shift + 3])
 				+ ((uint32_t) cMessage[port - 1][shift + 4] << 8)
 				+ ((uint32_t) cMessage[port - 1][shift + 5] << 16)
@@ -781,7 +781,7 @@ Module_Status Module_MessagingTask(uint16_t code, uint8_t port, uint8_t src, uin
 				cMessage[port - 1][shift + 1], cMessage[port - 1][shift + 2], scaledqom);
 		break;
 
-	case CODE_H16R6_CROSSFADEMODE:
+	case CODE_H16R6_CROSS_FADE_MODE:
 		time = (((uint16_t) cMessage[port - 1][shift + 3])
 				+ ((uint16_t) cMessage[port - 1][shift + 4] << 8));
 		LEDMatrixCrossFadeMode(cMessage[port - 1][shift],
@@ -789,7 +789,7 @@ Module_Status Module_MessagingTask(uint16_t code, uint8_t port, uint8_t src, uin
 
 		break;
 
-	case CODE_H16R6_CROSSFADEMODELEDRGB:
+	case CODE_H16R6_CROSS_FADE_MODE_LED_RGB:
 		interpolationtime = (((uint16_t) cMessage[port - 1][shift + 4])
 				+ ((uint16_t) cMessage[port - 1][shift + 5] << 8));
 		LEDMatrixCrossFadeModeLEDRGB(cMessage[port - 1][shift],
@@ -798,7 +798,7 @@ Module_Status Module_MessagingTask(uint16_t code, uint8_t port, uint8_t src, uin
 				cMessage[port - 1][shift + 6]);
 		break;
 
-	case CODE_H16R6_CROSSFADEMODEALLLEDRGB:
+	case CODE_H16R6_CROSS_FADE_MODE_ALL_LED_RGB:
 		interpolationtime = (((uint16_t) cMessage[port - 1][shift + 3])
 				+ ((uint16_t) cMessage[port - 1][shift + 4] << 8));
 		LEDMatrixCrossFadeModeALLLEDRGB(cMessage[port - 1][shift],
