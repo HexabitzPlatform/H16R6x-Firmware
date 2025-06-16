@@ -1,17 +1,13 @@
 /*
  BitzOS (BOS) V0.4.0 - Copyright (C) 2017-2025 Hexabitz
  All rights reserved
- 
- File Name     : H16R6.h
- Description   : Header file for module H16R6.
- 	 	 	 	 (Description_of_module)
 
-(Description of Special module peripheral configuration):
->> Note : The maximum number of LED matrix modules that can be connected is 6.
->>
->>
-
- */
+ File Name  : H16R6.h
+ Description: Header file for H16R6 module, supporting APA102 LED matrix control.
+ Module: Declares functions, macros, and types for LED matrix control and communication.
+ Peripherals: Defines UARTs (1-6), SPI1, TIM2, DMA1, and GPIO pins for LED matrix and module communication.
+ Types: Includes module status enums and data types for LED patterns and configurations.
+*/
 
 /* Define to prevent recursive inclusion ***********************************/
 #ifndef H16R6_H

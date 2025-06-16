@@ -2,16 +2,13 @@
  BitzOS (BOS) V0.4.0 - Copyright (C) 2017-2025 Hexabitz
  All rights reserved
 
- File Name     : H16R6.c
- Description   : Source code for module H16R6.
- (Description_of_module)
-
- (Description of Special module peripheral configuration):
- >>
- >>
- >>
-
- */
+ File Name  : H16R6.c
+ Description: Source code for H16R6 module, implementing APA102 LED matrix control.
+ Module: Manages APA102 LED matrix for patterns, colors, and animations with SPI communication.
+ Peripherals: Configures UARTs (1-6), SPI1, TIM2, DMA1, and GPIO for LED control and module communication.
+ Tasks: Handles LED matrix task for pattern updates, CLI commands for LED control, and remote bootloader updates.
+ Functions: Initializes LED matrix, controls patterns (scroll, flash, fade), adjusts intensity, and manages power modes (stop/standby).
+*/
 
 /* Includes ****************************************************************/
 #include "BOS.h"

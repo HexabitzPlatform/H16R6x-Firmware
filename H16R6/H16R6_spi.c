@@ -2,10 +2,11 @@
  BitzOS (BOS) V0.4.0 - Copyright (C) 2017-2025 Hexabitz
  All rights reserved
 
- File Name     : H16R6_spi.c
- Description   : This file provides code for the configuration
- of the SPI instances.
- */
+ File Name  : H16R6_spi.c
+ Description: Configures SPI1 instance for module H16R6.
+ SPI: Initializes SPI1 for APA102 LED matrix communication with master mode and DMA support.
+ GPIO: Sets up SPI pins (SCLK, MOSI) in alternate function mode.
+*/
 
 /* Includes ****************************************************************/
 #include "BOS.h"

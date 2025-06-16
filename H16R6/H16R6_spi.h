@@ -2,10 +2,10 @@
  BitzOS (BOS) V0.4.0 - Copyright (C) 2017-2025 Hexabitz
  All rights reserved
 
- File Name     : H16R6_spi.h
- Description   : This file contains all the function prototypes for
-               the spi.c file
- */
+ File Name  : H16R6_spi.h
+ Description: Header file for SPI function prototypes for module H16R6.
+ SPI: Declares SPI1 handle and initialization functions for APA102 LED matrix communication.
+*/
 
 
 /* Define to prevent recursive inclusion ***********************************/
