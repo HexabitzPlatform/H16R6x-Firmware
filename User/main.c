@@ -30,25 +30,61 @@ int main(void){
 	for(;;){
 	}
 }
-
+int f ;
+Module_Status status ;
 /***************************************************************************/
 /* User Task */
 void UserTask(void *argument){
-	 ADCSelectPort(P1);
-	 ADCSelectPort(P2);
+
 	/* put your code here, to run repeatedly. */
 	while(1){
-			ReadADCChannel(P1, TOP, &adcValue1);
-			ReadADCChannel(P1, BOTTOM, &adcValue2);
-			ReadADCChannel(P2, TOP, &adcValue3);
-			ReadADCChannel(P2, BOTTOM, &adcValue4);
 
-			GetReadPercentage(P1, TOP, &percentageAdcValue1);
-			GetReadPercentage(P1, BOTTOM, &percentageAdcValue2);
-			GetReadPercentage(P2, TOP, &percentageAdcValue3);
-			GetReadPercentage(P2, BOTTOM, &percentageAdcValue4);
+    // 1. Turn off LED 3
+    status = LEDOff(3);
+    HAL_Delay(500);
 
-}
+    // 2. Turn off all LEDs
+    status = MatrixOff();
+    HAL_Delay(500);
+
+    // 3. Set LED 5 to Blue with 80% brightness
+    status = SetLedRGB(5, 0, 0, 255, 80);
+    HAL_Delay(500);
+
+    // 4. Set entire matrix to Red with 100% brightness
+    status = SetMatrixRGB(255, 0, 0, 100);
+    HAL_Delay(1000);
+
+    // 5. Set LEDs 10 to 20 to Yellow (predefined color)
+    status = SetMatrixRangeColor(10, 20, YELLOW, 70);
+    HAL_Delay(1000);
+
+    // 6. Set LED 7 to Green (predefined color)
+    status = SetLedColor(7, GREEN, 90);
+    HAL_Delay(500);
+
+    // 7. Set entire matrix to Cyan (predefined color)
+    status = SetMatrixColor(CYAN, 100);
+    HAL_Delay(1000);
+
+    // 8. Scroll mode (Red base, Blue row, 70% brightness, 300ms delay)
+    status = ScrollModeMatrix(RED, BLUE, 70, 300);
+    HAL_Delay(2000); // Allow time for effect to run
+
+    // 9. Flash mode between Magenta and Green, 500ms on/off
+    status = FlashModeMatrix(MAGENTA, GREEN, 90, 500, 500);
+    HAL_Delay(3000);
+
+    // 10. Picker mode: slowly fill matrix with Orange, 60ms delay per LED
+    status = PickerModeMatrix(ORANGE, 60, 80);
+    HAL_Delay(3000);
+
+    // 11. Cross-fade matrix to Purple (RGB: 128, 0, 128), 2s transition
+    status = FadeModeMatrixRGB(128, 0, 128, 2000, 100);
+    HAL_Delay(2500);
+
+    // Final step: turn off all
+    status = MatrixOff();}
 }
 
 /***************************************************************************/

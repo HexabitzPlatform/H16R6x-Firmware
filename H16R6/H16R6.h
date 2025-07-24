@@ -134,7 +134,6 @@ enum LedMatrixMode {
     FADE_MODE,
 	FADE_ONE_RGB_LED_MODE,
 	FADE_ALL_RGB_LED_MODE,
-//	SPRINKLE_MODE,
 };
 
 /* Export UART variables */
@@ -157,35 +156,30 @@ extern void SystemClock_Config(void);
 /***************************************************************************/
 /***************************** General Functions ***************************/
 /***************************************************************************/
-Module_Status LEDMatrixSetRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
-Module_Status LEDMatrixSetAllRGB(uint8_t red, uint8_t green, uint8_t blue,uint8_t intensity);
-Module_Status LEDMatrixSetColor(uint8_t led,uint8_t color ,uint8_t intensity);
-Module_Status LEDMatrixSetAllColor(uint8_t color,uint8_t intensity);
-Module_Status LEDMatrixSetLedOff(uint8_t led);
-Module_Status LEDMatrixSetAllLedOff();
-Module_Status LEDMatrixSetLedOn(uint8_t led,uint8_t intensity);
-Module_Status LEDMatrixSetAllLedOn(uint8_t intensity);
-Module_Status LEDMatrixScrollMode(uint8_t baseColour,uint8_t scrollRow,uint8_t intensity,uint16_t scrollTime);
-Module_Status LEDMatrixFlashMode(uint8_t baseColour,uint8_t flashColour,uint8_t intensity,uint16_t flashTime,uint16_t timeBetweenFlash);
-Module_Status LEDMatrixRGBColorPickerMode(uint8_t color,uint16_t time,uint8_t intensity);
-Module_Status LEDMatrixSetColorSomeLed(uint8_t StartLed,uint8_t EndLed,uint8_t color ,uint8_t intensity);
-Module_Status LEDMatrixMotionMode(uint8_t baseColour,uint8_t SeconedColor,uint8_t intensity,float scaledqom);
-Module_Status LEDMatrixCrossFadeMode(uint8_t baseColour,uint8_t seconedColor,uint8_t thirdColor,uint16_t time);
-Module_Status LEDMatrixCrossFadeModeLEDRGB(uint8_t LED, uint8_t SecondRED,
-		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime, uint8_t intensity);
-Module_Status LEDMatrixCrossFadeModeALLLEDRGB(uint8_t SecondRED,
-		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime, uint8_t intensity);
-Module_Status LEDMatrixSprinkleMode(uint8_t TargetColorR, uint8_t TargetColorG,
-		uint8_t TargetColorB, uint16_t TimeToFade, uint8_t ColorDeviation);
-void LedMatrixTask(void *argument);
 
-Module_Status LED_Matrix_Sprinkle_Mode();
-Module_Status LED_Matrix_Cross_Fade_Mode_ALL_LED_RGB();
-Module_Status LED_Matrix_Cross_Fade_Mode_LED_RGB();
-Module_Status LED_Matrix_Cross_Fade_Mode();
-Module_Status LED_Matrix_RGB_Color_Picker_Mode();
-Module_Status LED_Matrix_Flash_Mode();
-Module_Status LED_Matrix_Scroll_Mode();
+Module_Status LEDOff(uint8_t index);
+
+Module_Status MatrixOff(void);
+
+Module_Status SetLedRGB(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, uint8_t intensity);
+
+Module_Status SetMatrixRGB(uint8_t red, uint8_t green, uint8_t blue, uint8_t intensity);
+
+Module_Status SetMatrixRangeColor(uint8_t start, uint8_t end, uint8_t color, uint8_t intensity);
+
+Module_Status SetLedColor(uint8_t index, uint8_t color, uint8_t intensity);
+
+Module_Status SetMatrixColor(uint8_t color, uint8_t intensity);
+
+Module_Status ScrollModeMatrix(uint8_t baseColor, uint8_t scrollColor, uint8_t intensity, uint16_t scrollTime);
+
+Module_Status FlashModeMatrix(uint8_t baseColor, uint8_t flashColor, uint8_t intensity, uint16_t flashTime, uint16_t interval);
+
+Module_Status PickerModeMatrix(uint8_t color, uint16_t delay, uint8_t intensity);
+
+Module_Status FadeModeMatrixRGB(uint8_t red, uint8_t green, uint8_t blue, uint16_t time, uint8_t intensity);
+
+
 #endif /* H16R6_H */
 
 /***************** (C) COPYRIGHT HEXABITZ ***** END OF FILE ****************/
