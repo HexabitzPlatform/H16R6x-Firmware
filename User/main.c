@@ -48,41 +48,46 @@ void UserTask(void *argument){
     HAL_Delay(500);
 
     // 3. Set LED 5 to Blue with 80% brightness
-    status = SetLedRGB(5, 0, 0, 255, 80);
+    status = SetLedRGB(5, 0, 0, 255, 8);
     HAL_Delay(500);
 
     // 4. Set entire matrix to Red with 100% brightness
-    status = SetMatrixRGB(255, 0, 0, 100);
+    status = SetMatrixRGB(255, 0, 0, 10);
     HAL_Delay(1000);
 
     // 5. Set LEDs 10 to 20 to Yellow (predefined color)
-    status = SetMatrixRangeColor(10, 20, YELLOW, 70);
+    status = SetMatrixRangeColor(10, 20, YELLOW, 7);
+    HAL_Delay(1000);
+    status = SetMatrixRangeColor(10, 20, YELLOW, 1);
+    HAL_Delay(1000);
+    // 6. Set LED 7 to Green (predefined color)
+    status = SetLedColor(7, GREEN, 9);
     HAL_Delay(1000);
 
-    // 6. Set LED 7 to Green (predefined color)
-    status = SetLedColor(7, GREEN, 90);
-    HAL_Delay(500);
+    status = SetLedColor(7, GREEN, 1);
+     HAL_Delay(1000);
 
     // 7. Set entire matrix to Cyan (predefined color)
-    status = SetMatrixColor(CYAN, 100);
+    status = SetMatrixColor(CYAN, 10);
     HAL_Delay(1000);
 
     // 8. Scroll mode (Red base, Blue row, 70% brightness, 300ms delay)
-    status = ScrollModeMatrix(RED, BLUE, 70, 300);
+    status = ScrollModeMatrix(RED, BLUE, 7, 30);
     HAL_Delay(2000); // Allow time for effect to run
 
     // 9. Flash mode between Magenta and Green, 500ms on/off
-    status = FlashModeMatrix(MAGENTA, GREEN, 90, 500, 500);
+    status = FlashModeMatrix(MAGENTA, GREEN, 9, 500, 500);
     HAL_Delay(3000);
 
     // 10. Picker mode: slowly fill matrix with Orange, 60ms delay per LED
-    status = PickerModeMatrix(ORANGE, 60, 80);
-    HAL_Delay(3000);
+//    status = PickerModeMatrix(ORANGE, 60, 8);
+//    HAL_Delay(3000);
 
     // 11. Cross-fade matrix to Purple (RGB: 128, 0, 128), 2s transition
-    status = FadeModeMatrixRGB(128, 0, 128, 2000, 100);
+    status = FadeModeMatrixRGB(128, 0, 128, 2000, 10);
     HAL_Delay(2500);
-
+    status = FadeModeMatrixRGB(128, 0, 128, 2000, 1);
+    HAL_Delay(2500);
     // Final step: turn off all
     status = MatrixOff();}
 }

@@ -846,17 +846,17 @@ void LedMatrixTask(void *argument){
  * red: intensity of the red color from 0 to 255
  * green: intensity of the green color from 0 to 255
  * blue: intensity of the blue color from 0 to 255
- * intensity: is a value from 0 to 100. 0 means no light, and 100 maximum intensity
+ * intensity: is a value from 0 to 10. 0 means no light, and 10 maximum intensity
  */
 Module_Status SetLedRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue, uint8_t intensity) {
 
 	Module_Status Status = H16R6_OK;
-	intensity = intensity / 10;
+
 	if (led > LED_FRAME_SIZE || led == 0) {
 		Status = H16R6_ERR_WrongLedOutRange;
 		return Status;
 	}
-	if (intensity >= INTINSITY_LED) {
+	if (intensity > INTINSITY_LED) {
 		Status = H16R6_ERR_WrongIntensity;
 		return Status;
 	}
@@ -873,13 +873,13 @@ Module_Status SetLedRGB(uint8_t led, uint8_t red, uint8_t green, uint8_t blue, u
  * red: intensity of the red color from 0 to 255
  * green: intensity of the green color from 0 to 255
  * blue: intensity of the blue color from 0 to 255
- * intensity: is a value from 0 to 100. 0 means no light, and 100 maximum intensity
+ * intensity: is a value from 0 to 10. 0 means no light, and 10 maximum intensity
  */
 Module_Status SetMatrixRGB(uint8_t red, uint8_t green, uint8_t blue, uint8_t intensity) {
 
 	Module_Status Status = H16R6_OK;
-	intensity = intensity / 10;
-	if (intensity >= INTINSITY_LED) {
+
+	if (intensity > INTINSITY_LED) {
 		Status = H16R6_ERR_WrongIntensity;
 		return Status;
 	}
@@ -895,17 +895,17 @@ Module_Status SetMatrixRGB(uint8_t red, uint8_t green, uint8_t blue, uint8_t int
 /* Set the colors of a single led using single colors
  * led: position of the led in the string led>=1
  * color: Set LED color from a predefined color list in "APA102_LedMatrix.h"
- * intensity: is a value from 0 to 100. 0 means no light, and 100 maximum intensity
+ * intensity: is a value from 0 to 10 means no light, and 10 maximum intensity
  */
 Module_Status SetLedColor(uint8_t led, uint8_t color, uint8_t intensity) {
 
 	Module_Status Status = H16R6_OK;
-	intensity = intensity / 10;
+
 	if (led > LED_FRAME_SIZE || led == 0) {
 		Status = H16R6_ERR_WrongLedOutRange;
 		return Status;
 	}
-	if (intensity >= INTINSITY_LED) {
+	if (intensity > INTINSITY_LED) {
 		Status = H16R6_ERR_WrongIntensity;
 		return Status;
 	}
@@ -918,13 +918,13 @@ Module_Status SetLedColor(uint8_t led, uint8_t color, uint8_t intensity) {
 /***************************************************************************/
 /* set color of all LEDs in a string
  * color: Set LED color from a predefined color list in "BOS.h"
- * intensity: is a value from 0 to 100. 0 means no light, and 100 maximum intensity
+ * intensity: is a value from 0 to 10means no light, and 10 maximum intensity
  */
 Module_Status SetMatrixColor(uint8_t color, uint8_t intensity) {
 
 	Module_Status Status = H16R6_OK;
-	intensity = intensity / 10;
-	if (intensity >= INTINSITY_LED) {
+
+	if (intensity > INTINSITY_LED) {
 		Status = H16R6_ERR_WrongIntensity;
 		return Status;
 	}
@@ -970,13 +970,13 @@ Module_Status MatrixOff() {
 /* Scroll - one row of one colour, the rest another colour, row moves down one for each update
  * baseColour: Basic color
  * scrollRow: Secondary color
- * intensity: is a value from 0 to 100. 0 means no light, and 100 maximum intensity
+ * intensity: is a value from 0 to 10 means no light, and 10 maximum intensity
  * scrollTime: Secondary color retention time  value in millisecond.
  */
 Module_Status ScrollModeMatrix(uint8_t baseColour, uint8_t scrollRow, uint8_t intensity, uint16_t scrollTime) {
 
 	Module_Status Status = H16R6_OK;
-	intensity = intensity / 10;
+
 	BasicColor = baseColour;
 	SecondColor = scrollRow;
 	Intensity = intensity;
@@ -996,14 +996,13 @@ Module_Status LED_Matrix_Scroll_Mode() {
 /*Flash - flash from one colour to another with user-settable flash times and intervals
  * baseColour: Basic color
  * flashColour: Secondary color
- * intensity: intensity is a value from 0 to 100. 0 means no light, and 100 maximum intensity
+ * intensity: intensity is a value from 0 to 10 means no light, and 10 maximum intensity
  * flashTime: Color display time value in millisecond.
  * timeBetweenFlash: The time between the display of the two colors value in millisecond.
  */
 Module_Status FlashModeMatrix(uint8_t baseColour, uint8_t flashColour, uint8_t intensity, uint16_t flashTime, uint16_t timeBetweenFlash) {
 
 	Module_Status Status = H16R6_OK;
-	intensity = intensity / 10;
 	BasicColor = baseColour;
 	SecondColor = flashColour;
 	Intensity = intensity;
@@ -1028,12 +1027,12 @@ Module_Status LED_Matrix_Flash_Mode() {
 /* All leds on in the RGBColorPickerMode
  * color: Set LED color from a predefined color list in "BOS.h"
  * time: time between turning on each LED and the next
- * intensity: is a value from 0 to 100. 0 means no light, and 100 maximum intensity
+ * intensity: is a value from 0 to 10 means no light, and 10 maximum intensity
  */
 Module_Status PickerModeMatrix(uint8_t color, uint16_t time, uint8_t intensity) {
 
 	Module_Status Status = H16R6_OK;
-	intensity = intensity / 10;
+
 	Color = color;
 	Time = time;
 	Intensity = intensity;
@@ -1056,12 +1055,12 @@ Module_Status LED_Matrix_RGB_Color_Picker_Mode() {
  * StartLed: position of the led in the string led>=1
  * EndLed: position of the led in the string led<=64
  * color: Set LED color from a predefined color list in "BOS.h"
- * intensity: is a value from 0 to 100. 0 means no light, and 100 maximum intensity
+ * intensity: is a value from 0 to 10 means no light, and 10 maximum intensity
  */
 Module_Status SetMatrixRangeColor(uint8_t StartLed, uint8_t EndLed, uint8_t color, uint8_t intensity) {
 
 	Module_Status Status = H16R6_OK;
-//	intensity = intensity / 10;
+
 	if (StartLed < 1 || EndLed < 1) {
 		StartLed = 1;
 		EndLed = 1;
@@ -1135,7 +1134,7 @@ Module_Status LED_Matrix_Cross_Fade_Mode_LED_RGB()
 		NewRED = OldColorR[Led] + (uint8_t) (t * DeltaR);
 		NewGREEN = OldColorG[Led] + (uint8_t) (t * DeltaG);
 		NewBLUE = OldColorB[Led] + (uint8_t) (t * DeltaB);
-		if (Intensity >= INTINSITY_LED) {
+		if (Intensity > INTINSITY_LED) {
 			Intensity = INTINSITY_LED;
 		}
 		DigiLedSetRGB(Led, NewRED, NewGREEN, NewBLUE, Intensity);
@@ -1153,7 +1152,7 @@ Module_Status FadeModeMatrixRGB(uint8_t SecondRED,
 		uint8_t SecondGREEN, uint8_t SecondBLUE, uint16_t interpolationtime, uint8_t intensity) {
 
 	Module_Status Status = H16R6_OK;
-	intensity = intensity / 10;
+
 	BasicColor = SecondRED;
 	SecondColor = SecondGREEN;
 	ThirdColor = SecondBLUE;
@@ -1177,7 +1176,7 @@ Module_Status LED_Matrix_Cross_Fade_Mode_ALL_LED_RGB()
 	uint8_t NewGREEN = 0;
 	uint8_t NewBLUE = 0;
 
-	if (Intensity >= INTINSITY_LED) {
+	if (Intensity > INTINSITY_LED) {
 		Intensity = INTINSITY_LED;
 	}
 	float delayTime = (float) InterpolationTime / 100;
